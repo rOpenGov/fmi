@@ -1,0 +1,16 @@
+citHeader("Kindly cite the fmi R package as follows:")
+
+citEntry(entry="misc",
+         title = "fmi R package",
+         author = personList(
+     person(given ="Jussi", family="Jousimo", email = "jussi.jousimo@iki.fi")
+         ),
+	 journal = "",
+	 year = "2014",
+         textVersion =
+         paste("(C) Jussi Jousimo 2014.",
+               "fmi R package",
+               sep=" ")
+         )
+
+citFooter("\nMany thanks for all contributors! For more info, see: https://github.com/rOpenGov/fmi")
