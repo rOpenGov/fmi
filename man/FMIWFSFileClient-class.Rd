@@ -8,7 +8,7 @@
 A class to make requests to the FMI open data API.
 }
 \author{
-Jussi Jousimo \email{louhos@googlegroups.com}
+Jussi Jousimo \email{jvj@iki.fi}
 }
 \references{
 See citation("fmi")

@@ -10,6 +10,10 @@ Finnish Meteorological Institute open data API R client
 
 This R package provides tools to access open data from [Finnish Meteorological Institute (Ilmatieteenlaitos)](http://www.fmi.fi/en/).
 
+For installation and usage, check the [tutorial page](https://github.com/rOpenGov/fmi/blob/master/vignettes/fmi_tutorial.md). 
+
+This R package is part of the [rOpenGov](http://ropengov.github.io) project.
+
 ### Contact
 
   You are welcome to:

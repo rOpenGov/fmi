@@ -5,7 +5,8 @@ apiKey <- readLines("inst/tests/apikey.txt")
 
 # Download and read time-value-pair data (manual request)
 request <- FMIWFSRequest(apiKey=apiKey)
-request$setParameters(storedquery_id="fmi::observations::weather::daily::timevaluepair",
+request$setParameters(request="getFeature",
+                      storedquery_id="fmi::observations::weather::daily::timevaluepair",
                       starttime="2014-01-01T00:00:00Z",
                       endtime="2014-01-01T00:00:00Z",
                       bbox="19.09,59.3,31.59,70.13",
@@ -23,11 +24,16 @@ plot(response)
 
 # Download and read grib (manual request)
 request <- FMIWFSRequest(apiKey=apiKey)
-request$setParameters(storedquery_id="fmi::observations::weather::monthly::grid",
+request$setParameters(request="getFeature",
+                      storedquery_id="fmi::observations::weather::monthly::grid",
                       starttime="2012-01-01T00:00:00Z",
                       endtime="2012-02-02T00:00:00Z")
 client <- FMIWFSFileClient()
 response <- client$getRaster(request=request)
+
+# Stream client also works but not supported ATM
+client <- WFSStreamClient()
+meta <- client$getLayer(request=request, layer="wfsns001:PointTimeSeriesObservation")
 
 # Download and read grib (automated request)
 request <- FMIWFSRequest(apiKey=apiKey)
@@ -36,7 +42,8 @@ response <- client$getMonthlyWeatherGrid(request, startDateTime=as.POSIXlt("2012
 
 # Download and read time-value-pair data with the redundant multipoint feature (manual request)
 request <- FMIWFSRequest(apiKey=apiKey)
-request$setParameters(storedquery_id="fmi::forecast::hirlam::surface::cities::timevaluepair",
+request$setParameters(request="getFeature",
+                      storedquery_id="fmi::forecast::hirlam::surface::cities::timevaluepair",
                       starttime="2014-08-08T00:00:00Z",
                       endtime="2014-08-08T00:00:00Z",
                       bbox="19.09,59.3,31.59,70.13")
@@ -50,4 +57,3 @@ response <- client$getLayer(request=request, layer=layers[1], crs="+proj=longlat
 # TODO: handle empty responses
 # TODO: handle download.file errors
 # TODO: clear cache on error
-# TODO: test streaming client with stat.fi API
