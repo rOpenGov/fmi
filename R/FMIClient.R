@@ -44,10 +44,10 @@ FMIWFSRequest <- setRefClass(
 #' @import raster
 #' @references See citation("fmi")
 #' @author Jussi Jousimo \email{jvj@@iki.fi}
-#' @exportClass FMIWFSFileClient
-#' @export FMIWFSFileClient
-FMIWFSFileClient <- setRefClass(
-  "FMIWFSFileClient",
+#' @exportClass FMIWFSClient
+#' @export FMIWFSClient
+FMIWFSClient <- setRefClass(
+  "FMIWFSClient",
   contains = c("WFSFileClient"),
   methods = list(
     getRaster = function(request, crs, NAvalue=9999) {
@@ -68,7 +68,7 @@ FMIWFSFileClient <- setRefClass(
       return(raster)
     },
     
-    transformTimeValuePairData = function(response, timeColumnName="time", measurementColumnName="result.MeasurementTimeseries.point.MeasurementTVP.value", variableColumnNames) {
+    transformTimeValuePairData = function(response, timeColumnName="time", measurementColumnName="result_MeasurementTimeseries_point_MeasurementTVP_value", variableColumnNames) {
       if (missing(response))
         stop("Required argument 'response' missing.")
       
@@ -114,6 +114,8 @@ FMIWFSFileClient <- setRefClass(
       if (is.character(response)) return(character())
       
       response <- transformTimeValuePairData(response=response, variableColumnNames=c("rrday","snow","tday","tmin","tmax"))
+      # TODO: set name1 ... name3 column names
+      
       return(response)
     },
     
