@@ -19,7 +19,7 @@ This R package is part of the [rOpenGov](http://ropengov.github.io) project.
   You are welcome to:
 
   * [submit suggestions and bug-reports](https://github.com/ropengov/fmi/issues)
-  * [submit a pull-request](https://github.com/ropengov/fmi/)
+  * [submit a pull-request](https://github.com/rOpenGov/fmi/pulls)
   * compose a friendly e-mail to: [louhos@googlegroups.com](mailto:louhos@googlegroups.com)
   * join IRC at !louhos@IRCnet (Finland) and ropengov@Freenode (international)
   * follow us in social media: Louhos (Finland); rOpenGov (international)

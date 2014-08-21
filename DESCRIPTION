@@ -12,10 +12,9 @@ Depends:
     rwfs
 Imports:
     methods,
-    rgdal (>= 0.9.1),
     sp,
-    raster
+    rgdal
 Suggests:
-    ggplot2
+    raster
 URL: https://github.com/ropengov/fmi
 LazyLoad: yes
