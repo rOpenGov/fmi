@@ -13,8 +13,7 @@ Depends:
 Imports:
     methods,
     sp,
-    rgdal
-Suggests:
+    rgdal,
     raster
 URL: https://github.com/ropengov/fmi
 LazyLoad: yes
