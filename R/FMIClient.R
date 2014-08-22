@@ -50,22 +50,14 @@ FMIWFSClient <- setRefClass(
   "FMIWFSClient",
   contains = c("WFSFileClient"),
   methods = list(
-    getRaster = function(request, crs, NAvalue=9999) {
+    getRasterURL = function(request) {
       layers <- listLayers(request=request)
+      if (length(layers) == 0) return(character())
+      
       meta <- getLayer(request=request, layer=layers[1])
       if (is.character(meta)) return(character())
       
-      destFile <- tempfile()
-      success <- download.file(meta@data$fileReference, destfile=destFile)
-      if (success != 0) {
-        warning("Failed to download grib file.")
-        return(character())
-      }
-      
-      raster <- raster::brick(destFile)
-      #raster <- shift(raster, x=-0.5*xres(raster), y=0.5*yres(raster)) # needed?
-      raster::NAvalue(raster) <- NAvalue
-      return(raster)
+      return(meta@data$fileReference)
     },
     
     transformTimeValuePairData = function(response, timeColumnName="time", measurementColumnName="result_MeasurementTimeseries_point_MeasurementTVP_value", variableColumnNames) {

@@ -192,22 +192,22 @@ hr {
 <body>
 <h1>Finnish Meteorological Institute (FMI) open data API client for R</h1>
 
-<p>This R package provides a client to access the <a href="http://en.ilmatieteenlaitos.fi/">Finnish Meteorological Institute (Ilmatieteenlaitos)</a>
-<a href="http://en.ilmatieteenlaitos.fi/open-data">open data</a>.
-This R package is part of the <a href="http://ropengov.github.io">rOpenGov</a> project.</p>
+<p>This R package (fmi) provides a client to access the <a href="http://en.ilmatieteenlaitos.fi/">Finnish Meteorological Institute</a>
+ (Ilmatieteenlaitos) <a href="http://en.ilmatieteenlaitos.fi/open-data">open data</a>.
+This R package is a part of the <a href="http://ropengov.github.io">rOpenGov</a> project.</p>
 
 <h2>Installation</h2>
 
 <h3>Libraries</h3>
 
-<p>The <code>fmi</code> package depends on the <a href="http://www.gdal.org/">GDAL</a> library and its <a href="http://www.gdal.org/ogr2ogr.html">command line tools</a>.
+<p>The fmi package depends on the <a href="http://www.gdal.org/">GDAL</a> library and its <a href="http://www.gdal.org/ogr2ogr.html">command line tools</a>.
 Please, see the installation instructions in the <a href="https://github.com/rOpenGov/gisfin/blob/master/vignettes/gisfin_tutorial.md">gisfin package tutorial</a>
-to install GDAL. Add the command line tools to the search path of your system as follows:</p>
+to install GDAL. Also, add the command line tools to the search path of your system as follows:</p>
 
 <h4>Linux</h4>
 
 <p>In Linux, the tools should be found from the path by default after installation.
-If not, use the <code>export</code> command from the terminal, for example:</p>
+If not, use the <code>export</code> command from terminal, for example:</p>
 
 <pre><code>export PATH=$PATH:/usr/local/gdal/bin
 </code></pre>
@@ -225,21 +225,22 @@ If not, use the <code>export</code> command from the terminal, for example:</p>
 Click &ldquo;Environment Variables&rdquo; and select &ldquo;Path&rdquo; Variable from the list.
 Append <code>;C:\Program Files (x86)\GDAL</code> to the value field (note the semicolon).</p>
 
-<p>Note that the actual location may vary depending on your system. To test that the tools are found, in terminal type the command:</p>
+<p>Note that the actual location may vary depending on your system. To test that the tools are found,
+type the command in terminal:</p>
 
 <pre><code>ogr2ogr
 </code></pre>
 
 <h3>Packages</h3>
 
-<p>Start R and follow these steps to install the associated packages first:</p>
+<p>Start R and follow these steps to install the required packages:</p>
 
 <pre><code class="r">install.packages(c(&quot;devtools&quot;, &quot;gdal&quot;))
 library(devtools)
 install_github(&quot;rOpenGov/rwfs&quot;)
 </code></pre>
 
-<p>Then install the <code>fmi</code> package:</p>
+<p>Then install the fmi package itself:</p>
 
 <pre><code class="r">install_github(&quot;rOpenGov/fmi&quot;)
 </code></pre>
@@ -255,27 +256,28 @@ To get the key, follow the instructions at <a href="https://ilmatieteenlaitos.fi
 
 <h2>Available data sets and filtering</h2>
 
-<p>FMI provides a brief introduction to the data sets at <a href="http://en.ilmatieteenlaitos.fi/open-data-sets-available">http://en.ilmatieteenlaitos.fi/open-data-sets-available</a>
-and a complete list of the available data sets and filtering parameters are described in
+<p>FMI provides a brief introduction to the data sets at <a href="http://en.ilmatieteenlaitos.fi/open-data-sets-available">http://en.ilmatieteenlaitos.fi/open-data-sets-available</a>.
+A complete list of the available data sets and filtering parameters are described in
 <a href="http://en.ilmatieteenlaitos.fi/open-data-manual-fmi-wfs-services">http://en.ilmatieteenlaitos.fi/open-data-manual-fmi-wfs-services</a>.
-Each data set is referenced with an associated stored query id, for example the id for the daily weather time series
+Each data set is referenced with a stored query id, for example the id for the daily weather time series
 is <code>fmi::observations::weather::daily::timevaluepair</code>. This data set contains variables for
-daily precipitation rate, mean temperature, snow depth, and minimum and maximum temperature.
-The data can be filtered with a number of parameters specific to each data set,
-for example the starting and the ending dates are provided by the <code>starttime</code> and <code>endtime</code>
-parameters for the weather observations (see below for the details).</p>
+daily precipitation rate, mean temperature, snow depth, and minimum and maximum temperature,
+see the description of <a href="http://en.ilmatieteenlaitos.fi/open-data-manual-fmi-wfs-services"><code>fmi::observations::weather::daily::multipointcoverage</code></a>.
+The data can be filtered with a number of parameters specific to each data set.
+For example, the starting and the ending dates are provided by the <code>starttime</code> and <code>endtime</code>
+parameters for the weather observations.</p>
 
 <h2>Usage</h2>
 
 <h3>Request object</h3>
 
-<p>Queries to the FMI API are specified using the <code>FMIWFSRequest</code> class. To initialize an object, type:</p>
+<p>Queries to the FMI API are specified using an object of the class <code>FMIWFSRequest</code>. To initialize the object, type:</p>
 
 <pre><code class="r">request &lt;- FMIWFSRequest(apiKey=apiKey)
 </code></pre>
 
-<p>The <code>fmi</code> package provides two types of queries: manual one for direct access to the FMI API and
-automated one for a convenient access obtaining the data sets.</p>
+<p>The fmi package provides two types of queries: a manual one for direct access to the FMI API and
+an automated one for a convenient access obtaining the data sets.</p>
 
 <p>In the manual case, stored query id and filter parameters are given with the <code>setParameters</code> method:</p>
 
@@ -287,14 +289,13 @@ automated one for a convenient access obtaining the data sets.</p>
                       parameters=&quot;rrday,snow,tday,tmin,tmax&quot;)
 </code></pre>
 
-<p>The parameter <code>request=&quot;getFeature&quot;</code> must be always specified.</p>
+<p>The parameter <code>request=&quot;getFeature&quot;</code> must be specified always.</p>
 
-<p>In the automated case, the client class (see below) provides methods to access the data sets
-in a convenient way. Filtering parameters are specified as arguments for the methods.</p>
+<p>For the automated case, see below.</p>
 
 <h3>Client object</h3>
 
-<p>Queries to the FMI API are made by using the <code>FMIWFSClient</code> class. For example, a manual requests is made with
+<p>Queries to the FMI API are made by using the <code>FMIWFSClient</code> class object. For example, a manual request is dispatched with
 (continued from the previous example):</p>
 
 <pre><code class="r">client &lt;- FMIWFSClient()
@@ -302,69 +303,73 @@ layers &lt;- client$listLayers(request=request)
 response &lt;- client$getLayer(request=request, layer=layers[1])
 </code></pre>
 
-<p>This example retrieves a list of layers and the first layer is used to obtain the actual data.</p>
+<p>This example retrieves a list of data layers and the first layer is used to obtain the actual data. In fact, there is
+only single layer.</p>
 
-<p>For the stored query <code>fmi::observations::weather::daily::timevaluepair</code>, an automated request is provided by the client.
-To get all weather observations for the 1st of January in 2014:</p>
+<p>For the same stored query, an automated request method, <code>getDailyWeather</code>, exists as well, which is a more
+convenient way to retrieve the data. For example, to get all weather observations for the 1st of January in 2014:</p>
 
 <pre><code class="r">request &lt;- FMIWFSRequest(apiKey=apiKey)
 client &lt;- FMIWFSClient()
 response &lt;- client$getDailyWeather(request=request, startDateTime=&quot;2014-01-01&quot;, endDateTime=&quot;2014-01-01&quot;)
 </code></pre>
 
-<p>See the package documentation in R for all automated queries.</p>
+<p>See the package documentation in R for all available automated queries. Currently, the package supports only
+a few data sets, which can be obtained using an automated query method. The rest of the stored queries are
+available with the generic method <code>getLayer</code>.</p>
 
-<p>Currently, the package supports only a few data sets, which can be obtained directly with a specific method
-such as the <code>getDailyWeather</code>. The rest of the data sets are available with the generic method <code>getLayer</code>.</p>
-
-<p>As <code>rgdal</code> does not currently support direct queries to the FMI API in most cases, the client saves the response
-to an intermedidate file first and then parses it. The <code>FMIWFSClient</code> class provides a caching mechanism, so that
-the response is needed to be downloaded only once for the same subsequent queries. The response file can be saved
-to a permanent location with the method <code>saveGMLFile</code> and loaded up into a <code>FMIWFSClient</code> object again with the
-<code>loadGMLFile</code> method.</p>
+<p>As rgdal does not currently support direct queries to the FMI API in most cases, the client saves the response
+to an intermedidate file first and then lets GDAL and rgdal to parse it. The <code>FMIWFSClient</code> class provides
+a caching mechanism, so that the response is needed to be downloaded only once for the same subsequent queries.
+The response file can be saved to a permanent location with the method <code>saveGMLFile</code> and loaded up into a
+<code>FMIWFSClient</code> object again with the <code>loadGMLFile</code> method.</p>
 
 <h3>Supported data and metadata</h3>
 
-<p>The <code>fmi</code> package supports time-value-pair and GRIB data formats. Multipoint-coverage format is not currently supported.
+<p>The fmi package supports time-value-pair and GRIB data formats. Multipoint-coverage format is not currently supported.
 However, most of the multipoint-coverage data sets are availables in the time-value-pair format as well.</p>
 
 <p>The automated queries attempt to associate appropriate metadata with the obtained data. The generic method <code>getLayer</code>
-does not associate the metadata and therefore it is left to the user to determine the metadata.
-In case there is no documentation available, the metadata can be obtained by examining the actual XML response
-from the FMI API. The XML response can be browsed by entering the query URL to a browser or saving the response
-to a file first.</p>
-
-<p>The query URL can be printed from the request object, by typing:</p>
+ignores the metadata and therefore it is left to the user to handle the metadata.
+In case there is no documentation available, the metadata - or some of it - can be found from the actual XML
+response retrieved from the FMI API. The XML response can be browsed by entering the query URL to a browser
+or saving the response to a file first and then viewing it. A query URL can be printed from the request object
+directly:</p>
 
 <pre><code class="r">request
 </code></pre>
 
-<p>A query response is possible to save with the <code>saveGMLFile</code> method to an user specified location as mentioned
-earlier.</p>
-
-<p>Furthermore, for manual requests, coordinate reference system (if needed) must be specified manually by providing
-the <code>crs</code> argument for the <code>getLayer</code> method. The default CRS appears to be WGS84. Also, longitude and latitude
-coordinates may need to be swapped, which can be done with the argument <code>swapAxisOrder=TRUE</code>. For example</p>
+<p>For manual requests, coordinate reference system (if needed) must be specified manually by providing the <code>crs</code> argument
+as a character string for the <code>getLayer</code> method. The default CRS appears to be WGS84. Furthermore, longitude and latitude
+coordinates may need to be swapped, which can be done with the argument <code>swapAxisOrder=TRUE</code>. For example:</p>
 
 <pre><code class="r">response &lt;- getLayer(request=request, layer=&quot;PointTimeSeriesObservation&quot;, crs=&quot;+proj=longlat +datum=WGS84&quot;, swapAxisOrder=TRUE, parameters=list(splitListFields=TRUE))
 </code></pre>
 
 <h3>Redundant features</h3>
 
-<p>Some of the data sets may contain a redundant multipoint feature, which <code>rgdal</code> does not handle.
+<p>Some of the responses may contain a redundant multipoint feature, which rgdal does not handle.
 A workaround is to remove the feature using the <code>ogr2ogr</code> tool bundled with the GDAL library.
-In such case, <code>explodeCollections=TRUE</code> needs to be specified for the <code>getLayer</code> method, for example</p>
+In such case, <code>explodeCollections=TRUE</code> needs to be specified for the <code>getLayer</code> method, for example:</p>
 
 <pre><code class="r">response &lt;- client$getLayer(request=request, layer=&quot;PointTimeSeriesObservation&quot;, parameters=list(explodeCollections=TRUE))
 </code></pre>
 
 <h3>Old version of rgdal</h3>
 
-<p>The <code>rgdal</code> package older than version 0.9-1 does not support list data types and therefore <code>splitListFields=TRUE</code>
-must be provided, e.g.</p>
+<p>The rgdal package older than version 0.9-1 does not support list field types and therefore <code>splitListFields=TRUE</code>
+must be provided, for instance:</p>
 
 <pre><code class="r">response &lt;- client$getLayer(request=request, layer=&quot;PointTimeSeriesObservation&quot;, parameters=list(splitListFields=TRUE))
 </code></pre>
+
+<h3>Continuous time measurements</h3>
+
+<p>TODO</p>
+
+<h3>Error handling</h3>
+
+<p>TODO</p>
 
 <h2>Examples</h2>
 
@@ -380,7 +385,7 @@ must be provided, e.g.</p>
 <pre><code class="r">apiKey &lt;- readLines(&quot;apikey.txt&quot;)
 </code></pre>
 
-<p>Construct a request object for a manual query:</p>
+<p>Construct a request object for the manual query:</p>
 
 <pre><code class="r">request &lt;- FMIWFSRequest(apiKey=apiKey)
 request$setParameters(request=&quot;getFeature&quot;,
@@ -391,10 +396,11 @@ request$setParameters(request=&quot;getFeature&quot;,
                       parameters=&quot;rrday,snow,tday,tmin,tmax&quot;)
 </code></pre>
 
-<p>The time parameters can be provided as <code>POSIXlt</code> objects and bbox as an <code>extent</code> object from
-the <a href="http://cran.r-project.org/web/packages/raster/index.html"><code>raster</code></a> package as well.</p>
+<p>The time parameters can be provided as objects that can be converted to the <code>POSIXlt</code> objects and
+bbox as an <code>extent</code> object from the <a href="http://cran.r-project.org/web/packages/raster/index.html"><code>raster</code></a>
+package as well.</p>
 
-<p>Set up the client object and list the layers in the response:</p>
+<p>Set up a client object and list the layers in the response:</p>
 
 <pre><code class="r">client &lt;- FMIWFSClient()
 layers &lt;- client$listLayers(request=request)
@@ -406,13 +412,13 @@ layers &lt;- client$listLayers(request=request)
 <pre><code>## [1] &quot;PointTimeSeriesObservation&quot;
 </code></pre>
 
-<p>Now, parse the data from the response, which has been cached:</p>
+<p>Parse the data from the response, which has been cached:</p>
 
 <pre><code class="r">response &lt;- client$getLayer(request=request, layer=layers[1], crs=&quot;+proj=longlat +datum=WGS84&quot;, swapAxisOrder=TRUE)
 </code></pre>
 
 <pre><code>## OGR data source with driver: GML 
-## Source: &quot;/var/folders/h4/gf7jwm5j4h73224sdw6_903h0000gn/T//RtmpfFuecQ/file14c0f450e79d1&quot;, layer: &quot;PointTimeSeriesObservation&quot;
+## Source: &quot;/var/folders/h4/gf7jwm5j4h73224sdw6_903h0000gn/T//RtmpNwrbgL/file16467631cd28&quot;, layer: &quot;PointTimeSeriesObservation&quot;
 ## with 945 features and 10 fields, of which 1 list fields
 ## Feature type: wkbPoint with 2 dimensions
 </code></pre>
@@ -437,15 +443,16 @@ layers &lt;- client$listLayers(request=request)
 </code></pre>
 
 <p>The data is returned as a <code>SpatialPointsDataFrame</code> object in long format, i.e. there is a row
-for each variable. The column <code>result.MeasurementTimeseries.point.MeasurementTVP.value</code> contains
-the measurements, which are organized such that the variables <code>rrday, snow, tday, tmin, tmax</code> are
-repeated as specified in the request parameter <code>parameters</code>.</p>
+for each variable and observation. The column <code>result.MeasurementTimeseries.point.MeasurementTVP.value</code>
+contains the measurements, which are organized such that the variables <code>rrday, snow, tday, tmin, tmax</code> are
+repeated in the same order as specified in the request.</p>
 
 <h3>Automated request</h3>
 
-<p>The method <code>getDailyWeather</code> provides an automated query for the same daily weather time series:</p>
+<p>The method <code>getDailyWeather</code> provides an automated query for the daily weather time series:</p>
 
-<pre><code class="r">client &lt;- FMIWFSClient()
+<pre><code class="r">request &lt;- FMIWFSRequest(apiKey=apiKey)
+client &lt;- FMIWFSClient()
 response &lt;- client$getDailyWeather(request=request, startDateTime=as.POSIXlt(&quot;2014-01-01&quot;), endDateTime=as.POSIXlt(&quot;2014-01-01&quot;))
 </code></pre>
 
@@ -474,7 +481,9 @@ response &lt;- client$getDailyWeather(request=request, startDateTime=as.POSIXlt(
 
 <p>To request a grid in the GRIB format manually, use the <code>getRaster</code> method, for instance:</p>
 
-<pre><code class="r">request$setParameters(request=&quot;getFeature&quot;,
+<pre><code class="r">library(raster)
+request &lt;- FMIWFSRequest(apiKey=apiKey)
+request$setParameters(request=&quot;getFeature&quot;,
                       storedquery_id=&quot;fmi::observations::weather::monthly::grid&quot;,
                       starttime=&quot;2012-01-01&quot;,
                       endtime=&quot;2012-01-01&quot;)
@@ -492,20 +501,17 @@ response &lt;- client$getRaster(request=request)
 ## resolution  : 0.008996, 0.008993  (x, y)
 ## extent      : 15.96, 33.07, 59.61, 70.08  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +a=6371229 +b=6371229 +no_defs 
-## data source : /private/var/folders/h4/gf7jwm5j4h73224sdw6_903h0000gn/T/RtmpfFuecQ/file14c0f1c870485 
-## names       : file14c0f1c870485.1, file14c0f1c870485.2
+## data source : /private/var/folders/h4/gf7jwm5j4h73224sdw6_903h0000gn/T/RtmpNwrbgL/file1646779e8dc88 
+## names       : file1646779e8dc88.1, file1646779e8dc88.2
 </code></pre>
 
-<p>Interpolated montly mean temperature in January 2012:</p>
+<p>Set the NA value and plot the interpolated monthly mean temperature in January 2012:</p>
 
-<pre><code class="r">plot(response[[1]])
+<pre><code class="r">NAvalue(response) &lt;- 9999
+plot(response[[1]])
 </code></pre>
 
 <p><img src="figure/request-raster-plot.png" alt="plot of chunk request-raster-plot"/> </p>
-
-<h3>Error handling</h3>
-
-<p>TODO</p>
 
 <h2>Licensing and further information</h2>
 
@@ -532,12 +538,13 @@ R package as &#39;Jussi Jousimo &copy; 2014. fmi R package. URL: <a href="http:/
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] rgdal_0.9-1 sp_1.0-15   knitr_1.6   fmi_0.1.01  rwfs_0.1.01
+## [1] raster_2.2-31 knitr_1.6     rgdal_0.9-1   sp_1.0-15     fmi_0.1.01   
+## [6] rwfs_0.1.01  
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] digest_0.6.4     evaluate_0.5.5   formatR_0.10     grid_3.1.1      
-##  [5] htmltools_0.2.4  lattice_0.20-29  markdown_0.7     raster_2.2-31   
-##  [9] rmarkdown_0.2.50 stringr_0.6.2    tools_3.1.1
+##  [5] htmltools_0.2.4  lattice_0.20-29  markdown_0.7     rmarkdown_0.2.50
+##  [9] stringr_0.6.2    tools_3.1.1
 </code></pre>
 
 </body>

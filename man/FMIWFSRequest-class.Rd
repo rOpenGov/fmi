@@ -7,6 +7,11 @@
 \description{
 A class to build WFS request URL to the FMI API.
 }
+\section{Methods}{
+
+\describe{
+\item{\code{getURL()}}{Returns WFS request URL.}
+}}
 \author{
 Jussi Jousimo \email{jvj@iki.fi}
 }
