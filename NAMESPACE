@@ -2,12 +2,7 @@
 
 export(FMIWFSClient)
 export(FMIWFSRequest)
-export(GeoStatFiWFSClient)
-export(GeoStatFiWFSRequest)
 exportClasses(FMIWFSClient)
 exportClasses(FMIWFSRequest)
-exportClasses(GeoStatFiWFSClient)
-exportClasses(GeoStatFiWFSRequest)
 import(methods)
 import(raster)
-import(rwfs)

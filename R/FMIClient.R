@@ -50,12 +50,12 @@ FMIWFSClient <- setRefClass(
   "FMIWFSClient",
   contains = c("WFSFileClient"),
   methods = list(
-    getRasterURL = function(request) {
+    getRasterURL = function(request, parameters) {
       layers <- listLayers(request=request)
-      if (length(layers) == 0) return(character())
+      if (length(layers) == 0) return(character(0))
       
-      meta <- getLayer(request=request, layer=layers[1])
-      if (is.character(meta)) return(character())
+      meta <- getLayer(request=request, layer=layers[1], parameters=parameters)
+      if (is.character(meta)) return(character(0))
       
       return(meta@data$fileReference)
     },
@@ -63,13 +63,16 @@ FMIWFSClient <- setRefClass(
     transformTimeValuePairData = function(response, timeColumnName="time", measurementColumnName="result_MeasurementTimeseries_point_MeasurementTVP_value", variableColumnNames) {
       if (missing(response))
         stop("Required argument 'response' missing.")
+      if (missing(variableColumnNames))
+        stop("Required argument 'variableColumnNames' missing.")
       
       data <- response@data
       data <- transform(data,
-                        time=as.POSIXlt(data[,timeColumnName]),
+                        time=data[,timeColumnName],
                         measurement=data[,measurementColumnName],
                         variable=rep(variableColumnNames, nrow(response) / length(variableColumnNames)))
       response@data <- data
+
       return(response)
     },
     
@@ -124,7 +127,7 @@ FMIWFSClient <- setRefClass(
                             storedquery_id="fmi::observations::weather::monthly::grid",
                             starttime=p$startDateTime,
                             endtime=p$endDateTime)
-      response <- getRaster(request=request)
+      response <- getRaster(request=request, parameters=list(splitListFields=TRUE))
       if (is.character(response)) return(character())
       
       names(response) <- getRasterLayerNames(startDateTime=startDateTime,
