@@ -78,14 +78,14 @@ install_github("rOpenGov/fmi")
 In order to use the FMI API, you need to obtain a personal API key first.
 To get the key, follow the instructions at <https://ilmatieteenlaitos.fi/rekisteroityminen-avoimen-datan-kayttajaksi>
 (appears to be available only in Finnish).
-
-To run this vignette, save the API key to the vignette directory in the `apikey.txt` file first.
-```{r set-api-key, message=FALSE, warning=FALSE}
-apiKey <- readLines("apikey.txt")
-```
-Otherwise, you may give the API key from command line.
+Enter the API key from command line:
 ```{r set-api-key-2, eval=FALSE}
 apiKey <- "ENTER YOUR API KEY HERE"
+```
+
+<!-- To run this vignette, save the API key to the vignette directory in the `apikey.txt` file first. -->
+```{r set-api-key, message=FALSE, warning=FALSE, echo=FALSE}
+apiKey <- readLines("apikey.txt")
 ```
 
 ## Available data sets and filtering
