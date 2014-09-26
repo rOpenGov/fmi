@@ -21,7 +21,8 @@ This R package is a part of the [rOpenGov](http://ropengov.github.io) project.
 
 The fmi package depends on the [GDAL](http://www.gdal.org/) library and its [command line tools](http://www.gdal.org/ogr2ogr.html).
 Please, see the installation instructions in the [gisfin package tutorial](https://github.com/rOpenGov/gisfin/blob/master/vignettes/gisfin_tutorial.md)
-to install GDAL. Also, add the command line tools to the search path of your system as follows:
+to install GDAL. If you have GDAL already installed, you might need to update it to newer version.
+Also, add the command line tools to the search path of your system as follows:
 
 #### Linux
 
@@ -44,24 +45,30 @@ Open System from Control Panel and select "Advanced System Settings".
 Click "Environment Variables" and select "Path" Variable from the list.
 Append `;C:\Program Files (x86)\GDAL` to the value field (note the semicolon).
 
-Note that the actual location may vary depending on your system. To test that the tools are found,
-type the command in terminal:
+#### ogr2ogr
+
+Note that the actual location of GDAL may vary depending on your system. To test that the tools are found,
+type the command in terminal (Command Prompt program in Windows):
 ```
 ogr2ogr
 ```
+To test that you also have a recent version of GDAL:
+```
+ogr2ogr --help
+```
+and you should see options `-splitlistfields` and `-explodecollections` in the help.
+If not, you need to update GDAL.
 
 ### Packages
 
 Start R and follow these steps to install the required packages:
-
 ```{r, eval=FALSE}
-install.packages(c("devtools", "gdal"))
+install.packages(c("devtools", "rgdal"))
 library(devtools)
 install_github("rOpenGov/rwfs")
 ```
-
+Note that rgdal version 0.9-1 or newer is needed.
 Then install the fmi package itself:
-
 ```{r, eval=FALSE}
 install_github("rOpenGov/fmi")
 ```
@@ -70,9 +77,14 @@ install_github("rOpenGov/fmi")
 
 In order to use the FMI API, you need to obtain a personal API key first.
 To get the key, follow the instructions at <https://ilmatieteenlaitos.fi/rekisteroityminen-avoimen-datan-kayttajaksi>
-(appears to be available only in Finnish). Enter the key to R:
+(appears to be available only in Finnish).
 
-```{r, eval=FALSE}
+To run this vignette, save the API key to the vignette directory in the `apikey.txt` file first.
+```{r set-api-key, message=FALSE, warning=FALSE}
+apiKey <- readLines("apikey.txt")
+```
+Otherwise, you may give the API key from command line.
+```{r set-api-key-2, eval=FALSE}
 apiKey <- "ENTER YOUR API KEY HERE"
 ```
 
@@ -95,6 +107,7 @@ parameters for the weather observations.
 
 Queries to the FMI API are specified using an object of the class `FMIWFSRequest`. To initialize the object, type:
 ```{r, eval=FALSE}
+library(fmi)
 request <- FMIWFSRequest(apiKey=apiKey)
 ```
 
@@ -121,7 +134,7 @@ Queries to the FMI API are made by using the `FMIWFSClient` class object. For ex
 ```{r, eval=FALSE}
 client <- FMIWFSClient()
 layers <- client$listLayers(request=request)
-response <- client$getLayer(request=request, layer=layers[1])
+response <- client$getLayer(request=request, layer=layers[1], parameters=list(splitListFields=TRUE))
 ```
 This example retrieves a list of data layers and the first layer is used to obtain the actual data. In fact, there is
 only single layer.
@@ -162,7 +175,7 @@ For manual requests, coordinate reference system (if needed) must be specified m
 as a character string for the `getLayer` method. The default CRS appears to be WGS84. Furthermore, longitude and latitude
 coordinates may need to be swapped, which can be done with the argument `swapAxisOrder=TRUE`. For example:
 ```{r, eval=FALSE}
-response <- getLayer(request=request, layer="PointTimeSeriesObservation", crs="+proj=longlat +datum=WGS84", swapAxisOrder=TRUE, parameters=list(splitListFields=TRUE))
+response <- client$getLayer(request=request, layer="PointTimeSeriesObservation", crs="+proj=longlat +datum=WGS84", swapAxisOrder=TRUE, parameters=list(splitListFields=TRUE))
 ```
 
 ### Redundant features
@@ -172,14 +185,6 @@ A workaround is to remove the feature using the `ogr2ogr` tool bundled with the 
 In such case, `explodeCollections=TRUE` needs to be specified for the `getLayer` method, for example:
 ```{r, eval=FALSE}
 response <- client$getLayer(request=request, layer="PointTimeSeriesObservation", parameters=list(explodeCollections=TRUE))
-```
-
-### Old version of rgdal
-
-The rgdal package older than version 0.9-1 does not support list field types and therefore `splitListFields=TRUE`
-must be provided, for instance:
-```{r, eval=FALSE}
-response <- client$getLayer(request=request, layer="PointTimeSeriesObservation", parameters=list(splitListFields=TRUE))
 ```
 
 ### Continuous time measurements
@@ -199,9 +204,9 @@ Load the library:
 library(fmi)
 ```
 
-Read your api key from a file located in the default directory:
-```{r set-api-key, message=FALSE, warning=FALSE}
-apiKey <- readLines("apikey.txt")
+Enter your API key for the examples:
+```{r set-api-key-3, message=FALSE, warning=FALSE, eval=FALSE}
+apiKey <- "ENTER YOUR API KEY HERE"
 ```
 
 Construct a request object for the manual query:
@@ -229,8 +234,8 @@ layers
 
 Parse the data from the response, which has been cached:
 ```{r manual-request-data, message=FALSE, warning=FALSE}
-response <- client$getLayer(request=request, layer=layers[1], crs="+proj=longlat +datum=WGS84", swapAxisOrder=TRUE)
-head(as.data.frame(response)[,c("coords.x1","coords.x2","name1","time","result.MeasurementTimeseries.point.MeasurementTVP.value")])
+response <- client$getLayer(request=request, layer=layers[1], crs="+proj=longlat +datum=WGS84", swapAxisOrder=TRUE, parameters=list(splitListFields=TRUE))
+head(as.data.frame(response)[,c("coords.x1","coords.x2","name1","time","result_MeasurementTimeseries_point_MeasurementTVP_value")])
 ```
 The data is returned as a `SpatialPointsDataFrame` object in long format, i.e. there is a row
 for each variable and observation. The column `result.MeasurementTimeseries.point.MeasurementTVP.value`
@@ -243,12 +248,14 @@ The method `getDailyWeather` provides an automated query for the daily weather t
 ```{r automated-request, message=FALSE, warning=FALSE, results='hide'}
 request <- FMIWFSRequest(apiKey=apiKey)
 client <- FMIWFSClient()
-response <- client$getDailyWeather(request=request, startDateTime=as.POSIXlt("2014-01-01"), endDateTime=as.POSIXlt("2014-01-01"))
+response <- client$getDailyWeather(request=request, startDateTime=as.POSIXlt("2014-01-01"), endDateTime=as.POSIXlt("2014-01-02"))
 ```
 ```{r automated-request-print}
-head(as.data.frame(response)[,c("coords.x1","coords.x2","name1","time","variable","measurement")])
+head(as.data.frame(response)[,c("coords.x1","coords.x2","name1","time1","variable","measurement1","measurement2")])
 ```
-The automated method associates the data with the metadata and the result looks clearer.
+The automated method associates the data with the metadata and the result looks cleaner. Multiple measurements
+from the same locations are indexed with 1,2,... and in this case there are two days and one measurement for each
+day.
 
 ### Raster
 
