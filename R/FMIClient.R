@@ -60,19 +60,23 @@ FMIWFSClient <- setRefClass(
       return(meta@data$fileReference)
     },
     
-    transformTimeValuePairData = function(response, timeColumnName="time", measurementColumnName="result_MeasurementTimeseries_point_MeasurementTVP_value", variableColumnNames) {
+    transformTimeValuePairData = function(response, timeColumnNamePrefix="time", measurementColumnNamePrefix="result_MeasurementTimeseries_point_MeasurementTVP_value", variableColumnNames) {
       if (missing(response))
         stop("Required argument 'response' missing.")
       if (missing(variableColumnNames))
         stop("Required argument 'variableColumnNames' missing.")
       
       data <- response@data
-      data <- transform(data,
-                        time=data[,timeColumnName],
-                        measurement=data[,measurementColumnName],
-                        variable=rep(variableColumnNames, nrow(response) / length(variableColumnNames)))
+      #data <- transform(data,
+                        #time=data[,timeColumnName],
+                        #measurement=data[,measurementColumnName],
+                        #variable=rep(variableColumnNames, nrow(response) / length(variableColumnNames)))
+      
+      measurementColumnIndex <- substr(names(data), 1, nchar(measurementColumnNamePrefix)) == measurementColumnNamePrefix
+      names(data)[measurementColumnIndex] <- sapply(1:3, function(x) paste0("measurement", x))
+      data$variable=rep(variableColumnNames, nrow(response) / length(variableColumnNames))
       response@data <- data
-
+      
       return(response)
     },
     
@@ -91,20 +95,15 @@ FMIWFSClient <- setRefClass(
     },
     
     getDailyWeather = function(request, startDateTime, endDateTime, bbox=raster::extent(c(19.0900,59.3000,31.5900,70.130))) {
-      if (missing(request))
-        stop("Required argument 'request' missing.")
-      if (missing(startDateTime))
-        stop("Required argument 'startDateTime' missing.")
-      if (missing(endDateTime))
-        stop("Required argument 'endDateTime' missing.")
-      
-      p <- processParameters(startDateTime=startDateTime, endDateTime=endDateTime, bbox=bbox)
-      request$setParameters(request="getFeature",
-                            storedquery_id="fmi::observations::weather::daily::timevaluepair",
-                            starttime=p$startDateTime,
-                            endtime=p$endDateTime,
-                            bbox=p$bbox,
-                            parameters="rrday,snow,tday,tmin,tmax")
+      if (!missing(request)) {
+        p <- processParameters(startDateTime=startDateTime, endDateTime=endDateTime, bbox=bbox)
+        request$setParameters(request="getFeature",
+                              storedquery_id="fmi::observations::weather::daily::timevaluepair",
+                              starttime=p$startDateTime,
+                              endtime=p$endDateTime,
+                              bbox=p$bbox,
+                              parameters="rrday,snow,tday,tmin,tmax")
+      }
       response <- getLayer(request=request, layer="PointTimeSeriesObservation", crs="+proj=longlat +datum=WGS84", swapAxisOrder=TRUE, parameters=list(splitListFields=TRUE))
       if (is.character(response)) return(character())
       
@@ -115,18 +114,13 @@ FMIWFSClient <- setRefClass(
     },
     
     getMonthlyWeatherGrid = function(request, startDateTime, endDateTime) {
-      if (missing(request))
-        stop("Required argument 'request' missing.")
-      if (missing(startDateTime))
-        stop("Required argument 'startDateTime' missing.")
-      if (missing(endDateTime))
-        stop("Required argument 'endDateTime' missing.")
-      
-      p <- processParameters(startDateTime=startDateTime, endDateTime=endDateTime)
-      request$setParameters(request="getFeature",
-                            storedquery_id="fmi::observations::weather::monthly::grid",
-                            starttime=p$startDateTime,
-                            endtime=p$endDateTime)
+      if (!missing(request)) {
+        p <- processParameters(startDateTime=startDateTime, endDateTime=endDateTime)
+        request$setParameters(request="getFeature",
+                              storedquery_id="fmi::observations::weather::monthly::grid",
+                              starttime=p$startDateTime,
+                              endtime=p$endDateTime)
+      }
       response <- getRaster(request=request, parameters=list(splitListFields=TRUE))
       if (is.character(response)) return(character())
       
