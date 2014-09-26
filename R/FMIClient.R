@@ -73,7 +73,7 @@ FMIWFSClient <- setRefClass(
                         #variable=rep(variableColumnNames, nrow(response) / length(variableColumnNames)))
       
       measurementColumnIndex <- substr(names(data), 1, nchar(measurementColumnNamePrefix)) == measurementColumnNamePrefix
-      names(data)[measurementColumnIndex] <- sapply(1:3, function(x) paste0("measurement", x))
+      names(data)[measurementColumnIndex] <- sapply(1:sum(measurementColumnIndex), function(x) paste0("measurement", x))
       data$variable=rep(variableColumnNames, nrow(response) / length(variableColumnNames))
       response@data <- data
       
