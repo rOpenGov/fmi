@@ -1,10 +1,10 @@
 ```{r knit, eval=FALSE, echo=FALSE}
 library(knitr)
 opts_knit$set(base.dir="vignettes")
-knit(input="vignettes/fmi_tutorial.Rmd", 
+knit(input="vignettes/fmi_tutorial.Rmd",
      output="vignettes/fmi_tutorial.md")
-knit2html(input="vignettes/fmi_tutorial.md", 
-          output="vignettes/fmi_tutorial.html", 
+knit2html(input="vignettes/fmi_tutorial.md",
+          output="vignettes/fmi_tutorial.html",
           options=c("use_xhtml","smartypants","mathjax","highlight_code"))
 ```
 
@@ -47,8 +47,8 @@ Append `;C:\Program Files (x86)\GDAL` to the value field (note the semicolon).
 
 #### ogr2ogr
 
-Note that the actual location of GDAL may vary depending on your system. To test that the tools are found,
-type the command in terminal (Command Prompt program in Windows):
+Note that the actual location of GDAL may vary depending on your system. To test that the tools are found from the path,
+type the command in terminal (Command Prompt in Windows):
 ```
 ogr2ogr
 ```
@@ -56,7 +56,7 @@ To test that you also have a recent version of GDAL:
 ```
 ogr2ogr --help
 ```
-and you should see options `-splitlistfields` and `-explodecollections` in the help.
+You should see the options `-splitlistfields` and `-explodecollections` in the printed help.
 If not, you need to update GDAL.
 
 ### Packages
@@ -235,7 +235,7 @@ layers
 Parse the data from the response, which has been cached:
 ```{r manual-request-data, message=FALSE, warning=FALSE}
 response <- client$getLayer(request=request, layer=layers[1], crs="+proj=longlat +datum=WGS84", swapAxisOrder=TRUE, parameters=list(splitListFields=TRUE))
-head(as.data.frame(response)[,c("coords.x1","coords.x2","name1","time","result_MeasurementTimeseries_point_MeasurementTVP_value")])
+head(as.data.frame(response)[,c("x","y","name1","time","result_MeasurementTimeseries_point_MeasurementTVP_value")])
 ```
 The data is returned as a `SpatialPointsDataFrame` object in long format, i.e. there is a row
 for each variable and observation. The column `result.MeasurementTimeseries.point.MeasurementTVP.value`
@@ -251,7 +251,7 @@ client <- FMIWFSClient()
 response <- client$getDailyWeather(request=request, startDateTime=as.POSIXlt("2014-01-01"), endDateTime=as.POSIXlt("2014-01-02"))
 ```
 ```{r automated-request-print}
-head(as.data.frame(response)[,c("coords.x1","coords.x2","name1","time1","variable","measurement1","measurement2")])
+head(as.data.frame(response)[,c("x","y","name1","time1","variable","measurement1","measurement2")])
 ```
 The automated method associates the data with the metadata and the result looks cleaner. Multiple measurements
 from the same locations are indexed with 1,2,... and in this case there are two days and one measurement for each
@@ -268,7 +268,7 @@ request$setParameters(request="getFeature",
                       starttime="2012-01-01",
                       endtime="2012-01-01")
 client <- FMIWFSClient()
-response <- client$getRaster(request=request)
+response <- client$getRaster(request=request, parameters=list(splitListFields=TRUE))
 ```
 The response is returned as a `RasterBrick` object of the `raster` package:
 ```{r request-raster-print}
@@ -279,6 +279,8 @@ Set the NA value and plot the interpolated monthly mean temperature in January 2
 NAvalue(response) <- 9999
 plot(response[[1]])
 ```
+
+There is also the automated request method `getMonthlyWeatherGrid` for obtaining monthly weather data.
 
 ## Licensing and further information
 

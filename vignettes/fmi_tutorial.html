@@ -202,7 +202,8 @@ This R package is a part of the <a href="http://ropengov.github.io">rOpenGov</a>
 
 <p>The fmi package depends on the <a href="http://www.gdal.org/">GDAL</a> library and its <a href="http://www.gdal.org/ogr2ogr.html">command line tools</a>.
 Please, see the installation instructions in the <a href="https://github.com/rOpenGov/gisfin/blob/master/vignettes/gisfin_tutorial.md">gisfin package tutorial</a>
-to install GDAL. Also, add the command line tools to the search path of your system as follows:</p>
+to install GDAL. If you have GDAL already installed, you might need to update it to newer version.
+Also, add the command line tools to the search path of your system as follows:</p>
 
 <h4>Linux</h4>
 
@@ -225,22 +226,33 @@ If not, use the <code>export</code> command from terminal, for example:</p>
 Click &ldquo;Environment Variables&rdquo; and select &ldquo;Path&rdquo; Variable from the list.
 Append <code>;C:\Program Files (x86)\GDAL</code> to the value field (note the semicolon).</p>
 
-<p>Note that the actual location may vary depending on your system. To test that the tools are found,
-type the command in terminal:</p>
+<h4>ogr2ogr</h4>
+
+<p>Note that the actual location of GDAL may vary depending on your system. To test that the tools are found from the path,
+type the command in terminal (Command Prompt in Windows):</p>
 
 <pre><code>ogr2ogr
 </code></pre>
+
+<p>To test that you also have a recent version of GDAL:</p>
+
+<pre><code>ogr2ogr --help
+</code></pre>
+
+<p>You should see the options <code>-splitlistfields</code> and <code>-explodecollections</code> in the printed help.
+If not, you need to update GDAL.</p>
 
 <h3>Packages</h3>
 
 <p>Start R and follow these steps to install the required packages:</p>
 
-<pre><code class="r">install.packages(c(&quot;devtools&quot;, &quot;gdal&quot;))
+<pre><code class="r">install.packages(c(&quot;devtools&quot;, &quot;rgdal&quot;))
 library(devtools)
 install_github(&quot;rOpenGov/rwfs&quot;)
 </code></pre>
 
-<p>Then install the fmi package itself:</p>
+<p>Note that rgdal version 0.9-1 or newer is needed.
+Then install the fmi package itself:</p>
 
 <pre><code class="r">install_github(&quot;rOpenGov/fmi&quot;)
 </code></pre>
@@ -249,7 +261,14 @@ install_github(&quot;rOpenGov/rwfs&quot;)
 
 <p>In order to use the FMI API, you need to obtain a personal API key first.
 To get the key, follow the instructions at <a href="https://ilmatieteenlaitos.fi/rekisteroityminen-avoimen-datan-kayttajaksi">https://ilmatieteenlaitos.fi/rekisteroityminen-avoimen-datan-kayttajaksi</a>
-(appears to be available only in Finnish). Enter the key to R:</p>
+(appears to be available only in Finnish).</p>
+
+<p>To run this vignette, save the API key to the vignette directory in the <code>apikey.txt</code> file first.</p>
+
+<pre><code class="r">apiKey &lt;- readLines(&quot;apikey.txt&quot;)
+</code></pre>
+
+<p>Otherwise, you may give the API key from command line.</p>
 
 <pre><code class="r">apiKey &lt;- &quot;ENTER YOUR API KEY HERE&quot;
 </code></pre>
@@ -273,7 +292,8 @@ parameters for the weather observations.</p>
 
 <p>Queries to the FMI API are specified using an object of the class <code>FMIWFSRequest</code>. To initialize the object, type:</p>
 
-<pre><code class="r">request &lt;- FMIWFSRequest(apiKey=apiKey)
+<pre><code class="r">library(fmi)
+request &lt;- FMIWFSRequest(apiKey=apiKey)
 </code></pre>
 
 <p>The fmi package provides two types of queries: a manual one for direct access to the FMI API and
@@ -300,7 +320,7 @@ an automated one for a convenient access obtaining the data sets.</p>
 
 <pre><code class="r">client &lt;- FMIWFSClient()
 layers &lt;- client$listLayers(request=request)
-response &lt;- client$getLayer(request=request, layer=layers[1])
+response &lt;- client$getLayer(request=request, layer=layers[1], parameters=list(splitListFields=TRUE))
 </code></pre>
 
 <p>This example retrieves a list of data layers and the first layer is used to obtain the actual data. In fact, there is
@@ -343,7 +363,7 @@ directly:</p>
 as a character string for the <code>getLayer</code> method. The default CRS appears to be WGS84. Furthermore, longitude and latitude
 coordinates may need to be swapped, which can be done with the argument <code>swapAxisOrder=TRUE</code>. For example:</p>
 
-<pre><code class="r">response &lt;- getLayer(request=request, layer=&quot;PointTimeSeriesObservation&quot;, crs=&quot;+proj=longlat +datum=WGS84&quot;, swapAxisOrder=TRUE, parameters=list(splitListFields=TRUE))
+<pre><code class="r">response &lt;- client$getLayer(request=request, layer=&quot;PointTimeSeriesObservation&quot;, crs=&quot;+proj=longlat +datum=WGS84&quot;, swapAxisOrder=TRUE, parameters=list(splitListFields=TRUE))
 </code></pre>
 
 <h3>Redundant features</h3>
@@ -353,14 +373,6 @@ A workaround is to remove the feature using the <code>ogr2ogr</code> tool bundle
 In such case, <code>explodeCollections=TRUE</code> needs to be specified for the <code>getLayer</code> method, for example:</p>
 
 <pre><code class="r">response &lt;- client$getLayer(request=request, layer=&quot;PointTimeSeriesObservation&quot;, parameters=list(explodeCollections=TRUE))
-</code></pre>
-
-<h3>Old version of rgdal</h3>
-
-<p>The rgdal package older than version 0.9-1 does not support list field types and therefore <code>splitListFields=TRUE</code>
-must be provided, for instance:</p>
-
-<pre><code class="r">response &lt;- client$getLayer(request=request, layer=&quot;PointTimeSeriesObservation&quot;, parameters=list(splitListFields=TRUE))
 </code></pre>
 
 <h3>Continuous time measurements</h3>
@@ -380,9 +392,9 @@ must be provided, for instance:</p>
 <pre><code class="r">library(fmi)
 </code></pre>
 
-<p>Read your api key from a file located in the default directory:</p>
+<p>Enter your API key for the examples:</p>
 
-<pre><code class="r">apiKey &lt;- readLines(&quot;apikey.txt&quot;)
+<pre><code class="r">apiKey &lt;- &quot;ENTER YOUR API KEY HERE&quot;
 </code></pre>
 
 <p>Construct a request object for the manual query:</p>
@@ -409,31 +421,35 @@ layers &lt;- client$listLayers(request=request)
 <pre><code class="r">layers
 </code></pre>
 
-<pre><code>## [1] &quot;PointTimeSeriesObservation&quot;
+<pre><code>## [1] &quot;PointTimeSeriesObservation&quot; &quot;Location&quot;                  
+## attr(,&quot;driver&quot;)
+## [1] &quot;GML&quot;
+## attr(,&quot;nlayers&quot;)
+## [1] 2
 </code></pre>
 
 <p>Parse the data from the response, which has been cached:</p>
 
-<pre><code class="r">response &lt;- client$getLayer(request=request, layer=layers[1], crs=&quot;+proj=longlat +datum=WGS84&quot;, swapAxisOrder=TRUE)
+<pre><code class="r">response &lt;- client$getLayer(request=request, layer=layers[1], crs=&quot;+proj=longlat +datum=WGS84&quot;, swapAxisOrder=TRUE, parameters=list(splitListFields=TRUE))
 </code></pre>
 
 <pre><code>## OGR data source with driver: GML 
-## Source: &quot;/var/folders/h4/gf7jwm5j4h73224sdw6_903h0000gn/T//RtmpNwrbgL/file16467631cd28&quot;, layer: &quot;PointTimeSeriesObservation&quot;
-## with 945 features and 10 fields, of which 1 list fields
+## Source: &quot;/tmp/user/1012574/Rtmp1hxRS0/file291c147728fa&quot;, layer: &quot;PointTimeSeriesObservation&quot;
+## with 950 features and 12 fields
 ## Feature type: wkbPoint with 2 dimensions
 </code></pre>
 
-<pre><code class="r">head(as.data.frame(response)[,c(&quot;coords.x1&quot;,&quot;coords.x2&quot;,&quot;name1&quot;,&quot;time&quot;,&quot;result.MeasurementTimeseries.point.MeasurementTVP.value&quot;)])
+<pre><code class="r">head(as.data.frame(response)[,c(&quot;x&quot;,&quot;y&quot;,&quot;name1&quot;,&quot;time&quot;,&quot;result_MeasurementTimeseries_point_MeasurementTVP_value&quot;)])
 </code></pre>
 
-<pre><code>##   coords.x1 coords.x2                           name1                 time
-## 1     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
-## 2     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
-## 3     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
-## 4     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
-## 5     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
-## 6     21.37     59.78                    Parainen Utö 2014-01-01T00:00:00Z
-##   result.MeasurementTimeseries.point.MeasurementTVP.value
+<pre><code>##       x     y                           name1                 time
+## 1 19.90 60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 2 19.90 60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 3 19.90 60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 4 19.90 60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 5 19.90 60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 6 21.37 59.78                    Parainen Utö 2014-01-01T00:00:00Z
+##   result_MeasurementTimeseries_point_MeasurementTVP_value
 ## 1                                                     NaN
 ## 2                                                     NaN
 ## 3                                                     3.6
@@ -453,29 +469,31 @@ repeated in the same order as specified in the request.</p>
 
 <pre><code class="r">request &lt;- FMIWFSRequest(apiKey=apiKey)
 client &lt;- FMIWFSClient()
-response &lt;- client$getDailyWeather(request=request, startDateTime=as.POSIXlt(&quot;2014-01-01&quot;), endDateTime=as.POSIXlt(&quot;2014-01-01&quot;))
+response &lt;- client$getDailyWeather(request=request, startDateTime=as.POSIXlt(&quot;2014-01-01&quot;), endDateTime=as.POSIXlt(&quot;2014-01-02&quot;))
 </code></pre>
 
-<pre><code class="r">head(as.data.frame(response)[,c(&quot;coords.x1&quot;,&quot;coords.x2&quot;,&quot;name1&quot;,&quot;time&quot;,&quot;variable&quot;,&quot;measurement&quot;)])
+<pre><code class="r">head(as.data.frame(response)[,c(&quot;x&quot;,&quot;y&quot;,&quot;name1&quot;,&quot;time1&quot;,&quot;variable&quot;,&quot;measurement1&quot;,&quot;measurement2&quot;)])
 </code></pre>
 
-<pre><code>##   coords.x1 coords.x2                           name1       time variable
-## 1     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01    rrday
-## 2     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01     snow
-## 3     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01     tday
-## 4     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01     tmin
-## 5     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01     tmax
-## 6     21.37     59.78                    Parainen Utö 2014-01-01    rrday
-##   measurement
-## 1         NaN
-## 2         NaN
-## 3         3.6
-## 4         2.8
-## 5         4.5
-## 6         0.3
+<pre><code>##       x     y                           name1                time1
+## 1 19.90 60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 2 19.90 60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 3 19.90 60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 4 19.90 60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 5 19.90 60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 6 21.37 59.78                    Parainen Utö 2014-01-01T00:00:00Z
+##   variable measurement1 measurement2
+## 1    rrday          NaN          NaN
+## 2     snow          NaN          NaN
+## 3     tday          3.6          3.8
+## 4     tmin          2.8          3.3
+## 5     tmax          4.5          4.3
+## 6    rrday          0.3         -1.0
 </code></pre>
 
-<p>The automated method associates the data with the metadata and the result looks clearer.</p>
+<p>The automated method associates the data with the metadata and the result looks cleaner. Multiple measurements
+from the same locations are indexed with 1,2,&hellip; and in this case there are two days and one measurement for each
+day.</p>
 
 <h3>Raster</h3>
 
@@ -488,7 +506,7 @@ request$setParameters(request=&quot;getFeature&quot;,
                       starttime=&quot;2012-01-01&quot;,
                       endtime=&quot;2012-01-01&quot;)
 client &lt;- FMIWFSClient()
-response &lt;- client$getRaster(request=request)
+response &lt;- client$getRaster(request=request, parameters=list(splitListFields=TRUE))
 </code></pre>
 
 <p>The response is returned as a <code>RasterBrick</code> object of the <code>raster</code> package:</p>
@@ -499,10 +517,10 @@ response &lt;- client$getRaster(request=request)
 <pre><code>## class       : RasterBrick 
 ## dimensions  : 1165, 1901, 2214665, 2  (nrow, ncol, ncell, nlayers)
 ## resolution  : 0.008996, 0.008993  (x, y)
-## extent      : 15.96, 33.07, 59.61, 70.08  (xmin, xmax, ymin, ymax)
+## extent      : 15.97, 33.07, 59.6, 70.08  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +a=6371229 +b=6371229 +no_defs 
-## data source : /private/var/folders/h4/gf7jwm5j4h73224sdw6_903h0000gn/T/RtmpNwrbgL/file1646779e8dc88 
-## names       : file1646779e8dc88.1, file1646779e8dc88.2
+## data source : /tmp/user/1012574/Rtmp1hxRS0/file291c1b40b7ab 
+## names       : file291c1b40b7ab.1, file291c1b40b7ab.2
 </code></pre>
 
 <p>Set the NA value and plot the interpolated monthly mean temperature in January 2012:</p>
@@ -512,6 +530,8 @@ plot(response[[1]])
 </code></pre>
 
 <p><img src="figure/request-raster-plot.png" alt="plot of chunk request-raster-plot"/> </p>
+
+<p>There is also the automated request method <code>getMonthlyWeatherGrid</code> for obtaining monthly weather data.</p>
 
 <h2>Licensing and further information</h2>
 
@@ -529,22 +549,26 @@ R package as &#39;Jussi Jousimo &copy; 2014. fmi R package. URL: <a href="http:/
 <p>This tutorial was created with</p>
 
 <pre><code>## R version 3.1.1 (2014-07-10)
-## Platform: x86_64-apple-darwin13.1.0 (64-bit)
+## Platform: x86_64-pc-linux-gnu (64-bit)
 ## 
 ## locale:
-## [1] en_GB.UTF-8/en_GB.UTF-8/en_GB.UTF-8/C/en_GB.UTF-8/en_GB.UTF-8
+##  [1] LC_CTYPE=fi_FI.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8    
+##  [5] LC_MONETARY=fi_FI.UTF-8    LC_MESSAGES=en_GB.UTF-8   
+##  [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       
 ## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] raster_2.2-31 knitr_1.6     rgdal_0.9-1   sp_1.0-15     fmi_0.1.01   
-## [6] rwfs_0.1.01  
+## [1] knitr_1.6     raster_2.2-31 fmi_0.1.01    rwfs_0.1.01   rgdal_0.9-1  
+## [6] sp_1.0-14    
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] digest_0.6.4     evaluate_0.5.5   formatR_0.10     grid_3.1.1      
-##  [5] htmltools_0.2.4  lattice_0.20-29  markdown_0.7     rmarkdown_0.2.50
-##  [9] stringr_0.6.2    tools_3.1.1
+## [1] evaluate_0.5.3  formatR_0.10    grid_3.1.1      lattice_0.20-29
+## [5] markdown_0.7    stringr_0.6.2   tools_3.1.1
 </code></pre>
 
 </body>
