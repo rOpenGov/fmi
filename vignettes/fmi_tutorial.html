@@ -261,17 +261,13 @@ Then install the fmi package itself:</p>
 
 <p>In order to use the FMI API, you need to obtain a personal API key first.
 To get the key, follow the instructions at <a href="https://ilmatieteenlaitos.fi/rekisteroityminen-avoimen-datan-kayttajaksi">https://ilmatieteenlaitos.fi/rekisteroityminen-avoimen-datan-kayttajaksi</a>
-(appears to be available only in Finnish).</p>
-
-<p>To run this vignette, save the API key to the vignette directory in the <code>apikey.txt</code> file first.</p>
-
-<pre><code class="r">apiKey &lt;- readLines(&quot;apikey.txt&quot;)
-</code></pre>
-
-<p>Otherwise, you may give the API key from command line.</p>
+(appears to be available only in Finnish).
+Enter the API key from command line:</p>
 
 <pre><code class="r">apiKey &lt;- &quot;ENTER YOUR API KEY HERE&quot;
 </code></pre>
+
+<!-- To run this vignette, save the API key to the vignette directory in the `apikey.txt` file first. -->
 
 <h2>Available data sets and filtering</h2>
 
@@ -434,7 +430,7 @@ layers &lt;- client$listLayers(request=request)
 </code></pre>
 
 <pre><code>## OGR data source with driver: GML 
-## Source: &quot;/tmp/user/1012574/Rtmp1hxRS0/file291c147728fa&quot;, layer: &quot;PointTimeSeriesObservation&quot;
+## Source: &quot;/tmp/user/1012574/Rtmp1hxRS0/file291c6aab439b&quot;, layer: &quot;PointTimeSeriesObservation&quot;
 ## with 950 features and 12 fields
 ## Feature type: wkbPoint with 2 dimensions
 </code></pre>
@@ -519,8 +515,8 @@ response &lt;- client$getRaster(request=request, parameters=list(splitListFields
 ## resolution  : 0.008996, 0.008993  (x, y)
 ## extent      : 15.97, 33.07, 59.6, 70.08  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +a=6371229 +b=6371229 +no_defs 
-## data source : /tmp/user/1012574/Rtmp1hxRS0/file291c1b40b7ab 
-## names       : file291c1b40b7ab.1, file291c1b40b7ab.2
+## data source : /tmp/user/1012574/Rtmp1hxRS0/file291c10a0498d 
+## names       : file291c10a0498d.1, file291c10a0498d.2
 </code></pre>
 
 <p>Set the NA value and plot the interpolated monthly mean temperature in January 2012:</p>

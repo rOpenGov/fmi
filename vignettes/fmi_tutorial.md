@@ -72,17 +72,14 @@ install_github("rOpenGov/fmi")
 In order to use the FMI API, you need to obtain a personal API key first.
 To get the key, follow the instructions at <https://ilmatieteenlaitos.fi/rekisteroityminen-avoimen-datan-kayttajaksi>
 (appears to be available only in Finnish).
-
-To run this vignette, save the API key to the vignette directory in the `apikey.txt` file first.
-
-```r
-apiKey <- readLines("apikey.txt")
-```
-Otherwise, you may give the API key from command line.
+Enter the API key from command line:
 
 ```r
 apiKey <- "ENTER YOUR API KEY HERE"
 ```
+
+<!-- To run this vignette, save the API key to the vignette directory in the `apikey.txt` file first. -->
+
 
 ## Available data sets and filtering
 
@@ -256,7 +253,7 @@ response <- client$getLayer(request=request, layer=layers[1], crs="+proj=longlat
 
 ```
 ## OGR data source with driver: GML 
-## Source: "/tmp/user/1012574/Rtmp1hxRS0/file291c147728fa", layer: "PointTimeSeriesObservation"
+## Source: "/tmp/user/1012574/Rtmp1hxRS0/file291c6aab439b", layer: "PointTimeSeriesObservation"
 ## with 950 features and 12 fields
 ## Feature type: wkbPoint with 2 dimensions
 ```
@@ -346,8 +343,8 @@ response
 ## resolution  : 0.008996, 0.008993  (x, y)
 ## extent      : 15.97, 33.07, 59.6, 70.08  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +a=6371229 +b=6371229 +no_defs 
-## data source : /tmp/user/1012574/Rtmp1hxRS0/file291c1b40b7ab 
-## names       : file291c1b40b7ab.1, file291c1b40b7ab.2
+## data source : /tmp/user/1012574/Rtmp1hxRS0/file291c10a0498d 
+## names       : file291c10a0498d.1, file291c10a0498d.2
 ```
 Set the NA value and plot the interpolated monthly mean temperature in January 2012:
 
