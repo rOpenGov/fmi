@@ -21,6 +21,7 @@ WFSFileClient <- getFromNamespace("WFSFileClient", "rwfs")
 #' @references See citation("fmi")
 #' @author Jussi Jousimo \email{jvj@@iki.fi}
 #' @exportClass FMIWFSRequest
+#' @examples \dontrun{request <- FMIWFSRequest(apiKey=apiKey)}
 #' @export FMIWFSRequest
 FMIWFSRequest <- setRefClass(
   "FMIWFSRequest",
