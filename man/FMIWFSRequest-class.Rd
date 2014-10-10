@@ -12,6 +12,9 @@ A class to build WFS request URL to the FMI API.
 \describe{
 \item{\code{getURL()}}{Returns WFS request URL.}
 }}
+\examples{
+\dontrun{request <- FMIWFSRequest(apiKey=apiKey)}
+}
 \author{
 Jussi Jousimo \email{jvj@iki.fi}
 }

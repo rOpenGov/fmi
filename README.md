@@ -3,7 +3,11 @@ fmi
 
 [![Build Status](https://api.travis-ci.org/rOpenGov/fmi.png)](https://travis-ci.org/rOpenGov/fmi)
 [![Stories in Ready](https://badge.waffle.io/ropengov/fmi.png?label=Ready)](http://waffle.io/ropengov/fmi)
+
+<!--
+DOI has to be set separately for each package (if needed) - ask antagomir for more info
 [![DOI](https://zenodo.org/badge/4203/rOpenGov/fmi.png)](https://github.com/rOpenGov/fmi)
+-->
 
 
 Finnish Meteorological Institute open data API R client
