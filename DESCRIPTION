@@ -1,8 +1,8 @@
 Package: fmi
 Type: Package
 Title: Finnish Meteorological Institute open data API R client
-Version: 0.1.01
-Date: 2014-08-19
+Version: 0.1.11
+Date: 2014-10-10
 Author: Jussi Jousimo
 Maintainer: Jussi Jousimo <jvj@iki.fi>
 Description: Finnish Meteorological Institute open data API R client
