@@ -30,6 +30,11 @@ From terminal, type:
 ```
 export PATH=$PATH:/Library/Frameworks/GDAL.framework/Programs
 ```
+This may not work with RStudio. In this case, try opening RStudio from command line with
+```
+open -a rstudio
+```
+
 
 #### Windows
 
