@@ -142,10 +142,13 @@ FMIWFSClient <- setRefClass(
           stop("Either fmisid or bbox must be provided!")
         }
       }
-      response <- getLayer(request=request, layer="PointTimeSeriesObservation", crs="+proj=longlat +datum=WGS84", swapAxisOrder=TRUE, parameters=list(splitListFields=TRUE))
+      response <- getLayer(request=request, layer="PointTimeSeriesObservation", 
+                           crs="+proj=longlat +datum=WGS84", swapAxisOrder=TRUE, 
+                           parameters=list(splitListFields=TRUE))
       if (is.character(response)) return(character())
       
-      response <- transformTimeValuePairData(response=response, variableColumnNames=c("rrday","snow","tday","tmin","tmax"))
+      response <- transformTimeValuePairData(response=response, 
+                                             variableColumnNames=c("rrday","snow","tday","tmin","tmax"))
       # TODO: set name1 ... name3 column names
       
       return(response)
