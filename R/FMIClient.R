@@ -88,11 +88,24 @@ FMIWFSClient <- setRefClass(
       return(layerNames)
     },
     
-    processParameters = function(startDateTime=NULL, endDateTime=NULL, bbox=NULL) {
-      if (inherits(startDateTime, "POSIXt")) startDateTime <- asISO8601(startDateTime)
-      if (inherits(endDateTime, "POSIXt")) endDateTime <- asISO8601(endDateTime)
-      if (inherits(bbox, "Extent")) bbox <- with(attributes(bbox), paste(xmin, xmax, ymin, ymax, sep=","))
-      return(list(startDateTime=startDateTime, endDateTime=endDateTime, bbox=bbox))
+    processParameters = function(startDateTime=NULL, endDateTime=NULL, 
+                                 bbox=NULL, fmisid=NULL) {
+      if (inherits(startDateTime, "POSIXt")) {
+        startDateTime <- asISO8601(startDateTime)
+      }
+      if (inherits(endDateTime, "POSIXt")) {
+        endDateTime <- asISO8601(endDateTime)
+      }
+      if (!is.null(fmisid)) {
+        if (valid_fmisid(fmisid)) {
+          fmisid <- fmisid
+        }
+      }
+      if (inherits(bbox, "Extent")) { 
+        bbox <- with(attributes(bbox), paste(xmin, xmax, ymin, ymax, sep=","))
+      }
+      return(list(startDateTime=startDateTime, endDateTime=endDateTime, 
+                  fmisid=fmisid, bbox=bbox))
     },
     
     getDailyWeather = function(request, startDateTime, endDateTime, bbox=NULL,
