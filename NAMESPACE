@@ -2,6 +2,8 @@
 
 export(FMIWFSClient)
 export(FMIWFSRequest)
+export(fmi_weather_stations)
+export(valid_fmisid)
 exportClasses(FMIWFSClient)
 exportClasses(FMIWFSRequest)
 import(methods)
