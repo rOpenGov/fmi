@@ -95,15 +95,39 @@ FMIWFSClient <- setRefClass(
       return(list(startDateTime=startDateTime, endDateTime=endDateTime, bbox=bbox))
     },
     
-    getDailyWeather = function(request, startDateTime, endDateTime, bbox=raster::extent(c(19.0900,59.3000,31.5900,70.130))) {
-      if (!missing(request)) {
-        p <- processParameters(startDateTime=startDateTime, endDateTime=endDateTime, bbox=bbox)
-        request$setParameters(request="getFeature",
-                              storedquery_id="fmi::observations::weather::daily::timevaluepair",
-                              starttime=p$startDateTime,
-                              endtime=p$endDateTime,
-                              bbox=p$bbox,
-                              parameters="rrday,snow,tday,tmin,tmax")
+    getDailyWeather = function(request, startDateTime, endDateTime, bbox=NULL,
+                               fmisid=NULL) {
+      if (missing(request)) {
+        stop("No request object provided")
+      } else {
+        
+        # FMISID takes precedence over bbox (usually more precise)
+        if (!is.null(bbox) & !is.null(fmisid)) {
+          bbox <- NULL
+          warning("Both bbox and fmisid provided, using only fmisid.")
+        }
+        
+        p <- processParameters(startDateTime=startDateTime, 
+                               endDateTime=endDateTime, bbox=bbox, 
+                               fmisid=fmisid)
+        
+        if (!is.null(fmisid)) {
+          request$setParameters(request="getFeature",
+                                storedquery_id="fmi::observations::weather::daily::timevaluepair",
+                                starttime=p$startDateTime,
+                                endtime=p$endDateTime,
+                                fmisid=p$fmisid,
+                                parameters="rrday,snow,tday,tmin,tmax")
+        } else if (!is.null(bbox)) {
+          request$setParameters(request="getFeature",
+                                storedquery_id="fmi::observations::weather::daily::timevaluepair",
+                                starttime=p$startDateTime,
+                                endtime=p$endDateTime,
+                                bbox=p$bbox,
+                                parameters="rrday,snow,tday,tmin,tmax")
+        } else {
+          stop("Either fmisid or bbox must be provided!")
+        }
       }
       response <- getLayer(request=request, layer="PointTimeSeriesObservation", crs="+proj=longlat +datum=WGS84", swapAxisOrder=TRUE, parameters=list(splitListFields=TRUE))
       if (is.character(response)) return(character())
