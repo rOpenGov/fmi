@@ -110,10 +110,7 @@ FMIWFSClient <- setRefClass(
     
     getDailyWeather = function(request, startDateTime, endDateTime, bbox=NULL,
                                fmisid=NULL) {
-      if (missing(request)) {
-        stop("No request object provided")
-      } else {
-        
+      if (!missing(request)) {        
         # FMISID takes precedence over bbox (usually more precise)
         if (!is.null(bbox) & !is.null(fmisid)) {
           bbox <- NULL
