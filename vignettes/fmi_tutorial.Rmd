@@ -108,7 +108,7 @@ parameters for the weather observations.
 Queries to the FMI API are specified using an object of the class `FMIWFSRequest`. To initialize the object, type:
 ```{r, eval=FALSE}
 library(fmi)
-request <- FMIWFSRequest(apiKey=apiKey)
+request <- FMIWFSRequest$new(apiKey=apiKey)
 ```
 
 The fmi package provides two types of queries: a manual one for direct access to the FMI API and
@@ -132,7 +132,7 @@ For the automated case, see below.
 Queries to the FMI API are made by using the `FMIWFSClient` class object. For example, a manual request is dispatched with
 (continued from the previous example):
 ```{r, eval=FALSE}
-client <- FMIWFSClient()
+client <- FMIWFSClient$new()
 layers <- client$listLayers(request=request)
 response <- client$getLayer(request=request, layer=layers[1], parameters=list(splitListFields=TRUE))
 ```
@@ -142,8 +142,8 @@ only single layer.
 For the same stored query, an automated request method, `getDailyWeather`, exists as well, which is a more
 convenient way to retrieve the data. For example, to get all weather observations for the 1st of January in 2014:
 ```{r, eval=FALSE}
-request <- FMIWFSRequest(apiKey=apiKey)
-client <- FMIWFSClient()
+request <- FMIWFSRequest$new(apiKey=apiKey)
+client <- FMIWFSClient$new()
 response <- client$getDailyWeather(request=request, startDateTime="2014-01-01", endDateTime="2014-01-01")
 ```
 See the package documentation in R for all available automated queries. Currently, the package supports only
@@ -211,7 +211,7 @@ apiKey <- "ENTER YOUR API KEY HERE"
 
 Construct a request object for the manual query:
 ```{r manual-request, message=FALSE, warning=FALSE}
-request <- FMIWFSRequest(apiKey=apiKey)
+request <- FMIWFSRequest$new(apiKey=apiKey)
 request$setParameters(request="getFeature",
                       storedquery_id="fmi::observations::weather::daily::timevaluepair",
                       starttime="2014-01-01",
@@ -225,7 +225,7 @@ package as well.
 
 Set up a client object and list the layers in the response:
 ```{r manual-request-layers, message=FALSE, warning=FALSE, results='hide'}
-client <- FMIWFSClient()
+client <- FMIWFSClient$new()
 layers <- client$listLayers(request=request)
 ```
 ```{r manual-request-layers-print}
@@ -233,8 +233,10 @@ layers
 ```
 
 Parse the data from the response, which has been cached:
-```{r manual-request-data, message=FALSE, warning=FALSE}
+```{r manual-request-data, message=FALSE, warning=FALSE, results='hide'}
 response <- client$getLayer(request=request, layer=layers[1], crs="+proj=longlat +datum=WGS84", swapAxisOrder=TRUE, parameters=list(splitListFields=TRUE))
+```
+```{r manual-request-data-print}
 head(as.data.frame(response)[,c("x","y","name1","time","result_MeasurementTimeseries_point_MeasurementTVP_value")])
 ```
 The data is returned as a `SpatialPointsDataFrame` object in long format, i.e. there is a row
@@ -246,9 +248,9 @@ repeated in the same order as specified in the request.
 
 The method `getDailyWeather` provides an automated query for the daily weather time series:
 ```{r automated-request, message=FALSE, warning=FALSE, results='hide'}
-request <- FMIWFSRequest(apiKey=apiKey)
-client <- FMIWFSClient()
-response <- client$getDailyWeather(request=request, startDateTime=as.POSIXlt("2014-01-01"), endDateTime=as.POSIXlt("2014-01-02"))
+request <- FMIWFSRequest$new(apiKey=apiKey)
+client <- FMIWFSClient$new()
+response <- client$getDailyWeather(request=request, startDateTime="2014-01-01", endDateTime="2014-01-02", bbox=client$getFinlandBBox())
 ```
 ```{r automated-request-print}
 head(as.data.frame(response)[,c("x","y","name1","time1","variable","measurement1","measurement2")])
@@ -262,12 +264,12 @@ day.
 To request a grid in the GRIB format manually, use the `getRaster` method, for instance:
 ```{r request-raster, message=FALSE, warning=FALSE, results='hide'}
 library(raster)
-request <- FMIWFSRequest(apiKey=apiKey)
+request <- FMIWFSRequest$new(apiKey=apiKey)
 request$setParameters(request="getFeature",
                       storedquery_id="fmi::observations::weather::monthly::grid",
                       starttime="2012-01-01",
                       endtime="2012-01-01")
-client <- FMIWFSClient()
+client <- FMIWFSClient$new()
 response <- client$getRaster(request=request, parameters=list(splitListFields=TRUE))
 ```
 The response is returned as a `RasterBrick` object of the `raster` package:

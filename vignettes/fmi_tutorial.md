@@ -30,11 +30,6 @@ From terminal, type:
 ```
 export PATH=$PATH:/Library/Frameworks/GDAL.framework/Programs
 ```
-This may not work with RStudio. In this case, try opening RStudio from command line with
-```
-open -a rstudio
-```
-
 
 #### Windows
 
@@ -107,7 +102,7 @@ Queries to the FMI API are specified using an object of the class `FMIWFSRequest
 
 ```r
 library(fmi)
-request <- FMIWFSRequest(apiKey=apiKey)
+request <- FMIWFSRequest$new(apiKey=apiKey)
 ```
 
 The fmi package provides two types of queries: a manual one for direct access to the FMI API and
@@ -133,7 +128,7 @@ Queries to the FMI API are made by using the `FMIWFSClient` class object. For ex
 (continued from the previous example):
 
 ```r
-client <- FMIWFSClient()
+client <- FMIWFSClient$new()
 layers <- client$listLayers(request=request)
 response <- client$getLayer(request=request, layer=layers[1], parameters=list(splitListFields=TRUE))
 ```
@@ -144,8 +139,8 @@ For the same stored query, an automated request method, `getDailyWeather`, exist
 convenient way to retrieve the data. For example, to get all weather observations for the 1st of January in 2014:
 
 ```r
-request <- FMIWFSRequest(apiKey=apiKey)
-client <- FMIWFSClient()
+request <- FMIWFSRequest$new(apiKey=apiKey)
+client <- FMIWFSClient$new()
 response <- client$getDailyWeather(request=request, startDateTime="2014-01-01", endDateTime="2014-01-01")
 ```
 See the package documentation in R for all available automated queries. Currently, the package supports only
@@ -219,7 +214,7 @@ apiKey <- "ENTER YOUR API KEY HERE"
 Construct a request object for the manual query:
 
 ```r
-request <- FMIWFSRequest(apiKey=apiKey)
+request <- FMIWFSRequest$new(apiKey=apiKey)
 request$setParameters(request="getFeature",
                       storedquery_id="fmi::observations::weather::daily::timevaluepair",
                       starttime="2014-01-01",
@@ -234,7 +229,7 @@ package as well.
 Set up a client object and list the layers in the response:
 
 ```r
-client <- FMIWFSClient()
+client <- FMIWFSClient$new()
 layers <- client$listLayers(request=request)
 ```
 
@@ -254,13 +249,6 @@ Parse the data from the response, which has been cached:
 
 ```r
 response <- client$getLayer(request=request, layer=layers[1], crs="+proj=longlat +datum=WGS84", swapAxisOrder=TRUE, parameters=list(splitListFields=TRUE))
-```
-
-```
-## OGR data source with driver: GML 
-## Source: "/tmp/user/1012574/Rtmp1hxRS0/file291c6aab439b", layer: "PointTimeSeriesObservation"
-## with 950 features and 12 fields
-## Feature type: wkbPoint with 2 dimensions
 ```
 
 ```r
@@ -293,9 +281,9 @@ repeated in the same order as specified in the request.
 The method `getDailyWeather` provides an automated query for the daily weather time series:
 
 ```r
-request <- FMIWFSRequest(apiKey=apiKey)
-client <- FMIWFSClient()
-response <- client$getDailyWeather(request=request, startDateTime=as.POSIXlt("2014-01-01"), endDateTime=as.POSIXlt("2014-01-02"))
+request <- FMIWFSRequest$new(apiKey=apiKey)
+client <- FMIWFSClient$new()
+response <- client$getDailyWeather(request=request, startDateTime="2014-01-01", endDateTime="2014-01-02", bbox=client$getFinlandBBox())
 ```
 
 ```r
@@ -328,12 +316,12 @@ To request a grid in the GRIB format manually, use the `getRaster` method, for i
 
 ```r
 library(raster)
-request <- FMIWFSRequest(apiKey=apiKey)
+request <- FMIWFSRequest$new(apiKey=apiKey)
 request$setParameters(request="getFeature",
                       storedquery_id="fmi::observations::weather::monthly::grid",
                       starttime="2012-01-01",
                       endtime="2012-01-01")
-client <- FMIWFSClient()
+client <- FMIWFSClient$new()
 response <- client$getRaster(request=request, parameters=list(splitListFields=TRUE))
 ```
 The response is returned as a `RasterBrick` object of the `raster` package:
@@ -348,8 +336,8 @@ response
 ## resolution  : 0.008996, 0.008993  (x, y)
 ## extent      : 15.97, 33.07, 59.6, 70.08  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +a=6371229 +b=6371229 +no_defs 
-## data source : /tmp/user/1012574/Rtmp1hxRS0/file291c10a0498d 
-## names       : file291c10a0498d.1, file291c10a0498d.2
+## data source : /tmp/user/1012574/RtmpeneZDF/file390a7205914f 
+## names       : file390a7205914f.1, file390a7205914f.2
 ```
 Set the NA value and plot the interpolated monthly mean temperature in January 2012:
 
@@ -394,10 +382,10 @@ This tutorial was created with
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] knitr_1.6     raster_2.2-31 fmi_0.1.01    rwfs_0.1.01   rgdal_0.9-1  
-## [6] sp_1.0-14    
+## [1] raster_2.2-31 knitr_1.6     rgdal_0.9-1   sp_1.0-14     fmi_0.1.11   
+## [6] rwfs_0.1.11   R6_2.0       
 ## 
 ## loaded via a namespace (and not attached):
 ## [1] evaluate_0.5.3  formatR_0.10    grid_3.1.1      lattice_0.20-29
-## [5] markdown_0.7    stringr_0.6.2   tools_3.1.1
+## [5] stringr_0.6.2   tools_3.1.1
 ```
