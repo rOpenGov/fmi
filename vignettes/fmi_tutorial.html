@@ -289,7 +289,7 @@ parameters for the weather observations.</p>
 <p>Queries to the FMI API are specified using an object of the class <code>FMIWFSRequest</code>. To initialize the object, type:</p>
 
 <pre><code class="r">library(fmi)
-request &lt;- FMIWFSRequest(apiKey=apiKey)
+request &lt;- FMIWFSRequest$new(apiKey=apiKey)
 </code></pre>
 
 <p>The fmi package provides two types of queries: a manual one for direct access to the FMI API and
@@ -314,7 +314,7 @@ an automated one for a convenient access obtaining the data sets.</p>
 <p>Queries to the FMI API are made by using the <code>FMIWFSClient</code> class object. For example, a manual request is dispatched with
 (continued from the previous example):</p>
 
-<pre><code class="r">client &lt;- FMIWFSClient()
+<pre><code class="r">client &lt;- FMIWFSClient$new()
 layers &lt;- client$listLayers(request=request)
 response &lt;- client$getLayer(request=request, layer=layers[1], parameters=list(splitListFields=TRUE))
 </code></pre>
@@ -325,8 +325,8 @@ only single layer.</p>
 <p>For the same stored query, an automated request method, <code>getDailyWeather</code>, exists as well, which is a more
 convenient way to retrieve the data. For example, to get all weather observations for the 1st of January in 2014:</p>
 
-<pre><code class="r">request &lt;- FMIWFSRequest(apiKey=apiKey)
-client &lt;- FMIWFSClient()
+<pre><code class="r">request &lt;- FMIWFSRequest$new(apiKey=apiKey)
+client &lt;- FMIWFSClient$new()
 response &lt;- client$getDailyWeather(request=request, startDateTime=&quot;2014-01-01&quot;, endDateTime=&quot;2014-01-01&quot;)
 </code></pre>
 
@@ -395,7 +395,7 @@ In such case, <code>explodeCollections=TRUE</code> needs to be specified for the
 
 <p>Construct a request object for the manual query:</p>
 
-<pre><code class="r">request &lt;- FMIWFSRequest(apiKey=apiKey)
+<pre><code class="r">request &lt;- FMIWFSRequest$new(apiKey=apiKey)
 request$setParameters(request=&quot;getFeature&quot;,
                       storedquery_id=&quot;fmi::observations::weather::daily::timevaluepair&quot;,
                       starttime=&quot;2014-01-01&quot;,
@@ -410,7 +410,7 @@ package as well.</p>
 
 <p>Set up a client object and list the layers in the response:</p>
 
-<pre><code class="r">client &lt;- FMIWFSClient()
+<pre><code class="r">client &lt;- FMIWFSClient$new()
 layers &lt;- client$listLayers(request=request)
 </code></pre>
 
@@ -427,12 +427,6 @@ layers &lt;- client$listLayers(request=request)
 <p>Parse the data from the response, which has been cached:</p>
 
 <pre><code class="r">response &lt;- client$getLayer(request=request, layer=layers[1], crs=&quot;+proj=longlat +datum=WGS84&quot;, swapAxisOrder=TRUE, parameters=list(splitListFields=TRUE))
-</code></pre>
-
-<pre><code>## OGR data source with driver: GML 
-## Source: &quot;/tmp/user/1012574/Rtmp1hxRS0/file291c6aab439b&quot;, layer: &quot;PointTimeSeriesObservation&quot;
-## with 950 features and 12 fields
-## Feature type: wkbPoint with 2 dimensions
 </code></pre>
 
 <pre><code class="r">head(as.data.frame(response)[,c(&quot;x&quot;,&quot;y&quot;,&quot;name1&quot;,&quot;time&quot;,&quot;result_MeasurementTimeseries_point_MeasurementTVP_value&quot;)])
@@ -463,9 +457,9 @@ repeated in the same order as specified in the request.</p>
 
 <p>The method <code>getDailyWeather</code> provides an automated query for the daily weather time series:</p>
 
-<pre><code class="r">request &lt;- FMIWFSRequest(apiKey=apiKey)
-client &lt;- FMIWFSClient()
-response &lt;- client$getDailyWeather(request=request, startDateTime=as.POSIXlt(&quot;2014-01-01&quot;), endDateTime=as.POSIXlt(&quot;2014-01-02&quot;))
+<pre><code class="r">request &lt;- FMIWFSRequest$new(apiKey=apiKey)
+client &lt;- FMIWFSClient$new()
+response &lt;- client$getDailyWeather(request=request, startDateTime=&quot;2014-01-01&quot;, endDateTime=&quot;2014-01-02&quot;, bbox=client$getFinlandBBox())
 </code></pre>
 
 <pre><code class="r">head(as.data.frame(response)[,c(&quot;x&quot;,&quot;y&quot;,&quot;name1&quot;,&quot;time1&quot;,&quot;variable&quot;,&quot;measurement1&quot;,&quot;measurement2&quot;)])
@@ -496,12 +490,12 @@ day.</p>
 <p>To request a grid in the GRIB format manually, use the <code>getRaster</code> method, for instance:</p>
 
 <pre><code class="r">library(raster)
-request &lt;- FMIWFSRequest(apiKey=apiKey)
+request &lt;- FMIWFSRequest$new(apiKey=apiKey)
 request$setParameters(request=&quot;getFeature&quot;,
                       storedquery_id=&quot;fmi::observations::weather::monthly::grid&quot;,
                       starttime=&quot;2012-01-01&quot;,
                       endtime=&quot;2012-01-01&quot;)
-client &lt;- FMIWFSClient()
+client &lt;- FMIWFSClient$new()
 response &lt;- client$getRaster(request=request, parameters=list(splitListFields=TRUE))
 </code></pre>
 
@@ -515,8 +509,8 @@ response &lt;- client$getRaster(request=request, parameters=list(splitListFields
 ## resolution  : 0.008996, 0.008993  (x, y)
 ## extent      : 15.97, 33.07, 59.6, 70.08  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +a=6371229 +b=6371229 +no_defs 
-## data source : /tmp/user/1012574/Rtmp1hxRS0/file291c10a0498d 
-## names       : file291c10a0498d.1, file291c10a0498d.2
+## data source : /tmp/user/1012574/RtmpeneZDF/file390a7205914f 
+## names       : file390a7205914f.1, file390a7205914f.2
 </code></pre>
 
 <p>Set the NA value and plot the interpolated monthly mean temperature in January 2012:</p>
@@ -559,12 +553,12 @@ R package as &#39;Jussi Jousimo &copy; 2014. fmi R package. URL: <a href="http:/
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] knitr_1.6     raster_2.2-31 fmi_0.1.01    rwfs_0.1.01   rgdal_0.9-1  
-## [6] sp_1.0-14    
+## [1] raster_2.2-31 knitr_1.6     rgdal_0.9-1   sp_1.0-14     fmi_0.1.11   
+## [6] rwfs_0.1.11   R6_2.0       
 ## 
 ## loaded via a namespace (and not attached):
 ## [1] evaluate_0.5.3  formatR_0.10    grid_3.1.1      lattice_0.20-29
-## [5] markdown_0.7    stringr_0.6.2   tools_3.1.1
+## [5] stringr_0.6.2   tools_3.1.1
 </code></pre>
 
 </body>
