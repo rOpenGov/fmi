@@ -67,6 +67,10 @@ FMIWFSClient <- R6::R6Class(
     }
   ),
   public = list(
+    getFinlandBBox = function() {
+      return(raster::extent(c(19.0900,59.3000,31.5900,70.130)))
+    },
+    
     getRasterURL = function(request, parameters) {
       layers <- self$listLayers(request=request)
       if (length(layers) == 0) return(character(0))
