@@ -12,67 +12,25 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of 
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-WFSRequest <- getFromNamespace("WFSRequest", "rwfs")
-WFSFileClient <- getFromNamespace("WFSFileClient", "rwfs")
-
-#' A class to build WFS request URL to the FMI API.
-#'
-#' @import methods
-#' @references See citation("fmi")
-#' @author Jussi Jousimo \email{jvj@@iki.fi}
-#' @exportClass FMIWFSRequest
-#' @examples \dontrun{request <- FMIWFSRequest(apiKey=apiKey)}
-#' @export FMIWFSRequest
-FMIWFSRequest <- setRefClass(
-  "FMIWFSRequest",
-  contains = "WFSRequest",
-  fields = list(
-    apiKey = "character"
-  ),
-  methods = list(
-    getURL = function(operation) {
-      if (length(apiKey) == 0)
-        stop("Required field 'apiKey' has not been specified for the constructor.")
-      url <- paste0("http://data.fmi.fi/fmi-apikey/", apiKey, "/wfs?", getParametersString())
-      return(url)
-    }
-  )
-)
-
 #' A class to make requests to the FMI open data API.
 #'
-#' @import methods
+#' @import R6
 #' @import raster
 #' @references See citation("fmi")
 #' @author Jussi Jousimo \email{jvj@@iki.fi}
 #' @exportClass FMIWFSClient
 #' @export FMIWFSClient
-FMIWFSClient <- setRefClass(
+FMIWFSClient <- R6::R6Class(
   "FMIWFSClient",
-  contains = c("WFSFileClient"),
-  methods = list(
-    getRasterURL = function(request, parameters) {
-      layers <- listLayers(request=request)
-      if (length(layers) == 0) return(character(0))
-      
-      meta <- getLayer(request=request, layer=layers[1], parameters=parameters)
-      if (is.character(meta)) return(character(0))
-      
-      return(meta@data$fileReference)
-    },
-    
+  inherit = rwfs::WFSFileClient,
+  private = list(
     transformTimeValuePairData = function(response, timeColumnNamePrefix="time", measurementColumnNamePrefix="result_MeasurementTimeseries_point_MeasurementTVP_value", variableColumnNames) {
       if (missing(response))
         stop("Required argument 'response' missing.")
       if (missing(variableColumnNames))
         stop("Required argument 'variableColumnNames' missing.")
       
-      data <- response@data
-      #data <- transform(data,
-                        #time=data[,timeColumnName],
-                        #measurement=data[,measurementColumnName],
-                        #variable=rep(variableColumnNames, nrow(response) / length(variableColumnNames)))
-      
+      data <- response@data      
       measurementColumnIndex <- substr(names(data), 1, nchar(measurementColumnNamePrefix)) == measurementColumnNamePrefix
       names(data)[measurementColumnIndex] <- sapply(1:sum(measurementColumnIndex), function(x) paste0("measurement", x))
       data$variable=rep(variableColumnNames, nrow(response) / length(variableColumnNames))
@@ -106,6 +64,17 @@ FMIWFSClient <- setRefClass(
       }
       return(list(startDateTime=startDateTime, endDateTime=endDateTime, 
                   fmisid=fmisid, bbox=bbox))
+    }
+  ),
+  public = list(
+    getRasterURL = function(request, parameters) {
+      layers <- self$listLayers(request=request)
+      if (length(layers) == 0) return(character(0))
+      
+      meta <- self$getLayer(request=request, layer=layers[1], parameters=parameters)
+      if (is.character(meta)) return(character(0))
+      
+      return(meta@data$fileReference)
     },
     
     getDailyWeather = function(request, startDateTime, endDateTime, bbox=NULL,
@@ -117,9 +86,9 @@ FMIWFSClient <- setRefClass(
           warning("Both bbox and fmisid provided, using only fmisid.")
         }
         
-        p <- processParameters(startDateTime=startDateTime, 
-                               endDateTime=endDateTime, bbox=bbox, 
-                               fmisid=fmisid)
+        p <- private$processParameters(startDateTime=startDateTime, 
+                                       endDateTime=endDateTime, bbox=bbox, 
+                                      fmisid=fmisid)
         
         if (!is.null(fmisid)) {
           request$setParameters(request="getFeature",
@@ -139,13 +108,13 @@ FMIWFSClient <- setRefClass(
           stop("Either fmisid or bbox must be provided!")
         }
       }
-      response <- getLayer(request=request, layer="PointTimeSeriesObservation", 
-                           crs="+proj=longlat +datum=WGS84", swapAxisOrder=TRUE, 
-                           parameters=list(splitListFields=TRUE))
+      response <- self$getLayer(request=request, layer="PointTimeSeriesObservation", 
+                                crs="+proj=longlat +datum=WGS84", swapAxisOrder=TRUE, 
+                                parameters=list(splitListFields=TRUE))
       if (is.character(response)) return(character())
       
-      response <- transformTimeValuePairData(response=response, 
-                                             variableColumnNames=c("rrday","snow","tday","tmin","tmax"))
+      response <- private$transformTimeValuePairData(response=response, 
+                                                     variableColumnNames=c("rrday","snow","tday","tmin","tmax"))
       # TODO: set name1 ... name3 column names
       
       return(response)
@@ -153,19 +122,19 @@ FMIWFSClient <- setRefClass(
     
     getMonthlyWeatherGrid = function(request, startDateTime, endDateTime) {
       if (!missing(request)) {
-        p <- processParameters(startDateTime=startDateTime, endDateTime=endDateTime)
+        p <- private$processParameters(startDateTime=startDateTime, endDateTime=endDateTime)
         request$setParameters(request="getFeature",
                               storedquery_id="fmi::observations::weather::monthly::grid",
                               starttime=p$startDateTime,
                               endtime=p$endDateTime)
       }
-      response <- getRaster(request=request, parameters=list(splitListFields=TRUE))
+      response <- self$getRaster(request=request, parameters=list(splitListFields=TRUE))
       if (is.character(response)) return(character())
       
-      names(response) <- getRasterLayerNames(startDateTime=startDateTime,
-                                             endDateTime=endDateTime,
-                                             by="month",
-                                             variables=c("MonthlyMeanTemperature", "MonthlyPrecipitation"))
+      names(response) <- private$getRasterLayerNames(startDateTime=startDateTime,
+                                                     endDateTime=endDateTime,
+                                                     by="month",
+                                                     variables=c("MonthlyMeanTemperature", "MonthlyPrecipitation"))
       return(response)
     }
   )

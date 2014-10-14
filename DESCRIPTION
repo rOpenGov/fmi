@@ -9,9 +9,9 @@ Description: Finnish Meteorological Institute open data API R client
 License: BSD_2_clause + file LICENSE
 Depends:
     R (>= 3.0.1),
-    rwfs
+    R6
 Imports:
-    methods,
+    rwfs,
     sp,
     rgdal,
     raster
