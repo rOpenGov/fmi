@@ -2,21 +2,34 @@
 \docType{data}
 \name{FMIWFSClient}
 \alias{FMIWFSClient}
-\title{A class to make requests to the FMI open data API.}
-\format{\preformatted{Class 'R6ClassGenerator' <environment: 0x4af4e20> 
+\title{A class to retrieve and manipulate data from the FMI open API}
+\format{\preformatted{Class 'R6ClassGenerator' <environment: 0x55513c0> 
  - attr(*, "name")= chr "FMIWFSClient_generator"
 }}
 \usage{
 FMIWFSClient
 }
 \description{
-A class to make requests to the FMI open data API.
+A class to retrieve and manipulate data from the FMI open API
+}
+\section{Methods}{
+
+\itemize{
+ \item \code{getDailyWeather}: Returns daily weather time-series
+ \item \code{getMonthlyWeatherRaster}: Returns monthly weather raster
+}
+}
+\examples{
+# See the vignette.
 }
 \author{
 Jussi Jousimo \email{jvj@iki.fi}
 }
 \references{
 See citation("fmi")
+}
+\seealso{
+\code{\link[rwfs]{WFSClient}}, \code{\link[rwfs]{WFSCachingClient}}
 }
 \keyword{datasets}
 
