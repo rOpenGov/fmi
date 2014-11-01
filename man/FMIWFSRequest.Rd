@@ -2,24 +2,27 @@
 \docType{data}
 \name{FMIWFSRequest}
 \alias{FMIWFSRequest}
-\title{A class to build WFS request URL to the FMI API.}
-\format{\preformatted{Class 'R6ClassGenerator' <environment: 0x49eaa88> 
+\title{A class to build WFS request URL to the FMI API}
+\format{\preformatted{Class 'R6ClassGenerator' <environment: 0x546d530> 
  - attr(*, "name")= chr "FMIWFSRequest_generator"
 }}
 \usage{
 FMIWFSRequest
 }
 \description{
-A class to build WFS request URL to the FMI API.
+A class to build WFS request URL to the FMI API
 }
 \examples{
-\dontrun{request <- FMIWFSRequest(apiKey=apiKey)}
+\dontrun{request <- FMIWFSRequest$new(apiKey=apiKey)}
 }
 \author{
 Jussi Jousimo \email{jvj@iki.fi}
 }
 \references{
 See citation("fmi")
+}
+\seealso{
+\code{\link[rwfs]{WFSRequest}}, \code{\link[rwfs]{WFSCachingRequest}}
 }
 \keyword{datasets}
 
