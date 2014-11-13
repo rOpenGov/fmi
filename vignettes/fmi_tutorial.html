@@ -335,11 +335,12 @@ See the package documentation in R for all available automated queries. Currentl
 a few data sets, which can be obtained using an automated query method. The rest of the stored queries are
 available with the generic method <code>getLayer</code>.</p>
 
-<p>As rgdal does not currently support direct queries to the FMI API in most cases, the client saves the response
+<p>As rgdal does not currently support direct queries to the FMI API, the client saves the response
 to an intermedidate file first and then lets GDAL and rgdal to parse it. The <code>FMIWFSClient</code> class provides
 a caching mechanism, so that the response is needed to be downloaded only once for the same subsequent queries.
 The response file can be saved to a permanent location with the method <code>saveGMLFile</code> and loaded up into a
-<code>FMIWFSClient</code> object again with the <code>loadGMLFile</code> method.</p>
+<code>FMIWFSClient</code> object again by referencing the file via a <code>GMLFile</code> object. GML files saved from the FMI API
+directly can be loaded as well.</p>
 
 <h3>Supported data and metadata</h3>
 
@@ -540,8 +541,8 @@ response &lt;- client$getRaster(parameters=list(splitListFields=TRUE))
 ## resolution  : 0.008996, 0.008993  (x, y)
 ## extent      : 15.97, 33.07, 59.6, 70.08  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +a=6371229 +b=6371229 +no_defs 
-## data source : /tmp/user/1012574/RtmpI6wyXV/file2274451775a0 
-## names       : file2274451775a0.1, file2274451775a0.2
+## data source : /tmp/user/1012574/RtmpBiQLWL/file13b229929ddc 
+## names       : file13b229929ddc.1, file13b229929ddc.2
 </code></pre>
 
 <p>Set the NA value and plot the interpolated monthly mean temperature in January 2012:</p>
@@ -583,7 +584,7 @@ R package as &#39;Jussi Jousimo et al. &copy; 2014. fmi R package. URL: <a href=
 
 <p>This tutorial was created with</p>
 
-<pre><code>## R version 3.1.1 (2014-07-10)
+<pre><code>## R version 3.1.2 (2014-10-31)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## 
 ## locale:
@@ -598,13 +599,12 @@ R package as &#39;Jussi Jousimo et al. &copy; 2014. fmi R package. URL: <a href=
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] rgdal_0.9-1   raster_2.2-31 knitr_1.6     sp_1.0-14     fmi_0.1.11   
-## [6] R6_2.0       
+## [1] rgdal_0.9-1   raster_2.2-31 sp_1.0-14     fmi_0.1.11    R6_2.0       
+## [6] knitr_1.6    
 ## 
 ## loaded via a namespace (and not attached):
-## [1] digest_0.6.4    evaluate_0.5.3  formatR_0.10    grid_3.1.1     
-## [5] lattice_0.20-29 markdown_0.7    rwfs_0.1.11     stringr_0.6.2  
-## [9] tools_3.1.1
+## [1] digest_0.6.4    evaluate_0.5.3  formatR_0.10    grid_3.1.2     
+## [5] lattice_0.20-29 rwfs_0.1.11     stringr_0.6.2   tools_3.1.2
 </code></pre>
 
 </body>

@@ -151,11 +151,12 @@ See the package documentation in R for all available automated queries. Currentl
 a few data sets, which can be obtained using an automated query method. The rest of the stored queries are
 available with the generic method `getLayer`.
 
-As rgdal does not currently support direct queries to the FMI API in most cases, the client saves the response
+As rgdal does not currently support direct queries to the FMI API, the client saves the response
 to an intermedidate file first and then lets GDAL and rgdal to parse it. The `FMIWFSClient` class provides
 a caching mechanism, so that the response is needed to be downloaded only once for the same subsequent queries.
 The response file can be saved to a permanent location with the method `saveGMLFile` and loaded up into a
-`FMIWFSClient` object again with the `loadGMLFile` method.
+`FMIWFSClient` object again by referencing the file via a `GMLFile` object. GML files saved from the FMI API
+directly can be loaded as well.
 
 ### Supported data and metadata
 
