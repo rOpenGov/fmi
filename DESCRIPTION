@@ -11,7 +11,7 @@ Depends:
     R (>= 3.0.1),
     R6
 Imports:
-    rwfs,
+    rwfs (>= 0.1.11),
     sp,
     rgdal,
     raster
