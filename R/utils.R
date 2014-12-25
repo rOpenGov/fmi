@@ -15,7 +15,7 @@ patternColumnIndex <- function(spdf, pattern) {
 
 #' @author Jussi Jousimo \email{jvj@@iki.fi}
 #' @export
-transformTimeValuePairData <- function(layer, measurementColumnNamePattern="^result_MeasurementTimeseries_point_MeasurementTVP_value\\d*$", variableColumnNames) {
+transformTimeValuePairData <- function(layer, measurementColumnNamePattern="^result_MeasurementTimeseries_point_MeasurementTVP_value\\d*$", variableColumnNames, measurementColumnName="measurement") {
   if (missing(layer))
     stop("Required argument 'layer' missing.")
   if (missing(variableColumnNames))
@@ -23,9 +23,9 @@ transformTimeValuePairData <- function(layer, measurementColumnNamePattern="^res
   
   measurementColumnIndex <- patternColumnIndex(layer, measurementColumnNamePattern)
   names(layer)[measurementColumnIndex] <- if (length(measurementColumnIndex) > 1)
-    sapply(1:length(measurementColumnIndex), function(x) paste0("measurement", x))
+    sapply(1:length(measurementColumnIndex), function(x) paste0(measurementColumnName, x))
   else
-    "measurement"
+    measurementColumnName
   layer@data$variable <- rep(variableColumnNames, length(layer) / length(variableColumnNames))
   
   return(layer)
