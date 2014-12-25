@@ -84,7 +84,7 @@ FMIWFSClient <- R6::R6Class(
                                       fmisid=p$fmisid,
                                       parameters="rrday,snow,tday,tmin,tmax")
       }
-      
+
       response <- self$getLayer(layer="PointTimeSeriesObservation", 
                                 crs="+proj=longlat +datum=WGS84",
                                 swapAxisOrder=TRUE, 
@@ -94,6 +94,8 @@ FMIWFSClient <- R6::R6Class(
       response <- transformTimeValuePairData(layer=response, 
                                              variableColumnNames=c("rrday","snow","tday","tmin","tmax"))
       response <- wideToLongFormat(layer=response)
+      response$time <- as.Date(response$time)
+      response$measurement <- as.numeric(as.character(response$measurement))
       
       return(response)
     },
