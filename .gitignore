@@ -9,4 +9,5 @@
 .Rproj.user
 
 inst/tests/apikey.txt
+vignettes/apikey.txt
 

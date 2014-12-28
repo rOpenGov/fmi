@@ -3,7 +3,7 @@
 \name{FMIWFSClient}
 \alias{FMIWFSClient}
 \title{A class to retrieve and manipulate data from the FMI open API}
-\format{\preformatted{Class 'R6ClassGenerator' <environment: 0x55513c0> 
+\format{\preformatted{Class 'R6ClassGenerator' <environment: 0x57f47f0> 
  - attr(*, "name")= chr "FMIWFSClient_generator"
 }}
 \usage{
