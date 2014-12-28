@@ -13,6 +13,7 @@ DOI has to be set separately for each package (if needed) - ask antagomir for mo
 Finnish Meteorological Institute open data API R client
 
 + Maintainers: [Jussi Jousimo](http://www.github.com/statguy/)
++ Contributors: [Joona Lehtomäki](http://www.github.com/jlehtoma/)
 + License: FreeBSD
 
 ### Overview
