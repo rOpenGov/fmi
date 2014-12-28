@@ -3,7 +3,7 @@
 \name{FMIWFSRequest}
 \alias{FMIWFSRequest}
 \title{A class to build WFS request URL to the FMI API}
-\format{\preformatted{Class 'R6ClassGenerator' <environment: 0x546d530> 
+\format{\preformatted{Class 'R6ClassGenerator' <environment: 0x57be0e8> 
  - attr(*, "name")= chr "FMIWFSRequest_generator"
 }}
 \usage{
