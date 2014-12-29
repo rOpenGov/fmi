@@ -2,6 +2,7 @@
 ^\.Rproj\.user$
 
 inst/extras/.RData
+vignettes/apikey.txt
 
 # Travis scripts
 .travis.yml
