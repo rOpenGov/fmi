@@ -81,11 +81,7 @@ To get the key, follow the instructions at <https://ilmatieteenlaitos.fi/rekiste
 Enter the API key from command line:
 ```{r set-api-key-2, eval=FALSE}
 apiKey <- "ENTER YOUR API KEY HERE"
-```
-
-<!-- To run this vignette, save the API key to the vignette directory in the `apikey.txt` file first. -->
-```{r set-api-key, message=FALSE, warning=FALSE, echo=FALSE}
-apiKey <- readLines("apikey.txt")
+#apiKey <- readLines("apikey.txt") # Or store the key in private file
 ```
 
 ## Available data sets and filtering
