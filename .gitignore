@@ -8,6 +8,19 @@
 .Rdata
 .Rproj.user
 
+# Private API files
 inst/tests/apikey.txt
 vignettes/apikey.txt
+
+# inst/extras/
+inst/extras/.RData
+inst/extras/*.Rout
+inst/extras/*.Rcheck
+inst/extras/*.tar.gz
+inst/extras/*~
+inst/extras/.*~
+
+# Misc
+*~
+.*~
 
