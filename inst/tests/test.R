@@ -1,7 +1,13 @@
 library(fmi)
 
 # In order to run the tests, save your API key to this file first.
-apiKey <- readLines("vignettes/apikey.txt")
+if (!file.exists("apikey.txt")) {
+
+  message("Must tested with a private API key. Test skipped when API key is missing, such as in automated public builds.")
+
+} else {
+
+apiKey <- readLines("apikey.txt")
 
 finland <- raster::extent(c(19.0900,59.3000,31.5900,70.130))
 
@@ -74,3 +80,4 @@ layers <- client$listLayers(request=request)
 response <- client$getLayer(request=request, layer=layers[1], crs="+proj=longlat +datum=WGS84", swapAxisOrder=TRUE, parameters=list(splitListFields=TRUE, explodeCollections=TRUE))
 
 response <- client$getLayer(request=request, layer="PointTimeSeriesObservation", crs="+proj=longlat +datum=WGS84", swapAxisOrder=TRUE, parameters=list(splitListFields=TRUE, explodeCollections=TRUE))
+}
