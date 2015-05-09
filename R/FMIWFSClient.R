@@ -58,7 +58,7 @@ FMIWFSClient <- R6::R6Class(
     }
   ),
   public = list(
-    getDailyWeather = function(startDateTime, endDateTime, bbox=NULL, fmisid=NULL) {      
+    getDailyWeather = function(variables=c("rrday","snow","tday","tmin","tmax"), startDateTime, endDateTime, bbox=NULL, fmisid=NULL) {      
       if (inherits(private$request, "FMIWFSRequest")) {
         if (missing(startDateTime) | missing(endDateTime))
           stop("Arguments 'startDateTime' and 'endDateTime' must be provided.")
@@ -82,7 +82,7 @@ FMIWFSClient <- R6::R6Class(
                                       endtime=p$endDateTime,
                                       bbox=p$bbox,
                                       fmisid=p$fmisid,
-                                      parameters="rrday,snow,tday,tmin,tmax")
+                                      parameters=paste(variables, collapse=","))
       }
 
       response <- self$getLayer(layer="PointTimeSeriesObservation", 
@@ -92,7 +92,7 @@ FMIWFSClient <- R6::R6Class(
       if (is.character(response)) return(character())
       
       response <- transformTimeValuePairData(layer=response, 
-                                             variableColumnNames=c("rrday","snow","tday","tmin","tmax"))
+                                             variableColumnNames=variables)
       response <- wideToLongFormat(layer=response)
       response$time <- as.Date(response$time)
       response$measurement <- as.numeric(as.character(response$measurement))
