@@ -117,9 +117,6 @@ Enter the API key from command line:
 apiKey <- "ENTER YOUR API KEY HERE"
 #apiKey <- readLines("apikey.txt") # Or store the key in private file
 ```
-```{r apiKey-invisible,echo=FALSE}
-apiKey <- "04d9592f-c8c0-4c8d-b3c2-50465da8bb47"
-```
 
 ## Available data sets and filtering
 
