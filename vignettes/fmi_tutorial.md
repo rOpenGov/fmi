@@ -11,12 +11,25 @@ This R package is a part of the [rOpenGov](http://ropengov.github.io) project.
 
 ### Libraries
 
-The fmi package depends on the [GDAL](http://www.gdal.org/) library and its [command line tools](http://www.gdal.org/ogr2ogr.html).
-Please, see the installation instructions in the [gisfin package tutorial](https://github.com/rOpenGov/gisfin/blob/master/vignettes/gisfin_tutorial.md)
-to install GDAL. If you have GDAL already installed, you might need to update it to newer version.
-Also, add the command line tools to the search path of your system as follows:
+The fmi package depends on the [GDAL](http://www.gdal.org/) library and its 
+[command line tools](http://www.gdal.org/ogr2ogr.html), and on `rgdal` package. 
+If you have GDAL already installed, you might need to update it to newer 
+version. Also, add the command line tools to the search path of your system. 
+Below you can find some instructions on how to do these tasks on different 
+platforms.
+
+For `rgdal` package, please, see additional installation instructions in the
+[gisfin package tutorial](https://github.com/rOpenGov/gisfin/blob/master/vignettes/gisfin_tutorial.md).
 
 #### Linux
+
+__Installing GDAL:__
+
+Install `gdal` / `gdal-devel` packages using your Linux distibution's package 
+manager. See [here](https://trac.osgeo.org/gdal/wiki/DownloadingGdalBinaries) on 
+some pointers on where to find suitable binaries.
+
+__Adding GDAL command line tools to your path__
 
 In Linux, the tools should be found from the path by default after installation.
 If not, use the `export` command from terminal, for example:
@@ -26,6 +39,12 @@ export PATH=$PATH:/usr/local/gdal/bin
 
 #### OS X
 
+__Installing GDAL:__
+
+See [here](http://www.kyngchaos.com/software/frameworks).
+
+__Adding GDAL command line tools to your path__
+
 From terminal, type:
 ```
 export PATH=$PATH:/Library/Frameworks/GDAL.framework/Programs
@@ -33,14 +52,29 @@ export PATH=$PATH:/Library/Frameworks/GDAL.framework/Programs
 
 #### Windows
 
+__Installing GDAL:__
+
+For installing GDAL the easy way see  http://trac.osgeo.org/osgeo4w/. 
+
+__Adding GDAL command line tools to your path__
+
 Open System from Control Panel and select "Advanced System Settings".
-Click "Environment Variables" and select "Path" Variable from the list.
+Click "Environment Variables" and select "Path" variable from the list (if you 
+cannot edit, you do not have the rights).
+
 Append `;C:\Program Files (x86)\GDAL` to the value field (note the semicolon).
+
+If you're using the OSGeo4W-installer, then you may have copy-paste semicolon 
+followed by the path to GDAL __and__ the path to "gdal19.dll" e.g.
+
+`;C:\Program Files\ms4w\tools\gdal-ogr\;C:\Program Files\ms4w\Apache\cgi-bin\`
 
 #### ogr2ogr
 
-Note that the actual location of GDAL may vary depending on your system. To test that the tools are found from the path,
-type the command in terminal (Command Prompt in Windows):
+Note that the actual location of GDAL may vary depending on your system. To 
+test that the tools are found from the path, type the command in terminal 
+(Command Prompt in Windows):
+
 ```
 ogr2ogr
 ```
@@ -48,8 +82,8 @@ To test that you also have a recent version of GDAL:
 ```
 ogr2ogr --help
 ```
-You should see the options `-splitlistfields` and `-explodecollections` in the printed help.
-If not, you need to update GDAL.
+You should see the options `-splitlistfields` and `-explodecollections` in the 
+printed help. If not, you need to update GDAL.
 
 ### Packages
 
@@ -76,9 +110,8 @@ Enter the API key from command line:
 
 ```r
 apiKey <- "ENTER YOUR API KEY HERE"
+#apiKey <- readLines("apikey.txt") # Or store the key in private file
 ```
-
-<!-- To run this vignette, save the API key to the vignette directory in the `apikey.txt` file first. -->
 
 
 ## Available data sets and filtering
@@ -255,11 +288,11 @@ layers
 ```
 
 ```
-## [1] "PointTimeSeriesObservation" "Location"                  
+## [1] "PointTimeSeriesObservation"
 ## attr(,"driver")
 ## [1] "GML"
 ## attr(,"nlayers")
-## [1] 2
+## [1] 1
 ```
 
 Parse the data from the response, which has been cached:
@@ -275,12 +308,12 @@ head(cbind(coordinates(response), response@data[,c("name1","time1","result_Measu
 
 ```
 ##   coords.x2 coords.x1                           name1                time1
-## 1     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
-## 2     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
-## 3     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
-## 4     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
-## 5     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
-## 6     21.37     59.78                    Parainen Utö 2014-01-01T00:00:00Z
+## 1  19.90344  60.12475 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 2  19.90344  60.12475 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 3  19.90344  60.12475 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 4  19.90344  60.12475 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 5  19.90344  60.12475 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 6  21.36783  59.78423                    Parainen Utö 2014-01-01T00:00:00Z
 ##   result_MeasurementTimeseries_point_MeasurementTVP_value1
 ## 1                                                      NaN
 ## 2                                                      NaN
@@ -324,20 +357,20 @@ head(cbind(coordinates(response), response@data[,c("name1","time","variable","me
 ```
 
 ```
-##   coords.x2 coords.x1                           name1                 time
-## 1     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
-## 2     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
-## 3     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
-## 4     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
-## 5     19.90     60.12 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
-## 6     21.37     59.78                    Parainen Utö 2014-01-01T00:00:00Z
-##   variable measurement
-## 1    rrday         NaN
-## 2     snow         NaN
-## 3     tday         3.6
-## 4     tmin         2.8
-## 5     tmax         4.5
-## 6    rrday         0.3
+##   coords.x2 coords.x1                           name1       time variable
+## 1  19.90344  60.12475 Jomala Maarianhamina lentoasema 2014-01-01    rrday
+## 2  19.90344  60.12475 Jomala Maarianhamina lentoasema 2014-01-01     snow
+## 3  19.90344  60.12475 Jomala Maarianhamina lentoasema 2014-01-01     tday
+## 4  19.90344  60.12475 Jomala Maarianhamina lentoasema 2014-01-01     tmin
+## 5  19.90344  60.12475 Jomala Maarianhamina lentoasema 2014-01-01     tmax
+## 6  21.36783  59.78423                    Parainen Utö 2014-01-01    rrday
+##   measurement
+## 1         NaN
+## 2         NaN
+## 3         3.6
+## 4         2.8
+## 5         4.5
+## 6         0.3
 ```
 The automated method sets the known parameters automatically and returns cleaner result
 by combining the data with metadata data and converting the "wide" format to long format.
@@ -365,11 +398,11 @@ response
 ```
 ## class       : RasterBrick 
 ## dimensions  : 1165, 1901, 2214665, 2  (nrow, ncol, ncell, nlayers)
-## resolution  : 0.008996, 0.008993  (x, y)
-## extent      : 15.97, 33.07, 59.6, 70.08  (xmin, xmax, ymin, ymax)
+## resolution  : 0.008996004, 0.008993226  (x, y)
+## extent      : 15.96441, 33.06581, 59.60727, 70.08438  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +a=6371229 +b=6371229 +no_defs 
-## data source : /tmp/user/1012574/RtmpBiQLWL/file13b229929ddc 
-## names       : file13b229929ddc.1, file13b229929ddc.2
+## data source : /tmp/RtmpjX4SIg/file3cae4d6dea6e 
+## names       : file3cae4d6dea6e.1, file3cae4d6dea6e.2
 ```
 Set the NA value and plot the interpolated monthly mean temperature in January 2012:
 
@@ -378,7 +411,7 @@ NAvalue(response) <- 9999
 plot(response[[1]])
 ```
 
-![plot of chunk request-raster-plot](figure/request-raster-plot.png) 
+![plot of chunk request-raster-plot](figure/request-raster-plot-1.png) 
 
 There is also the automated request method `getMonthlyWeatherRaster` for obtaining monthly weather data:
 
@@ -416,25 +449,30 @@ This tutorial was created with
 
 
 ```
-## R version 3.1.2 (2014-10-31)
-## Platform: x86_64-pc-linux-gnu (64-bit)
+## R version 3.2.0 (2015-04-16)
+## Platform: x86_64-suse-linux-gnu (64-bit)
+## Running under: openSUSE 20150530 (Tumbleweed) (x86_64)
 ## 
 ## locale:
-##  [1] LC_CTYPE=fi_FI.UTF-8       LC_NUMERIC=C              
-##  [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8    
-##  [5] LC_MONETARY=fi_FI.UTF-8    LC_MESSAGES=en_GB.UTF-8   
-##  [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
 ##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-## [11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] rgdal_0.9-1   raster_2.2-31 sp_1.0-14     fmi_0.1.11    R6_2.0       
-## [6] knitr_1.6    
+## [1] raster_2.3-40  sp_1.1-0       fmi_0.1.12     R6_2.0.1      
+## [5] knitr_1.10.5   devtools_1.8.0
 ## 
 ## loaded via a namespace (and not attached):
-## [1] digest_0.6.4    evaluate_0.5.3  formatR_0.10    grid_3.1.2     
-## [5] lattice_0.20-29 rwfs_0.1.11     stringr_0.6.2   tools_3.1.2
+##  [1] rwfs_0.1.14      lattice_0.20-31  XML_3.98-1.2     digest_0.6.8    
+##  [5] bitops_1.0-6     grid_3.2.0       formatR_1.2      git2r_0.10.1    
+##  [9] magrittr_1.5     evaluate_0.7     highr_0.5        stringi_0.4-1   
+## [13] rmarkdown_0.6.1  rgdal_0.9-3      tools_3.2.0      stringr_1.0.0   
+## [17] RCurl_1.95-4.6   rsconnect_0.3.79 rversions_1.0.0  memoise_0.2.1   
+## [21] htmltools_0.2.6
 ```
