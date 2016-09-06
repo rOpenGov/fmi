@@ -20,7 +20,7 @@ This R package is a part of the [rOpenGov](http://ropengov.github.io) project.
 
 This R package provides tools to access open data from [Finnish Meteorological Institute (Ilmatieteenlaitos)](http://www.fmi.fi/en/).
 
-For installation and usage, check the [tutorial page](https://github.com/rOpenGov/fmi/blob/master/vignettes/fmi_tutorial.md). 
+For usage, check the [tutorial page](https://github.com/rOpenGov/fmi/blob/master/vignettes/fmi_tutorial.md). 
 
 This R package is part of the [rOpenGov](http://ropengov.github.io) project.
 
