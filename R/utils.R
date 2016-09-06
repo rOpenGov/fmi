@@ -46,26 +46,32 @@ wideToLongFormat = function(layer, timeColumnNamePattern="^time\\d*$", measureme
   olddf <- layer@data
   newdf <- data.frame()
   for (i in 1:n) {
-    x <- data.frame(time=olddf[,timeIndex[i]],
+    x <- data.frame(time = olddf[,timeIndex[i]],
                     olddf[,-c(timeIndex, measurementIndex, variableIndex)],
-                    variable=olddf[,variableIndex], 
-                    measurement=olddf[,measurementIndex[i]])
+                    variable = olddf[,variableIndex], 
+                    measurement = olddf[,measurementIndex[i]])
     newdf <- rbind(newdf, x)
   }
 
   coords <- coordinates(layer)
-  newlayer <-  SpatialPointsDataFrame(coords[rep(1:nrow(coords), n),], data=newdf, proj4string=layer@proj4string)
+  newlayer <-  SpatialPointsDataFrame(coords[rep(1:nrow(coords), n),], 
+                                      data = newdf, 
+                                      proj4string = layer@proj4string)
   return(newlayer)
 }
 
 #' @author Jussi Jousimo \email{jvj@@iki.fi}
 #' @export
-getRasterLayerNames <- function(startDateTime, endDateTime, by, variables, dateTimeFormat="%Y-%m-%d") {
+getRasterLayerNames <- function(startDateTime, endDateTime, by, variables, 
+                                dateTimeFormat="%Y-%m-%d") {
   if (missing(startDateTime) | missing(endDateTime) | missing(by) | missing(variables))
     stop("Required argument 'startDateTime' or 'endDateTime' or 'by' or 'variables' missing.")
-  dateSeq <- seq.Date(as.Date(startDateTime), as.Date(endDateTime), by=by)
-  x <- expand.grid(date=dateSeq, measurement=variables)
-  layerNames <- do.call(function(date, measurement) paste(measurement, strftime(date, dateTimeFormat), sep="."), x)
+  dateSeq <- seq.Date(as.Date(startDateTime), as.Date(endDateTime), by = by)
+  x <- expand.grid(date = dateSeq, measurement = variables)
+  layerNames <- do.call(function(date, measurement) paste(measurement, 
+                                                          strftime(date, 
+                                                                   dateTimeFormat), 
+                                                          sep = "."), x)
   return(layerNames)
 }
 
@@ -85,8 +91,9 @@ getRasterLayerNames <- function(startDateTime, endDateTime, by, variables, dateT
 #' @export
 #'
 fmi_weather_stations <- function() {
-  csv.file <- system.file("extdata", "weather_stations.csv", package="fmi")
-  weather.stations <- read.table(csv.file, sep=";", header=TRUE, as.is=TRUE)
+  csv.file <- system.file("extdata", "weather_stations.csv", package = "fmi")
+  weather.stations <- read.table(csv.file, sep = ";", header = TRUE, 
+                                 as.is = TRUE)
   return(weather.stations)
 }  
 
