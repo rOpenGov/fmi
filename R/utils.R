@@ -7,7 +7,9 @@
 #' @import raster
 #' @author Jussi Jousimo \email{jvj@@iki.fi}
 #' @export
-getFinlandBBox <- function() raster::extent(c(19.0900,59.3000,31.5900,70.130))
+getFinlandBBox <- function() {
+  return(raster::extent(c(19.0900,59.3000,31.5900,70.130)))
+}
 
 patternColumnIndex <- function(spdf, pattern) {
   if (missing(spdf) | missing(pattern))
