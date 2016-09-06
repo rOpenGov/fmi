@@ -2,9 +2,9 @@ language: r
 sudo: required
 apt_packages:
   - gdal-bin
-  - libgdal-dev
+  - libgdal1-dev
   - libproj-dev
-r_binary_packages:
+r_packages:
   - rgdal
   - testthat
 r_github_packages: ropengov/rwfs
