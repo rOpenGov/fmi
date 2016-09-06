@@ -9,6 +9,9 @@ getFinlandBBox()
 \value{
 Bounding box in WGS84 coordinate system as an \code{\link[raster]{extent}} object.
 }
+\description{
+TBA
+}
 \author{
 Jussi Jousimo \email{jvj@iki.fi}
 }

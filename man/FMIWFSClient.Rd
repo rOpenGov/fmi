@@ -8,6 +8,9 @@
 \usage{
 FMIWFSClient
 }
+\description{
+TBA
+}
 \section{Methods}{
 
 \itemize{

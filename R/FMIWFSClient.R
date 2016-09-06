@@ -13,6 +13,9 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 #' @title A class to retrieve and manipulate data from the FMI open API
+#' 
+#' @description TBA
+#' 
 #' @section Methods:
 #' \itemize{
 #'  \item \code{getDailyWeather}: Returns daily weather time-series

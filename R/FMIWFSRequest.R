@@ -1,4 +1,7 @@
 #' @title A class to build WFS request URL to the FMI API
+#' 
+#' @description TBA
+#' 
 #' @seealso \code{\link[rwfs]{WFSRequest}}, \code{\link[rwfs]{WFSCachingRequest}}
 #' @import R6
 #' @references See citation("fmi")

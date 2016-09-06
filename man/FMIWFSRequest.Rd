@@ -8,6 +8,9 @@
 \usage{
 FMIWFSRequest
 }
+\description{
+TBA
+}
 \examples{
 \dontrun{request <- FMIWFSRequest$new(apiKey=apiKey)}
 }
