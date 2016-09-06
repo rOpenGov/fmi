@@ -12,8 +12,9 @@ This R package (fmi) provides a client to access the [Finnish Meteorological Ins
  (Ilmatieteenlaitos) [open data](http://en.ilmatieteenlaitos.fi/open-data).
 This R package is a part of the [rOpenGov](http://ropengov.github.io) project.
 
-+ Maintainers: [Jussi Jousimo](http://www.github.com/statguy/)
-+ Contributors: [Joona Lehtomäki](http://www.github.com/jlehtoma/)
++ Original author: [Jussi Jousimo](http://www.github.com/statguy/)
++ Maintainers: [Joona Lehtomäki](http://www.github.com/jlehtoma/)
++ Contributors: 
 + License: FreeBSD
 
 ## Overview
