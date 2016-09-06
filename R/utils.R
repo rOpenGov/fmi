@@ -15,9 +15,24 @@ patternColumnIndex <- function(spdf, pattern) {
   return(grep(pattern, names(spdf)))
 }
 
+#' Handle and transform TimeValuePairData
+#' 
+#' Response data is massaged into suitable local format.
+#'
+#' @param layer XXX object
+#' @param measurementColumnNamePattern String pattern used to match the 
+#'        measurement column.
+#' @param variableColumnNames String vector used to match the 
+#'        variable columns.
+#' @param measurementColumnName String name for the measurument column.
+#' 
+#' @return layer object.
+#'
 #' @author Jussi Jousimo \email{jvj@@iki.fi}
-#' @export
-transformTimeValuePairData <- function(layer, measurementColumnNamePattern="^result_MeasurementTimeseries_point_MeasurementTVP_value\\d*$", variableColumnNames, measurementColumnName="measurement") {
+#' @export 
+transformTimeValuePairData <- function(layer, measurementColumnNamePattern="^result_MeasurementTimeseries_point_MeasurementTVP_value\\d*$", 
+                                       variableColumnNames, 
+                                       measurementColumnName="measurement") {
   if (missing(layer))
     stop("Required argument 'layer' missing.")
   if (missing(variableColumnNames))
@@ -33,6 +48,18 @@ transformTimeValuePairData <- function(layer, measurementColumnNamePattern="^res
   return(layer)
 }
 
+
+#' Convert data from long to wide format
+#'
+#' @param layer XXX object.
+#' @param timeColumnNamePattern String pattern used to match the 
+#'        time column.
+#' @param measurementColumnNamePattern String pattern used to match the 
+#'        measurement column.
+#' @param variableColumnName String name for the variable column name.
+#' 
+#' @return layer object.
+#' 
 #' @import sp
 #' @author Jussi Jousimo \email{jvj@@iki.fi}
 #' @export
@@ -62,6 +89,18 @@ wideToLongFormat = function(layer, timeColumnNamePattern="^time\\d*$", measureme
   return(newlayer)
 }
 
+#' Return available rasters layer names
+#' 
+#' Query is filtered with start and end dates.
+#'
+#' @param startDateTime String start date.
+#' @param endDateTime String end date.
+#' @param by TBA.
+#' @param variables TBA.
+#' @param dateTimeFormat TBA.
+#' 
+#' @return character vector of raster layer names.
+#'
 #' @author Jussi Jousimo \email{jvj@@iki.fi}
 #' @export
 getRasterLayerNames <- function(startDateTime, endDateTime, by, variables, 
