@@ -79,6 +79,8 @@ getRasterLayerNames <- function(startDateTime, endDateTime, by, variables, dateT
 #' 
 #' @seealso \url{http://ilmatieteenlaitos.fi/havaintoasemat?p_p_id=stationlistingportlet_WAR_fmiwwwweatherportlets&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-4&p_p_col_count=1&_stationlistingportlet_WAR_fmiwwwweatherportlets_stationGroup=WEATHER}
 #' 
+#' @importFrom utils read.table
+#' 
 #' @author Joona Lehtomaki \email{joona.lehtomaki@@gmail.com}
 #' @export
 #'
