@@ -1,4 +1,4 @@
-# fmi
+# Finnish Meteorological Institute (FMI) open data API client for R
 
 [![Build Status](https://api.travis-ci.org/rOpenGov/fmi.png)](https://travis-ci.org/rOpenGov/fmi)
 [![Stories in Ready](https://badge.waffle.io/ropengov/fmi.png?label=Ready)](http://waffle.io/ropengov/fmi)
@@ -8,8 +8,9 @@ DOI has to be set separately for each package (if needed) - ask antagomir for mo
 [![DOI](https://zenodo.org/badge/4203/rOpenGov/fmi.png)](https://github.com/rOpenGov/fmi)
 -->
 
-
-Finnish Meteorological Institute open data API R client
+This R package (fmi) provides a client to access the [Finnish Meteorological Institute](http://en.ilmatieteenlaitos.fi/)
+ (Ilmatieteenlaitos) [open data](http://en.ilmatieteenlaitos.fi/open-data).
+This R package is a part of the [rOpenGov](http://ropengov.github.io) project.
 
 + Maintainers: [Jussi Jousimo](http://www.github.com/statguy/)
 + Contributors: [Joona Lehtomäki](http://www.github.com/jlehtoma/)
@@ -22,13 +23,6 @@ This R package provides tools to access open data from [Finnish Meteorological I
 For installation and usage, check the [tutorial page](https://github.com/rOpenGov/fmi/blob/master/vignettes/fmi_tutorial.md). 
 
 This R package is part of the [rOpenGov](http://ropengov.github.io) project.
-
-Finnish Meteorological Institute (FMI) open data API client for R
-===========
-
-This R package (fmi) provides a client to access the [Finnish Meteorological Institute](http://en.ilmatieteenlaitos.fi/)
- (Ilmatieteenlaitos) [open data](http://en.ilmatieteenlaitos.fi/open-data).
-This R package is a part of the [rOpenGov](http://ropengov.github.io) project.
 
 ## Installation
 
