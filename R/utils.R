@@ -1,5 +1,7 @@
 #' @title Returns bounding box surrounding Finland
 #'
+#' @description TBA
+#'
 #' @return Bounding box in WGS84 coordinate system as an \code{\link[raster]{extent}} object.
 #'
 #' @import raster
