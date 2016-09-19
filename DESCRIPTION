@@ -1,8 +1,8 @@
 Package: fmi
 Type: Package
 Title: Finnish Meteorological Institute open data API R client
-Version: 0.1.13
-Date: 2016-09-06
+Version: 0.1.14
+Date: 2016-09-19
 Author: Jussi Jousimo, Leo Lahti, Joona Lehtomaki
 Maintainer: Joona Lehtomaki <joona.lehtomaki@gmail.com>
 Description: Finnish Meteorological Institute open data API R client
@@ -12,7 +12,9 @@ Depends:
     R6
 Imports:
     rwfs (>= 0.1.12),
+    dplyr,
     sp,
+    tidyr,
     rgdal,
     raster
 URL: https://github.com/ropengov/fmi
