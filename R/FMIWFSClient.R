@@ -19,13 +19,14 @@
 #' @section Methods:
 #' \itemize{
 #'  \item \code{getDailyWeather}: Returns daily weather time-series
+#'  \item \code{getLightningStrikes}: Returns lightning strikes for defined time period
 #'  \item \code{getMonthlyWeatherRaster}: Returns monthly weather raster
 #' }
 #' @seealso \code{\link[rwfs]{WFSClient}}, \code{\link[rwfs]{WFSCachingClient}}
 #' @import R6
 #' @import raster
 #' @references See citation("fmi")
-#' @author Jussi Jousimo \email{jvj@@iki.fi}
+#' @author Jussi Jousimo \email{jvj@@iki.fi}, Joona Lehtomaki  \email{joona.lehtomaki@gmail.com}
 #' @exportClass FMIWFSClient
 #' @export FMIWFSClient
 #' @examples # See the vignette.
@@ -99,6 +100,45 @@ FMIWFSClient <- R6::R6Class(
       response <- wideToLongFormat(layer=response)
       response$time <- as.Date(response$time)
       response$measurement <- as.numeric(as.character(response$measurement))
+      
+      return(response)
+    },
+    
+    getLightningStrikes = function(variables=c("multiplicity", 
+                                               "peak_current",
+                                               "cloud_indicator", 
+                                               "ellipse_major"),
+                                   startDateTime, endDateTime, bbox=NULL) {      
+      if (inherits(private$request, "FMIWFSRequest")) {
+        if (missing(startDateTime) | missing(endDateTime))
+          stop("Arguments 'startDateTime' and 'endDateTime' must be provided.")
+        if (is.null(bbox)) {
+          stop("Argument 'bbox' must be provided.")
+        }
+        
+        p <- private$processParameters(startDateTime = startDateTime, 
+                                       endDateTime = endDateTime,
+                                       bbox = bbox)
+        
+        private$request$setParameters(request = "getFeature",
+                                      storedquery_id = "fmi::observations::lightning::simple",
+                                      starttime = p$startDateTime,
+                                      endtime = p$endDateTime,
+                                      bbox = p$bbox,
+                                      fmisid = p$fmisid,
+                                      parameters = paste(variables, 
+                                                         collapse = ","))
+      }
+      
+      response <- self$getLayer(layer = "BsWfsElement", 
+                                crs = "+proj=longlat +datum=WGS84",
+                                swapAxisOrder = TRUE, 
+                                parameters = list(splitListFields = TRUE))
+      if (is.character(response)) { 
+        return(character())
+      }
+      
+      response <- LongToWideFormat(response)
       
       return(response)
     },
