@@ -104,14 +104,20 @@ FMIWFSClient <- R6::R6Class(
       return(response)
     },
     
-    getLightningStrikes = function(variables=c("multiplicity", 
-                                               "peak_current",
-                                               "cloud_indicator", 
-                                               "ellipse_major"),
-                                   startDateTime, endDateTime, bbox=NULL) {      
+    getLightningStrikes = function(startDateTime, endDateTime, bbox, 
+                                   parameters = c("multiplicity", 
+                                                  "peak_current",
+                                                  "cloud_indicator", 
+                                                  "ellipse_major")) {      
       if (inherits(private$request, "FMIWFSRequest")) {
-        if (missing(startDateTime) | missing(endDateTime))
+        
+        if (missing(startDateTime) | missing(endDateTime)) {
           stop("Arguments 'startDateTime' and 'endDateTime' must be provided.")
+        }
+        if (difftime(endDateTime, startDateTime, units = "hours") > 168) {
+          stop("Too long time interval ", startDateTime, " to ", endDateTime, 
+               " specified (no more than 168 hours allowed)")
+        }
         if (is.null(bbox)) {
           stop("Argument 'bbox' must be provided.")
         }
@@ -126,7 +132,7 @@ FMIWFSClient <- R6::R6Class(
                                       endtime = p$endDateTime,
                                       bbox = p$bbox,
                                       fmisid = p$fmisid,
-                                      parameters = paste(variables, 
+                                      parameters = paste(parameters, 
                                                          collapse = ","))
       }
       
