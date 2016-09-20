@@ -34,21 +34,27 @@ FMIWFSClient <- R6::R6Class(
   "FMIWFSClient",
   inherit = rwfs::WFSCachingClient,
   private = list(
-    processParameters = function(startDateTime=NULL, endDateTime=NULL, bbox=NULL, fmisid=NULL) {
-      if (!is.null(startDateTime)) if (inherits(startDateTime, "POSIXt")) startDateTime <- asISO8601(startDateTime)
-      if (!is.null(endDateTime)) if (inherits(endDateTime, "POSIXt")) endDateTime <- asISO8601(endDateTime)
+    processParameters = function(startDateTime = NULL, endDateTime = NULL, 
+                                 bbox = NULL, fmisid = NULL) {
+      if (inherits(startDateTime, "POSIXt")) {
+          startDateTime <- asISO8601(startDateTime)
+        }
+      if (inherits(endDateTime, "POSIXt")) {
+          endDateTime <- asISO8601(endDateTime)
+        }
       
-      if (!is.null(fmisid)) {
-        if (!valid_fmisid(fmisid))
-          stop("Invalid 'fmisid' specified.")
+      if (!valid_fmisid(fmisid)) {
+        stop("Invalid 'fmisid' (", fmisidm, ") specified.")
       }
-      if (!is.null(bbox)) {
-        if (inherits(bbox, "Extent"))
-          bbox <- with(attributes(bbox), paste(xmin, xmax, ymin, ymax, sep=","))
-        else
-          stop("Parameter 'bbox' must of class 'Extent'.")
+      
+      if (inherits(bbox, "Extent")) {
+        bbox <- with(attributes(bbox), paste(xmin, xmax, ymin, ymax, sep = ","))
+      } else {
+        stop("Parameter 'bbox' must be of class 'Extent'.")
       }
-      return(list(startDateTime=startDateTime, endDateTime=endDateTime, fmisid=fmisid, bbox=bbox))
+        
+      return(list(startDateTime = startDateTime, endDateTime = endDateTime, 
+                  fmisid = fmisid, bbox = bbox))
     },
     
     getRasterURL = function(parameters) {
