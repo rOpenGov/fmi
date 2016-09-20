@@ -239,11 +239,15 @@ fmi_weather_stations <- function() {
 #' @export
 #'
 valid_fmisid <- function(fmisid) {
-  fmisid <- as.numeric(fmisid)
-  weather.stations <- fmi_weather_stations()
-  if (fmisid %in% weather.stations$FMISID) {
-    return(TRUE)
-  } else {
+  if (is.null(fmisid)) {
     return(FALSE)
+  } else {
+    fmisid <- as.numeric(fmisid)
+    weather.stations <- fmi_weather_stations()
+    if (fmisid %in% weather.stations$FMISID) {
+      return(TRUE)
+    } else {
+      return(FALSE)
+    }
   }
 }
