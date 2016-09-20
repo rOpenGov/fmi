@@ -43,7 +43,7 @@ FMIWFSClient <- R6::R6Class(
           endDateTime <- asISO8601(endDateTime)
         }
       
-      if (!valid_fmisid(fmisid)) {
+      if (!is.null(fmisid) && !valid_fmisid(fmisid)) {
         stop("Invalid 'fmisid' (", fmisidm, ") specified.")
       }
       
