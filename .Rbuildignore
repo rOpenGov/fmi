@@ -2,7 +2,7 @@
 ^\.Rproj\.user$
 
 inst/extras/.RData
-vignettes/apikey.txt
+vignettes/apikey.R
 vignettes/figure
 
 # Travis scripts
