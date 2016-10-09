@@ -5,7 +5,7 @@ Version: 0.1.14
 Date: 2016-09-19
 Author: Jussi Jousimo, Leo Lahti, Joona Lehtomaki
 Maintainer: Joona Lehtomaki <joona.lehtomaki@gmail.com>
-Description: Finnish Meteorological Institute open data API R client
+Description: R client for the Finnish Meteorological Institute (FMI) open data API.
 License: BSD_2_clause + file LICENSE
 Depends:
     R (>= 3.0.1),
@@ -13,6 +13,7 @@ Depends:
 Imports:
     rwfs (>= 0.1.12),
     dplyr,
+    magrittr,
     sp,
     tidyr,
     rgdal,

@@ -4,7 +4,6 @@
 #'
 #' @return Bounding box in WGS84 coordinate system as an \code{\link[raster]{extent}} object.
 #'
-#' @import raster
 #' @author Jussi Jousimo \email{jvj@@iki.fi}
 #' @export
 getFinlandBBox <- function() {
@@ -61,14 +60,12 @@ transformTimeValuePairData <- function(layer, measurementColumnNamePattern="^res
 #'       function must be adjusted accordingly.
 #'
 #' @param layer Spatial* object.
-#' @param idColumn String pattern used to match the gml_id column.
-#' @param parameterName String name for the parameter column name.
-#' @param parameterValue String name for the parameter value column.
+#' 
+#' @importFrom magrittr %>%
 #' 
 #' @return layer object.
 #' 
-#' @import sp dplyr tidyr
-#' @author Joona Lehtomäki \email{joona.lehtomaki@@gmail.com}
+#' @author Joona Lehtomaki \email{joona.lehtomaki@@gmail.com}
 #' @export
 #' 
 LongToWideFormat = function(layer) {
@@ -83,7 +80,7 @@ LongToWideFormat = function(layer) {
   # BsWfsElement.1.2
   # BsWfsElement.2.1
   # BsWfsElement.2.2 and so on.
-  #
+  # 
   # Use the major number in BsWfsElement.MAJOR.MINOR to define each observation.
   # Start working with just the attribute data
   attr_data <- layer@data %>% 
@@ -169,10 +166,10 @@ wideToLongFormat = function(layer, timeColumnNamePattern = "^time\\d*$",
     newdf <- rbind(newdf, x)
   }
 
-  coords <- coordinates(layer)
-  newlayer <-  SpatialPointsDataFrame(coords[rep(1:nrow(coords), n),], 
-                                      data = newdf, 
-                                      proj4string = layer@proj4string)
+  coords <- sp::coordinates(layer)
+  newlayer <-  sp::SpatialPointsDataFrame(coords[rep(1:nrow(coords), n),], 
+                                          data = newdf, 
+                                          proj4string = layer@proj4string)
   return(newlayer)
 }
 
