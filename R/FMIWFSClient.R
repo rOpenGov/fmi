@@ -38,9 +38,8 @@ FMIWFSClient <- R6::R6Class(
       if (!is.null(startDateTime)) if (inherits(startDateTime, "POSIXt")) startDateTime <- asISO8601(startDateTime)
       if (!is.null(endDateTime)) if (inherits(endDateTime, "POSIXt")) endDateTime <- asISO8601(endDateTime)
       
-      if (!is.null(fmisid)) {
-        if (!valid_fmisid(fmisid))
-          stop("Invalid 'fmisid' specified.")
+      if (!is.null(fmisid) && !valid_fmisid(fmisid)) {
+        stop("Invalid 'fmisid' (", fmisidm, ") specified.")
       }
       if (!is.null(bbox)) {
         if (inherits(bbox, "Extent"))
