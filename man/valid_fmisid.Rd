@@ -19,6 +19,6 @@ logical
 Joona Lehtomaki \email{joona.lehtomaki@gmail.com}
 }
 \seealso{
-\code{\link{fmi_weather_stations}}
+\code{\link{fmi_stations}}
 }
 
