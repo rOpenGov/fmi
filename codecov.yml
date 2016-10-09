@@ -1,5 +1,5 @@
 codecov:
-  branch: "master, test/new-tests"
+  branch: master
 bot: null
 
 coverage:
