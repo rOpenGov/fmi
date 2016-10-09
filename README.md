@@ -16,8 +16,7 @@ This R package is a part of the [rOpenGov](http://ropengov.github.io) project.
 
 + Original author: [Jussi Jousimo](http://www.github.com/statguy/)
 + Maintainers: [Joona Lehtomäki](http://www.github.com/jlehtoma/)
-+ Contributors: 
-  - [Ilari Scheinin](https://github.com/ilarischeinin)
++ [Contributors](https://github.com/rOpenGov/fmi/graphs/contributors)
 + License: FreeBSD
 
 ## Overview
