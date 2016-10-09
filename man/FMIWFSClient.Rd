@@ -15,6 +15,7 @@ TBA
 
 \itemize{
  \item \code{getDailyWeather}: Returns daily weather time-series
+ \item \code{getLightningStrikes}: Returns lightning strikes for defined time period
  \item \code{getMonthlyWeatherRaster}: Returns monthly weather raster
 }
 }
@@ -22,7 +23,7 @@ TBA
 # See the vignette.
 }
 \author{
-Jussi Jousimo \email{jvj@iki.fi}
+Jussi Jousimo \email{jvj@iki.fi}, Joona Lehtomaki  \email{joona.lehtomaki@gmail.com}
 }
 \references{
 See citation("fmi")

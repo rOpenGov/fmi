@@ -23,7 +23,9 @@ measurement column.}
 layer object.
 }
 \description{
-Convert data from long to wide format
+FIXME: this function is now somewhat specific to PointTimeSeriesObservation
+format. Function could be made more generic, or some sort of class structure
+for different response data types needs to be implemented.
 }
 \author{
 Jussi Jousimo \email{jvj@iki.fi}
