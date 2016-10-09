@@ -17,6 +17,8 @@ Imports:
     tidyr,
     rgdal,
     raster
+Suggests:
+    testthat
 URL: https://github.com/ropengov/fmi
 LazyLoad: yes
 RoxygenNote: 5.0.1
