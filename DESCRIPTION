@@ -15,11 +15,15 @@ Imports:
     dplyr,
     magrittr,
     sp,
+    tibble,
     tidyr,
     rgdal,
     raster
 Suggests:
-    testthat
+    rvest,
+    testthat,
+    XML,
+    xml2
 URL: https://github.com/ropengov/fmi
 LazyLoad: yes
 RoxygenNote: 5.0.1
