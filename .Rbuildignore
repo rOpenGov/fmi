@@ -3,6 +3,7 @@
 
 inst/extras/.RData
 vignettes/apikey.txt
+vignettes/figure
 
 # Travis scripts
 .travis.yml

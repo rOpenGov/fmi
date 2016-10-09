@@ -24,7 +24,6 @@
 #' }
 #' @seealso \code{\link[rwfs]{WFSClient}}, \code{\link[rwfs]{WFSCachingClient}}
 #' @import R6
-#' @import raster
 #' @references See citation("fmi")
 #' @author Jussi Jousimo \email{jvj@@iki.fi}, Joona Lehtomaki  \email{joona.lehtomaki@gmail.com}
 #' @exportClass FMIWFSClient
