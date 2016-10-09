@@ -10,3 +10,5 @@ vignettes/apikey.txt
 .gitignore
 .git
 
+.travis.yml
+codecov.yml
