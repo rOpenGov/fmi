@@ -206,7 +206,7 @@ getRasterLayerNames <- function(startDateTime, endDateTime, by, variables,
 # own function, since it's also used for tests.
 .fmi_stations_local <- function() {
   system.file("extdata", "fmi_stations.csv", package="fmi") %>%
-    utils::read.table(header=TRUE, sep=";", as.is=TRUE) %>%
+    utils::read.csv(as.is=TRUE) %>%
     tibble::as_tibble()
 }
 # Use a closure for function fmi_station() in order to cache the results.

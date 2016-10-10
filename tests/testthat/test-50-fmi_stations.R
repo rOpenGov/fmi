@@ -17,7 +17,5 @@ test_that("local version is up-to-date", {
   expect_equal(local_stations, downloaded_stations, info=paste0(
     "The observation station list on the FMI website has been updated, ",
     "and the local copy needs to be updated with:\n",
-    'write.table(fmi_stations(), file="fmi_stations.csv", ',
-    'quote=FALSE, sep=";", row.names=FALSE)'))
+    'write.csv(fmi_stations(), file="fmi_stations.csv", row.names=FALSE)'))
 })
-
