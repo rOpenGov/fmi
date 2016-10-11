@@ -3,7 +3,10 @@ citHeader("Kindly cite the fmi R package as follows:")
 citEntry(entry="misc",
          title = "fmi R package",
          author = personList(
-     person(given ="Jussi", family="Jousimo", email = "jvj@iki.fi")
+                   person(given ="Jussi", family="Jousimo", email = "jvj@iki.fi"),
+		   person(given ="Joona", family="Lehtomaki", email = "joona.lehtomaki@gmail.com"),
+		   person(given ="Leo", family="Lahti", email = "leo.lahti@iki.fi"),
+		   person(given ="Ilari", family="Scheinin")
          ),
 	 journal = "",
 	 year = "2014",
