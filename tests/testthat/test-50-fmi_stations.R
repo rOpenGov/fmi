@@ -14,8 +14,8 @@ test_that("local version is up-to-date", {
   downloaded_stations <- as.data.frame(downloaded_stations)
   local_stations <- as.data.frame(local_stations)
   
-  expect_equal(local_stations, downloaded_stations, info=paste0(
+  expect_equal(local_stations, downloaded_stations, info = paste0(
     "The observation station list on the FMI website has been updated, ",
     "and the local copy needs to be updated with:\n",
-    'write.csv(fmi_stations(), file="fmi_stations.csv", row.names=FALSE)'))
+    'write.csv(fmi_stations(), file="inst/extdata/fmi_stations.csv", row.names=FALSE)'))
 })
