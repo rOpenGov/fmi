@@ -58,7 +58,7 @@
 "Inari Kaamanen",102047,9616,2702,69.14,27.27,156,"Weather stations",2008
 "Inari Kirakkajärvi",102055,9708,2858,69.58,28.89,106,"Weather stations",2009
 "Inari Nellim",102052,9705,2835,68.85,28.3,121,"Weather stations",1990
-"Inari parish village",102046,9615,NA,68.91,27.01,128,"Precipitation stations",2003
+"Inari parish village",102046,9615,NA,68.91,27.02,127,"Precipitation stations",2003
 "Inari Raja-Jooseppi",102009,8704,2818,68.48,28.3,253,"Weather stations",1992
 "Inari Raja-Jooseppi Kontiojärvi",102008,8702,NA,68.47,28.32,185,"Precipitation stations",1960
 "Inari Saariselkä Kaunispää",102006,8607,2817,68.43,27.44,437,"Weather stations",1995
@@ -290,9 +290,9 @@
 "Sysmä Joutsjärvi",101342,2404,NA,61.51,25.81,91,"Precipitation stations",1947
 "Taivalkoski Inkee",101882,6704,NA,65.73,28.56,247,"Precipitation stations",1968
 "Taivalkoski parish",101885,6707,2804,65.57,28.22,197,"Weather stations",2002
-"Tampere Härmälä",101124,1222,2763,61.47,23.75,85,"Weather stations",1997
-"Tampere Siilinkari",101311,2219,2943,61.52,23.75,98,"Weather stations",1989
-"Tampere Tampella",151049,2223,2744,61.5,23.76,92,"Weather stations",2012
+"Tampere Härmälä",101124,1222,2763,61.47,23.75,84,"Weather stations",1997
+"Tampere Siilinkari",101311,2219,2943,61.52,23.75,96,"Weather stations",1989
+"Tampere Tampella",151049,2223,2744,61.5,23.76,91,"Weather stations",2012
 "Teuva Kauppilankylä",101262,2008,NA,62.49,21.76,60,"Precipitation stations",1960
 "Tohmajärvi Kemie",101459,2902,2832,62.24,30.35,90,"Weather stations",1926
 "Toholampi Laitala",101689,4314,2737,63.82,24.16,83,"Weather stations",1988
