@@ -216,6 +216,13 @@ getRasterLayerNames <- function(startDateTime, endDateTime, by, variables,
     utils::read.csv(as.is = TRUE) %>%
     tibble::as_tibble()
 }
+
+# Declare globalVariables to prevent check from complaining about
+# NSE
+utils::globalVariables(c("Elevation", "FMISID", "LPNN", "WMO",
+                         "Lat", "Lon", "Started"))
+
+
 # Use a closure for function fmi_station() in order to cache the results.
 .fmi_stations_closure <- function() {
   cached_stations <- NULL
