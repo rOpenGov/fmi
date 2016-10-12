@@ -49,6 +49,12 @@ transformTimeValuePairData <- function(layer, measurementColumnNamePattern="^res
   return(layer)
 }
 
+# Declare globalVariables to prevent check from complaining about
+# NSE
+utils::globalVariables(c("gml_id", "fid", "gml_group", "n",
+                         "ParameterName", "ParameterValue", "gml_text", 
+                         "gml_id_minor", "."))
+
 #' Convert data from long to wide format.
 #'
 #' FIXME: this function is now somewhat specific to BsWfsElement
@@ -69,9 +75,10 @@ transformTimeValuePairData <- function(layer, measurementColumnNamePattern="^res
 #' @export
 #' 
 LongToWideFormat = function(layer) {
-  if (missing(layer))
+  if (missing(layer)) {
     stop("Required argument 'layer' missing.")
-  
+  }
+    
   # Figure out how many parameter there are per observation. At this point,
   # there will be one row (i.e. one sp feaure, e.g. point) per parameter.
   # glm_id column has the following structure:
