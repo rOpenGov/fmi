@@ -4,8 +4,7 @@
 \alias{transformTimeValuePairData}
 \title{Handle and transform TimeValuePairData}
 \usage{
-transformTimeValuePairData(layer,
-  measurementColumnNamePattern = "^result_MeasurementTimeseries_point_MeasurementTVP_value\\\\d*$",
+transformTimeValuePairData(layer, measurementColumnNamePattern = NULL,
   variableColumnNames, measurementColumnName = "measurement")
 }
 \arguments{
