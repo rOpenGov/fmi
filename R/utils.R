@@ -212,14 +212,14 @@ getRasterLayerNames <- function(startDateTime, endDateTime, by, variables,
 # Reading the local version included within the package is separated into its
 # own function, since it's also used for tests.
 .fmi_stations_local <- function() {
-  system.file("extdata", "fmi_stations.csv", package="fmi") %>%
-    utils::read.csv(as.is=TRUE) %>%
+  system.file("extdata", "fmi_stations.csv", package = "fmi") %>%
+    utils::read.csv(as.is = TRUE) %>%
     tibble::as_tibble()
 }
 # Use a closure for function fmi_station() in order to cache the results.
 .fmi_stations_closure <- function() {
   cached_stations <- NULL
-  function (groups=NULL, quiet=FALSE) {
+  function(groups=NULL, quiet=FALSE) {
     stations <- NULL
     if (!is.null(cached_stations)) {
       stations <- cached_stations
@@ -234,22 +234,22 @@ getRasterLayerNames <- function(startDateTime, endDateTime, by, variables,
               `[[`(1L) %>%
               tibble::as_tibble() %>%
               dplyr::mutate(
-                Elevation=Elevation %>% sub(pattern="\n.*$", replacement="") %>%
+                Elevation = Elevation %>% sub(pattern = "\n.*$", replacement = "") %>%
                   as.integer()
               )
           } else if ("XML" %in% installed_packages) {
-            stations <- XML::readHTMLTable(station_url, which=1L,
-                stringsAsFactors=FALSE) %>%
+            stations <- XML::readHTMLTable(station_url, which = 1L,
+                stringsAsFactors = FALSE) %>%
               tibble::as_tibble() %>%
               dplyr::mutate(
-                FMISID=FMISID %>% as.integer(),
-                LPNN=LPNN %>% as.integer(),
-                WMO=WMO %>% as.integer(),
-                Lat=Lat %>% as.numeric(),
-                Lon=Lon %>% as.numeric(),
-                Elevation=Elevation %>% sub(pattern="\n.*$", replacement="") %>%
+                FMISID = FMISID %>% as.integer(),
+                LPNN = LPNN %>% as.integer(),
+                WMO = WMO %>% as.integer(),
+                Lat = Lat %>% as.numeric(),
+                Lon = Lon %>% as.numeric(),
+                Elevation = Elevation %>% sub(pattern = "\n.*$", replacement = "") %>%
                   as.integer(),
-                Started=Started %>% as.integer()
+                Started = Started %>% as.integer()
               )
           }
           # Groups can contain multiple values, but html_table() and
@@ -260,10 +260,10 @@ getRasterLayerNames <- function(startDateTime, endDateTime, by, variables,
           # (important for the test that checks whether the included local copy
           # is still up-to-date with the online version).
           stations$Groups <- stations$Groups %>%
-            sub(pattern="([a-z])([A-Z])", replacement="\\1;\\2") %>%
+            sub(pattern = "([a-z])([A-Z])", replacement = "\\1;\\2") %>%
             strsplit(";") %>%
             lapply(sort) %>%
-            lapply(paste, collapse=", ") %>%
+            lapply(paste, collapse = ", ") %>%
             unlist()
           cached_stations <<- stations
           if (!quiet) {
@@ -274,7 +274,7 @@ getRasterLayerNames <- function(startDateTime, endDateTime, by, variables,
             message("Package rvest or XML required for downloading.")
           }
         }
-      }, error=function(e) {
+      }, error = function(e) {
         if (!quiet) {
           message("Error downloading from ", station_url)
         }
@@ -287,7 +287,7 @@ getRasterLayerNames <- function(startDateTime, endDateTime, by, variables,
       stations <- .fmi_stations_local()
     }
     if (!is.null(groups)) {
-      indexes <- lapply(groups, grep, x=stations$Groups) %>%
+      indexes <- lapply(groups, grep, x = stations$Groups) %>%
         unlist() %>%
         sort() %>%
         unique()
@@ -327,7 +327,7 @@ fmi_stations <- .fmi_stations_closure()
 #' @export
 fmi_weather_stations <- function() {
   .Deprecated('fmi_stations(groups="Weather stations")')
-  fmi_stations(groups="Weather stations")
+  fmi_stations(groups = "Weather stations")
 }
 
 #' Check if a provided ID number is a valid FMI SID.
