@@ -23,9 +23,11 @@ This R package is a part of the [rOpenGov](http://ropengov.github.io) project.
 
 This R package provides tools to access open data from [Finnish Meteorological Institute (Ilmatieteenlaitos)](http://www.fmi.fi/en/).
 
-For usage, check the [tutorial page](https://github.com/rOpenGov/fmi/blob/master/vignettes/fmi_tutorial.md). 
-
 This R package is part of the [rOpenGov](http://ropengov.github.io) project.
+
+## Usage
+
+For usage, check the [tutorial page](https://github.com/rOpenGov/fmi/blob/master/vignettes/fmi_tutorial.md). Also check these examples of getting FMI [lightnig data](http://rpubs.com/jlehtoma/210761) and [gridded observation (raster) data](http://rpubs.com/jlehtoma/221026). 
 
 ## Installation
 
