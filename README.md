@@ -27,7 +27,7 @@ This R package is part of the [rOpenGov](http://ropengov.github.io) project.
 
 ## Usage
 
-For usage, check the [tutorial page](https://github.com/rOpenGov/fmi/blob/master/vignettes/fmi_tutorial.md). Also check these examples of getting FMI [lightnig data](http://rpubs.com/jlehtoma/210761) and [gridded observation (raster) data](http://rpubs.com/jlehtoma/221026). 
+For usage, check the [tutorial page](https://github.com/rOpenGov/fmi/blob/master/vignettes/fmi_tutorial.md). Also check these examples of getting FMI [lightning data](http://rpubs.com/jlehtoma/210761) and [gridded observation (raster) data](http://rpubs.com/jlehtoma/221026). 
 
 ## Installation
 
