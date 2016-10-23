@@ -46,10 +46,12 @@ FMIWFSClient <- R6::R6Class(
         stop("Invalid 'fmisid' (", fmisidm, ") specified.")
       }
       
-      if (inherits(bbox, "Extent")) {
-        bbox <- with(attributes(bbox), paste(xmin, xmax, ymin, ymax, sep = ","))
-      } else {
-        stop("Parameter 'bbox' must be of class 'Extent'.")
+      if (!is.null(bbox)) {
+        if (inherits(bbox, "Extent")) {
+          bbox <- with(attributes(bbox), paste(xmin, xmax, ymin, ymax, sep = ","))
+        } else {
+          stop("Parameter 'bbox' must be of class 'Extent'.")
+        }
       }
         
       return(list(startDateTime = startDateTime, endDateTime = endDateTime, 
@@ -163,18 +165,20 @@ FMIWFSClient <- R6::R6Class(
       return(response)
     },
     
-    getMonthlyWeatherRaster = function(startDateTime, endDateTime) {
+    getMonthlyWeatherRaster = function(startDateTime, endDateTime, bbox = NULL) {
       if (inherits(private$request, "FMIWFSRequest")) {
         if (missing(startDateTime) | missing(endDateTime)) {
           stop("Arguments 'startDateTime' and 'endDateTime' must be provided.")
         }
         
         p <- private$processParameters(startDateTime = startDateTime, 
-                                       endDateTime = endDateTime)
+                                       endDateTime = endDateTime,
+                                       bbox = bbox)
         private$request$setParameters(request = "getFeature",
                                       storedquery_id = "fmi::observations::weather::monthly::grid",
                                       starttime = p$startDateTime,
-                                      endtime = p$endDateTime)
+                                      endtime = p$endDateTime,
+                                      bbox = p$bbox)
       }
       
       response <- self$getRaster(parameters = list(splitListFields = TRUE))
