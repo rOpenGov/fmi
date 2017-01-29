@@ -9,11 +9,11 @@ vignette: >
 
 ```{r knit, eval=FALSE, echo=FALSE}
 library(knitr)
-opts_knit$set(base.dir="vignettes")
-knit(input = "fmi_tutorial.Rmd",
-     output = "fmi_tutorial.md")
-knit2html(input = "fmi_tutorial.md",
-          output = "fmi_tutorial.html",
+opts_knit$set(base.dir = "vignettes")
+knit(input = "vignettes/fmi_tutorial.Rmd",
+     output = "vignettes/fmi_tutorial.md")
+knit2html(input = "vignettes/fmi_tutorial.md",
+          output = "vignettes/fmi_tutorial.html",
           options = c("use_xhtml","smartypants","mathjax","highlight_code"))
 ```
 
