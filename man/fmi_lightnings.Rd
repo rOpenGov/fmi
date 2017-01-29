@@ -33,6 +33,6 @@ the \code{FMIWFSClient} is done through the \code{.session} environment
 and the associated functions.
 }
 \seealso{
-\link{\code{FMIWFSClient$getLightningStrikes()}}
+\code{\link{FMIWFSClient}}
 }
 

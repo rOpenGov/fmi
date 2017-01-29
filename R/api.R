@@ -18,7 +18,7 @@
 #' the \code{FMIWFSClient} is done through the \code{.session} environment
 #' and the associated functions.
 #' 
-#' @seealso \link{\code{FMIWFSClient$getLightningStrikes()}}
+#' @seealso \code{\link{FMIWFSClient}}
 #'
 #' @param start Character start date "YYYY-MM-DD" for the query.
 #' @param end Character end date "YYYY-MM-DD" for the query.
