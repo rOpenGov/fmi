@@ -45,15 +45,14 @@ FMIWFSClient <- R6::R6Class(
       if (!is.null(fmisid) && !valid_fmisid(fmisid)) {
         stop("Invalid 'fmisid' (", fmisidm, ") specified.")
       }
-      
-      if (!is.null(bbox)) {
+
+            if (!is.null(bbox)) {
         if (inherits(bbox, "Extent")) {
           bbox <- with(attributes(bbox), paste(xmin, xmax, ymin, ymax, sep = ","))
         } else {
           stop("Parameter 'bbox' must be of class 'Extent'.")
         }
       }
-        
       return(list(startDateTime = startDateTime, endDateTime = endDateTime, 
                   fmisid = fmisid, bbox = bbox))
     },
@@ -88,7 +87,6 @@ FMIWFSClient <- R6::R6Class(
           bbox <- NULL
           warning("Both bbox and fmisid provided, using only fmisid.")
         }
-        
         p <- private$processParameters(startDateTime = startDateTime, 
                                        endDateTime = endDateTime,
                                        bbox = bbox, 
