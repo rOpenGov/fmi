@@ -13,8 +13,6 @@ test_that("local version is up-to-date", {
   # for some reason this fails with tibbles, so convert to regular data.frames
   downloaded_stations <- as.data.frame(downloaded_stations)
   local_stations <- as.data.frame(local_stations)
-  print(data.frame(local = local_stations$Name,
-                   downloaded = downloaded_stations$Name))
   
   expect_equal(local_stations, downloaded_stations, info = paste0(
     "The observation station list on the FMI website has been updated, ",
