@@ -154,7 +154,7 @@ LongToWideFormat = function(layer) {
 #' @author Jussi Jousimo \email{jvj@@iki.fi}
 #' @export
 wideToLongFormat = function(layer, timeColumnNamePattern = "^time\\d*$", 
-                            measurementColumnNamePattern = "^measurement\\d*$", 
+                            measurementColumnNamePattern = "^result\\.Measurement", 
                             variableColumnName = "variable") {
   if (missing(layer))
     stop("Required argument 'layer' missing.")
@@ -165,6 +165,7 @@ wideToLongFormat = function(layer, timeColumnNamePattern = "^time\\d*$",
   n <- length(timeIndex)
   olddf <- layer@data
   newdf <- data.frame()
+  
   for (i in 1:n) {
     x <- data.frame(time = olddf[,timeIndex[i]],
                     olddf[,-c(timeIndex, measurementIndex, variableIndex)],
