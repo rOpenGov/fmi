@@ -214,7 +214,7 @@ response <- client$getLayer(layer = layers[1], crs = "+proj=longlat +datum=WGS84
 ```
 ```{r manual-request-data-print}
 library(sp)
-head(cbind(coordinates(response), response@data[,c("name1","time1","result_MeasurementTimeseries_point_MeasurementTVP_value1","time2","result_MeasurementTimeseries_point_MeasurementTVP_value2")]))
+head(cbind(coordinates(response), response@data[,c("name1","time1","result.MeasurementTimeseries.point.MeasurementTVP.value1","time2","result.MeasurementTimeseries.point.MeasurementTVP.value2")]))
 ```
 
 The data is returned as a `SpatialPointsDataFrame` object in "wide" format so that there is a row for each
