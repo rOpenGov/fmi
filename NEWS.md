@@ -1,14 +1,18 @@
-## CHANGES IN VERSION 0.1.16 (2016-XX-XX)
+## CHANGES IN VERSION 0.2.0 (2016-01-29)
 
 ### NEW FEATURES
 
-+ `fmi_lightnings` is a wrapper function for 
++ `fmi_lightnings()` is a wrapper function for 
 `FMIWFSClient$getLightningStrikes()`. This is the first move towards a more
 idiomatic API based on simpler functions instead of R6-methods. The core class
 architecture will be retained, just the API changes.
 + With the previous change, session information, such as setting the API key,
 is handled through a new `.session` environment. Associated functions 
 `ìnit_session()` and `check_session()` also introduced.
+
+### OTHER
+
++ FMI stations data updated (8 new rows).
 
 ## CHANGES IN VERSION 0.1.15 (2016-10-12)
 
