@@ -7,7 +7,7 @@
 "Enonkoski Simanala",101446,2806,NA,62.06,29.04,95,"Precipitation stations",1937
 "Enontekiö airport",101976,8208,2802,68.36,23.43,308,"Weather stations",1999
 "Enontekiö Kaaresuvanto",101968,8102,NA,68.44,22.51,320,"Precipitation stations",1953
-"Enontekiö Kilpisjärvi",102016,9003,2801,69.05,20.79,480,"Weather stations",1983
+"Enontekiö Kilpisjärvi",102016,9003,2801,69.05,20.79,480,"Weather stations",1978
 "Enontekiö Kilpisjärvi Saana",102017,9004,2701,69.04,20.85,1002,"Weather stations",1991
 "Enontekiö Näkkälä",102019,9201,2726,68.6,23.58,374,"Weather stations",1960
 "Espoo Kivenlahti",101000,334,2838,60.18,24.64,44,"Masts",1989
@@ -22,7 +22,7 @@
 "Hämeenlinna Katinen",101150,1322,2754,61,24.49,87,"Weather stations",2001
 "Hämeenlinna Lammi Evo",101189,1438,2713,61.22,25.13,134,"Weather stations",2005
 "Hämeenlinna Lammi Pappila",101154,1403,2767,61.05,25.04,125,"Weather stations",1963
-"Hämeenlinna Pirttikoski",101143,1315,NA,61.01,23.92,129,"Precipitation stations",1939
+"Hämeenlinna Pirttikoski",101143,1315,NA,61.01,23.92,128,"Precipitation stations",1939
 "Hamina Pitäjänsaari",134254,NA,NA,60.56,27.18,0,"Mareographs",1928
 "Hammarland Märket",100919,14,2993,60.3,19.13,3,"Weather stations",1977
 "Hanko Längden",654900,NA,NA,59.76,23.22,0,"Buoys",2013
@@ -35,11 +35,11 @@
 "Heinävesi Palokki",101589,3702,NA,62.57,28.59,100,"Precipitation stations",1908
 "Heinola Asemantaus",101196,1506,2768,61.2,26.05,92,"Weather stations",1908
 "Helsinki Harmaja",100996,330,2795,60.11,24.98,6,"Weather stations",1989
-"Helsinki Helsinki-Malmi airport",101009,401,5105,60.25,25.05,15,"Weather stations",1937
 "Helsinki Kaisaniemi",100971,304,2978,60.18,24.94,4,"Weather stations",1844
 "Helsinki Kaivopuisto",132310,345,2960,60.15,24.96,2,"Mareographs",1904
 "Helsinki Kumpula",101004,339,2998,60.2,24.96,24,"Weather stations",2005
 "Helsinki lighthouse",101003,337,2989,59.95,24.93,0,"Weather stations",2003
+"Helsinki Malmi airfield",101009,401,5105,60.25,25.05,15,"Weather stations",1937
 "Helsinki Suomenlinna aaltopoiju",103976,NA,NA,60.12,24.97,0,"Buoys",2016
 "Helsinki Vuosaari harbour",151028,411,5720,60.21,25.2,2,"Weather stations",2012
 "Huittinen Sallila",101075,1111,NA,61.02,22.7,73,"Precipitation stations",1961
@@ -50,7 +50,7 @@
 "Ilmajoki Seinäjoki airport",137188,NA,NA,62.69,22.84,86,"Weather stations",2012
 "Ilomantsi Mekrijärvi",101651,3919,2939,62.77,30.98,155,"Weather stations",1999
 "Ilomantsi Naarva",101641,3909,5367,63.03,31.06,245,"Precipitation stations",1989
-"Ilomantsi Pötsönvaara",101649,3917,2766,63.14,31.04,235,"Weather stations",1997
+"Ilomantsi Pötsönvaara",101649,3917,2766,63.14,31.04,233,"Weather stations",1997
 "Inari Angeli",102024,9403,NA,68.91,25.66,203,"Precipitation stations",1950
 "Inari Angeli Lintupuoliselkä",102026,9405,2857,68.9,25.74,285,"Weather stations",2008
 "Inari Ivalo airport",102033,9601,2807,68.61,27.42,140,"Weather stations",1957
@@ -94,7 +94,6 @@
 "Kalajoki Ulkokalla",101673,4212,2907,64.33,23.45,3,"Weather stations",1977
 "Kangasniemi parish village",101385,2520,NA,61.98,26.64,105,"Precipitation stations",1909
 "Kankaanpää Niinisalo airfield",101291,2123,2753,61.84,22.46,122,"Weather stations",1998
-"Kärsämäki Venetpalo",101700,4407,NA,63.89,25.78,120,"Precipitation stations",1960
 "Karvia Alkkia",101272,2103,2708,62.18,22.8,161,"Weather stations",1966
 "Kaskinen Ådskär",134251,NA,NA,62.34,21.21,0,"Mareographs",1926
 "Kaskinen Sälgrund",101256,2002,2931,62.33,21.19,5,"Weather stations",1959
@@ -118,10 +117,10 @@
 "Kittilä Lompolonvuoma",778135,8303,2764,68,24.21,270,"Weather stations",2013
 "Kittilä Matorova",101985,8310,2882,68,24.24,340,"Weather stations",1995
 "Kittilä Pokka",101994,8404,2717,68.17,25.78,275,"Weather stations",1971
-"Kittilä Pulju",101980,8305,NA,68.23,24.83,279,"Precipitation stations",1974
+"Kittilä Pulju",101980,8305,NA,68.23,24.83,277,"Precipitation stations",1974
 "Kittilä village",101990,8315,2860,67.65,24.9,181,"Weather stations",2009
 "Kiuruvesi Korpijoki",101712,4504,NA,63.73,26.37,110,"Precipitation stations",1958
-"Kökar Bogskär",100921,16,2979,59.51,20.36,4,"Weather stations",1982
+"Kökar Bogskär",100921,16,2979,59.5,20.35,4,"Weather stations",1982
 "Kokemäki Rausenkulma",101068,1104,2762,61.26,22.23,38,"Precipitation stations",1931
 "Kokemäki Tulkkila",101103,1140,2937,61.25,22.35,38,"Weather stations",2010
 "Kokkola Hollihaka",101675,4214,2852,63.84,23.12,6,"Weather stations",2007
@@ -158,7 +157,7 @@
 "Kuusamo Teeriranta",101898,6813,NA,65.52,29.52,225,"Precipitation stations",1998
 "Lahti Laune",101152,1401,2965,60.96,25.63,78,"Weather stations",1961
 "Laitila Haukka",101050,1007,NA,60.83,21.76,21,"Precipitation stations",1942
-"Lapinlahti Lamminkäyrä",101577,3608,NA,63.38,27.37,89,"Precipitation stations",1968
+"Lapinlahti Lamminkäyrä",101577,3608,NA,63.38,27.37,87,"Precipitation stations",1968
 "Lappeenranta airport",101237,1701,2958,61.04,28.15,105,"Weather stations",1950
 "Lappeenranta Hiekkapakka",101252,1716,2919,61.2,28.47,77,"Weather stations",2009
 "Lappeenranta Konnunsuo",101246,1710,2733,61.04,28.56,46,"Weather stations",1991
@@ -166,28 +165,27 @@
 "Lemland Nyhamn",100909,3,2980,59.96,19.95,8,"Weather stations",1958
 "Lieksa Koli",101616,3809,NA,63.11,29.76,165,"Precipitation stations",1969
 "Lieksa Lampela",101636,3904,2796,63.32,30.05,98,"Weather stations",1946
-"Lieto Tammentaka",101070,1106,NA,60.57,22.45,39,"Precipitation stations",1947
 "Liperi Joensuu airport",101608,3801,2929,62.66,29.61,118,"Weather stations",1955
 "Liperi Tuiskavanluoto",101628,3821,2793,62.55,29.67,78,"Weather stations",1997
 "Lohja Leppäkorpi",100963,213,NA,60.49,23.77,96,"Precipitation stations",1968
 "Lohja Porla",100974,307,2706,60.24,24.05,36,"Weather stations",1949
 "Loviisa Orrengrund",101039,510,2992,60.27,26.44,5,"Weather stations",1974
 "Luhanka Judinsalo",101362,2426,2765,61.7,25.51,80,"Weather stations",1990
-"Luhanka Tammijärvi",101348,2410,NA,61.84,25.85,85,"Precipitation stations",1967
+"Luhanka Tammijärvi",101348,2410,NA,61.84,25.86,85,"Precipitation stations",1967
 "Lumparland Långnäs harbour",151048,12,2724,60.12,20.3,10,"Weather stations",2012
 "Maalahti Strömmingsbådan",101481,3020,2781,62.98,20.74,2,"Weather stations",1997
 "Maarianhamina Lotsberget",100929,24,2969,60.09,19.94,57,"Weather stations",2007
 "Mäntsälä Hirvihaara",103794,1440,2774,60.63,25.19,83,"Weather stations",2015
-"Mäntsälä Hirvihaara Kuntomajantie",101166,1415,NA,60.62,25.22,79,"Precipitation stations",1908
+"Mäntsälä Hirvihaara Kuntomajantie",101166,1415,NA,60.62,25.22,78,"Precipitation stations",1908
 "Mariehamn West Harbour",151029,26,2997,60.09,19.93,2,"Weather stations",2012
 "Merikarvia Tuorila",101257,2003,NA,61.85,21.65,39,"Precipitation stations",1958
 "Mikkeli airport",101398,2602,2947,61.69,27.2,99,"Weather stations",1959
 "Mikkeli airport AWOS",855522,NA,NA,61.69,27.21,101,"Weather stations",1959
-"Mikkeli Pitkähiekka",101410,2614,NA,62.03,27.19,103,"Precipitation stations",1956
+"Mikkeli Pitkähiekka",101410,2614,NA,62.01,27.19,109,"Precipitation stations",1956
 "Multia Karhila",101536,3317,2927,62.51,24.81,227,"Weather stations",2008
 "Multia Pirttiperä",101363,2427,NA,62.41,25.05,180,"Precipitation stations",1991
+"Muonio kirkonkylä",106435,8211,2823,67.96,23.68,236,"Weather stations",2013
 "Muonio Laukukero",101982,8307,2820,68.06,24.03,760,"Weather stations",1996
-"Muonio parish",101969,8201,2823,67.96,23.68,236,"Weather stations",1946
 "Muonio Sammaltunturi",101983,8308,2821,67.97,24.12,565,"Weather stations",1991
 "Mustasaari Riimala",101474,3013,NA,62.97,21.78,15,"Precipitation stations",1967
 "Mustasaari Valassaaret",101464,3003,2910,63.44,21.07,4,"Weather stations",1895
@@ -208,7 +206,6 @@
 "Parikkala Koitsanlahti",101254,1802,2734,61.44,29.46,74,"Weather stations",1991
 "Pelkosenniemi parish village",101947,7604,NA,67.1,27.51,155,"Precipitation stations",1968
 "Pelkosenniemi Pyhätunturi",101958,7708,2705,67.02,27.22,491,"Weather stations",1995
-"Pello Konttajärvi",101909,7302,NA,66.84,24.38,135,"Precipitation stations",1959
 "Pello parish",101914,7307,2844,66.77,23.96,85,"Weather stations",1970
 "Perämeri aaltopoiju",137228,NA,NA,64.68,23.24,0,"Buoys",2012
 "Petäjävesi Kintaus",103813,NA,2775,62.3,25.44,271,"Radars",2015
@@ -219,7 +216,6 @@
 "Pohjois-Itämeri aaltopoiju",134220,NA,NA,59.25,21,0,"Buoys",1996
 "Pori airport",101044,1001,2952,61.47,21.79,12,"Weather stations",1945
 "Pori Kaijakari",104600,NA,NA,61.62,21.39,0,"Buoys",2016
-"Pori Lavia",101273,2104,NA,61.61,22.54,67,"Precipitation stations",1903
 "Pori Mäntyluoto Kallo",134266,NA,NA,61.59,21.46,0,"Mareographs",1925
 "Pori railway station",101064,1021,2926,61.48,21.78,9,"Weather stations",2008
 "Pori Tahkoluoto harbour",101267,2013,2751,61.63,21.38,3,"Weather stations",1996
@@ -246,7 +242,7 @@
 "Rantasalmi Rukkasluoto",101436,2716,2772,62.06,28.57,79,"Weather stations",1997
 "Ranua airfield",101873,6514,2881,65.98,26.37,161,"Weather stations",2008
 "Rauma Kylmäpihlaja",101061,1018,2761,61.14,21.3,4,"Weather stations",1990
-"Rauma Ulko-Petäjäs",134224,NA,NA,61.13,21.46,0,"Mareographs",1933
+"Rauma Ulko-Petäjäs",134224,NA,NA,61.13,21.43,0,"Mareographs",1933
 "Rautavaara Ala-Luosta",101599,3712,NA,63.27,28.47,112,"Precipitation stations",1968
 "Rautavaara Ylä-Luosta",101603,3716,2789,63.38,28.66,166,"Weather stations",1976
 "Ristijärvi Mustavaara",101753,4711,NA,64.47,28.62,268,"Precipitation stations",1978
@@ -258,7 +254,7 @@
 "Ruokolahti Kotaniemi",101248,1712,NA,61.37,28.68,97,"Precipitation stations",1998
 "Salla Kelloselkä",101956,7706,NA,66.94,28.98,200,"Precipitation stations",1949
 "Salla Naruska",101966,7804,2745,67.16,29.18,213,"Weather stations",1999
-"Salla parish",101959,7709,2849,66.83,28.67,215,"Weather stations",1999
+"Salla parish",101959,7709,2849,66.83,28.67,214,"Weather stations",1999
 "Salla Värriötunturi",102012,8803,2819,67.75,29.61,360,"Weather stations",1971
 "Salo Kärkkä",100955,205,2756,60.37,23.11,2,"Weather stations",1936
 "Salo Kiikala airfield",100967,217,2777,60.46,23.65,117,"Weather stations",2002
@@ -274,6 +270,7 @@
 "Siikalatva Kestilä",101717,4509,NA,64.36,26.3,91,"Precipitation stations",1908
 "Siilinjärvi Kuopio airport",101570,3601,2917,63.01,27.8,96,"Weather stations",1945
 "Sipoo Eestiluoto",101029,423,2930,60.12,25.22,13,"Weather stations",2008
+"Siuntio Sjundby",105302,321,NA,60.14,24.26,26,"Precipitation stations",1995
 "Sodankylä Lokka",102000,8601,2719,67.82,27.75,240,"Weather stations",1958
 "Sodankylä Luosto",101939,7508,2840,67.14,26.9,532,"Radars",2000
 "Sodankylä Tähtelä",101932,7501,2836,67.37,26.63,179,"Radio soundings, Weather stations",1891
@@ -294,8 +291,7 @@
 "Teuva Kauppilankylä",101262,2008,NA,62.49,21.76,60,"Precipitation stations",1960
 "Tohmajärvi Kemie",101459,2902,2832,62.24,30.35,90,"Weather stations",1926
 "Toholampi Laitala",101689,4314,2737,63.82,24.16,83,"Weather stations",1988
-"Toholampi Oravala",101679,4304,NA,63.77,24.28,85,"Precipitation stations",1953
-"Tornio Aapajärvi",101850,6311,NA,66.07,24.14,63,"Precipitation stations",2002
+"Toholampi Oravala",101679,4304,NA,63.77,24.28,85,"Precipitation stations",1926
 "Tornio Torppi",101851,6312,2880,65.85,24.17,8,"Weather stations",2008
 "Turku airport",101065,1101,2972,60.52,22.28,45,"Weather stations",1955
 "Turku Artukainen",100949,118,2773,60.45,22.18,8,"Weather stations",2003
