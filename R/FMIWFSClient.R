@@ -53,7 +53,6 @@ FMIWFSClient <- R6::R6Class(
           stop("Parameter 'bbox' must be of class 'Extent'.")
         }
       }
-        
       return(list(startDateTime = startDateTime, endDateTime = endDateTime, 
                   fmisid = fmisid, bbox = bbox))
     },
@@ -88,7 +87,7 @@ FMIWFSClient <- R6::R6Class(
           bbox <- NULL
           warning("Both bbox and fmisid provided, using only fmisid.")
         }
-        
+
         p <- private$processParameters(startDateTime = startDateTime, 
                                        endDateTime = endDateTime,
                                        bbox = bbox, 

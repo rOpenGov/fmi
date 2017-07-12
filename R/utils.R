@@ -31,13 +31,19 @@ patternColumnIndex <- function(spdf, pattern) {
 #'
 #' @author Jussi Jousimo \email{jvj@@iki.fi}
 #' @export 
-transformTimeValuePairData <- function(layer, measurementColumnNamePattern="^result_MeasurementTimeseries_point_MeasurementTVP_value\\d*$", 
+transformTimeValuePairData <- function(layer, 
+                                       measurementColumnNamePattern=NULL, 
                                        variableColumnNames, 
                                        measurementColumnName="measurement") {
-  if (missing(layer))
+  if (missing(layer)) {
     stop("Required argument 'layer' missing.")
-  if (missing(variableColumnNames))
+  }
+  if (is.null(measurementColumnNamePattern)) {
+    measurementColumnNamePattern <- "^result_MeasurementTimeseries_point_MeasurementTVP_value\\d*$"
+  }
+  if (missing(variableColumnNames)) {
     stop("Required argument 'variableColumnNames' missing.")
+  }
   
   measurementColumnIndex <- patternColumnIndex(layer, measurementColumnNamePattern)
   names(layer)[measurementColumnIndex] <- if (length(measurementColumnIndex) > 1)

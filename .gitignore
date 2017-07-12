@@ -10,7 +10,10 @@
 
 # Private API files
 inst/tests/apikey.txt
+<<<<<<< HEAD
 vignettes/apikey.R
+=======
+>>>>>>> master
 
 # inst/extras/
 inst/extras/.RData

@@ -5,7 +5,7 @@
 \title{Convert data from long to wide format}
 \usage{
 wideToLongFormat(layer, timeColumnNamePattern = "^time\\\\d*$",
-  measurementColumnNamePattern = "^measurement\\\\d*$",
+  measurementColumnNamePattern = "^result\\\\.Measurement",
   variableColumnName = "variable")
 }
 \arguments{
