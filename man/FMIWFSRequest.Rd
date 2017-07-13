@@ -14,14 +14,13 @@ TBA
 \examples{
 \dontrun{request <- FMIWFSRequest$new(apiKey=apiKey)}
 }
-\author{
-Jussi Jousimo \email{jvj@iki.fi}
-}
 \references{
 See citation("fmi")
 }
 \seealso{
 \code{\link[rwfs]{WFSRequest}}, \code{\link[rwfs]{WFSCachingRequest}}
 }
+\author{
+Jussi Jousimo \email{jvj@iki.fi}
+}
 \keyword{datasets}
-

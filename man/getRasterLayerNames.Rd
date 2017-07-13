@@ -27,4 +27,3 @@ Query is filtered with start and end dates.
 \author{
 Jussi Jousimo \email{jvj@iki.fi}
 }
-
