@@ -10,49 +10,10 @@ getFinlandBBox <- function() {
   return(raster::extent(c(19.0900,59.3000,31.5900,70.130)))
 }
 
-patternColumnIndex <- function(spdf, pattern) {
-  if (missing(spdf) | missing(pattern))
-    stop("Required argument 'spdf' or 'pattern' missing.")
+pattern_col_index <- function(df, pattern) {
+  if (missing(sd) | missing(pattern))
+    stop("Required argument 'x' or 'pattern' missing.")
   return(grep(pattern, names(spdf)))
-}
-
-#' Handle and transform TimeValuePairData
-#' 
-#' Response data is massaged into suitable local format.
-#'
-#' @param layer XXX object
-#' @param measurementColumnNamePattern String pattern used to match the 
-#'        measurement column.
-#' @param variableColumnNames String vector used to match the 
-#'        variable columns.
-#' @param measurementColumnName String name for the measurument column.
-#' 
-#' @return layer object.
-#'
-#' @author Jussi Jousimo \email{jvj@@iki.fi}
-#' @export 
-transformTimeValuePairData <- function(layer, 
-                                       measurementColumnNamePattern=NULL, 
-                                       variableColumnNames, 
-                                       measurementColumnName="measurement") {
-  if (missing(layer)) {
-    stop("Required argument 'layer' missing.")
-  }
-  if (is.null(measurementColumnNamePattern)) {
-    measurementColumnNamePattern <- "^result_MeasurementTimeseries_point_MeasurementTVP_value\\d*$"
-  }
-  if (missing(variableColumnNames)) {
-    stop("Required argument 'variableColumnNames' missing.")
-  }
-  
-  measurementColumnIndex <- patternColumnIndex(layer, measurementColumnNamePattern)
-  names(layer)[measurementColumnIndex] <- if (length(measurementColumnIndex) > 1)
-    sapply(1:length(measurementColumnIndex), function(x) paste0(measurementColumnName, x))
-  else
-    measurementColumnName
-  layer@data$variable <- rep(variableColumnNames, length(layer) / length(variableColumnNames))
-  
-  return(layer)
 }
 
 # Declare globalVariables to prevent check from complaining about
