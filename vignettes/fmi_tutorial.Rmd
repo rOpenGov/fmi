@@ -79,9 +79,9 @@ For the automated case, see below.
 Queries to the FMI API are made by using the `FMIWFSClient` class object. For example, a manual request is dispatched with (continued from the previous example):
 
 ```{r new-client-1, eval=FALSE}
-client <- FMIWFSClient$new(request=request)
+client <- FMIWFSClient$new(request = request)
 layers <- client$listLayers()
-response <- client$getLayer(layer=layers[1], parameters=list(splitListFields=TRUE))
+response <- client$getLayer(layer = layers$name)
 ```
 
 This example retrieves a list of data layers and the first layer is used to obtain the actual data. In fact, there is
@@ -91,9 +91,11 @@ For the same stored query, an automated request method, `getDailyWeather`, exist
 convenient way to retrieve the data. For example, to get all weather observations for the 1st of January in 2014:
 
 ```{r new-client-2, eval=FALSE}
-request <- FMIWFSRequest$new(apiKey=apiKey)
-client <- FMIWFSClient$new(request=request)
-response <- client$getDailyWeather(startDateTime="2014-01-01", endDateTime="2014-01-01", bbox=getFinlandBBox())
+request <- FMIWFSRequest$new(apiKey = apiKey)
+client <- FMIWFSClient$new(request = request)
+response <- client$getDailyWeather(startDateTime = "2014-01-01", 
+                                   endDateTime = "2014-01-01", 
+                                   bbox = getFinlandBBox())
 ```
 
 Here the function `getFinlandBBox` returns the bounding box surrounding the whole Finland.
@@ -238,10 +240,7 @@ response <- client$getDailyWeather(startDateTime = "2014-01-01", endDateTime = "
 ```{r automated-request-print}
 head(cbind(coordinates(response), response@data[,c("name1","time","variable","measurement")]))
 ```
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> master
+
 
 The automated method sets the known parameters automatically and returns cleaner result
 by combining the data with metadata data and converting the "wide" format to long format.
