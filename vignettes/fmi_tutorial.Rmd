@@ -306,14 +306,10 @@ response <- client$getLayer(layer = layers[1], crs = "+proj=longlat +datum=WGS84
 ```
 ```{r manual-request-data-print}
 library(sp)
-head(cbind(coordinates(response), response@data[,c("name1","time1","result.MeasurementTimeseries.point.MeasurementTVP.value1","time2","result.MeasurementTimeseries.point.MeasurementTVP.value2")]))
+head(cbind(coordinates(response), response@data[,c("name1","time1","result_MeasurementTimeseries_point_MeasurementTVP_value1","time2","result_MeasurementTimeseries_point_MeasurementTVP_value2")]))
 ```
 
-The data is returned as a `SpatialPointsDataFrame` object in "wide" format so that there is a row for each
-variable and observation location, but for each day (two days here) there are columns for time and observation
-indexed with a sequential number. The columns starting with `time` contains the time and the columns
-`result_MeasurementTimeseries_point_MeasurementTVP_value` the measurements, which are organized so that
-the variables `rrday, snow, tday, tmin, tmax` are repeated in the same order as specified in the request. 
+The data is returned as a `SpatialPointsDataFrame` object in "wide" format so that there is a row for each variable and observation location, but for each day (two days here) there are columns for time and observation indexed with a sequential number. The columns starting with `time` contains the time and the columns `result_MeasurementTimeseries_point_MeasurementTVP_value` the measurements, which are organized so that the variables `rrday, snow, tday, tmin, tmax` are repeated in the same order as specified in the request. 
 
 ### Automated request
 
@@ -322,8 +318,8 @@ The method `getDailyWeather` provides an automated query for the daily weather t
 ```{r automated-request, message=FALSE, warning=FALSE, results='hide'}
 request <- FMIWFSRequest$new(apiKey = apiKey)
 client <- FMIWFSClient$new(request = request)
-response <- client$getDailyWeather(startDateTime = "2014-01-01", endDateTime = "2014-01-02", 
-                                   bbox = getFinlandBBox())
+# FIXME: this example is broken
+response <- client$getDailyWeather(startDateTime = "2014-01-01", endDateTime = "2014-01-02", bbox = getFinlandBBox())
 ```
 ```{r automated-request-print}
 head(cbind(coordinates(response), response@data[,c("name1","time","variable","measurement")]))

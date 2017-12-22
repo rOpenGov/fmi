@@ -9,28 +9,21 @@
 [![Downloads](http://cranlogs.r-pkg.org/badges/fmi)](https://cran.r-project.org/package=fmi)
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
-[![Follow](https://img.shields.io/twitter/follow/ropengov.svg?style=social)](https://twitter.com/intent/follow?screen_name=ropengov)  
+
 
 <!--
 DOI has to be set separately for each package (if needed) - ask antagomir for more info
 [![DOI](https://zenodo.org/badge/4203/rOpenGov/fmi.png)](https://github.com/rOpenGov/fmi)
 -->
 
-This R package (fmi) provides a client to access the [Finnish Meteorological Institute](http://en.ilmatieteenlaitos.fi/)
- (Ilmatieteenlaitos) [open data](http://en.ilmatieteenlaitos.fi/open-data).
-This R package is a part of the [rOpenGov](http://ropengov.github.io) project.
+This [rOpenGov](http://ropengov.github.io) R package (fmi) provides a client to access [Finnish Meteorological Institute (Ilmatieteenlaitos)](http://www.fmi.fi/en/) [open data](http://en.ilmatieteenlaitos.fi/open-data).
 
++ Maintainer: [Joona Lehtomäki](http://www.github.com/jlehtoma/)
 + Original author: [Jussi Jousimo](http://www.github.com/statguy/)
-+ Maintainers: [Joona Lehtomäki](http://www.github.com/jlehtoma/)
 + Co-authors: [Leo Lahti](http://www.github.com/antagomir/), Ilari Scheinin
 + [Full contributor list](https://github.com/rOpenGov/fmi/graphs/contributors)
 + License: FreeBSD
 
-## Overview
-
-This R package provides tools to access open data from [Finnish Meteorological Institute (Ilmatieteenlaitos)](http://www.fmi.fi/en/).
-
-This R package is part of the [rOpenGov](http://ropengov.github.io) project.
 
 ## Usage
 
