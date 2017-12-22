@@ -1,9 +1,15 @@
 # Finnish Meteorological Institute (FMI) open data API client for R
 
 [![Build Status](https://api.travis-ci.org/rOpenGov/fmi.png)](https://travis-ci.org/rOpenGov/fmi)
+[![AppVeyor Status](https://ci.appveyor.com/api/projects/status/github/rOpenGov/fmi?branch=master&svg=true)](https://ci.appveyor.com/project/rOpenGov/fmi)
 [![Stories in Ready](https://badge.waffle.io/ropengov/fmi.png?label=Ready)](http://waffle.io/ropengov/fmi)
 [![Join the chat at https://gitter.im/rOpenGov/fmi](https://badges.gitter.im/rOpenGov/fmi.svg)](https://gitter.im/rOpenGov/fmi?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![codecov](https://codecov.io/gh/rOpenGov/fmi/branch/master/graph/badge.svg)](https://codecov.io/gh/rOpenGov/fmi)
+[![codecov](https://codecov.io/gh/rOpenGov/fmi/branch/master/graph/badge.svg)](https://codecov.io/gh/rOpenGov/fmi)  
+[![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/fmi)](https://cran.r-project.org/package=fmi)
+[![Downloads](http://cranlogs.r-pkg.org/badges/fmi)](https://cran.r-project.org/package=fmi)
+[![Watch on GitHub][github-watch-badge]][github-watch]
+[![Star on GitHub][github-star-badge]][github-star]
+[![Follow](https://img.shields.io/twitter/follow/ropengov.svg?style=social)](https://twitter.com/intent/follow?screen_name=ropengov)  
 
 <!--
 DOI has to be set separately for each package (if needed) - ask antagomir for more info
