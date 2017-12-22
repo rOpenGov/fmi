@@ -16,7 +16,8 @@ This R package is a part of the [rOpenGov](http://ropengov.github.io) project.
 
 + Original author: [Jussi Jousimo](http://www.github.com/statguy/)
 + Maintainers: [Joona Lehtomäki](http://www.github.com/jlehtoma/)
-+ [Contributors](https://github.com/rOpenGov/fmi/graphs/contributors)
++ Co-authors: [Leo Lahti](http://www.github.com/antagomir/), Ilari Scheinin
++ [Full contributor list](https://github.com/rOpenGov/fmi/graphs/contributors)
 + License: FreeBSD
 
 ## Overview
@@ -126,8 +127,8 @@ install_github("rOpenGov/fmi")
 
   You are welcome to:
 
-  * [submit suggestions and bug-reports](https://github.com/ropengov/fmi/issues)
-  * [submit a pull-request](https://github.com/rOpenGov/fmi/pulls)
-  * compose a friendly e-mail to: [ropengov@googlegroups.com](mailto:ropengov@googlegroups.com)
-  * join IRC at !louhos@IRCnet (Finland) and ropengov@Freenode (international)
-  * follow us in social media: Louhos (Finland); rOpenGov (international)
+  * [Use issue tracker](https://github.com/ropengov/fmi/issues) for feedback and bug reports.
+  * [Send pull requests](https://github.com/rOpenGov/fmi/pulls)
+  * [Star us on the Github page](https://github.com/ropengov/fmi)
+  * [Join the discussion in Gitter](https://gitter.im/rOpenGov/fmi)  
+
