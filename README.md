@@ -5,8 +5,6 @@
 [![Stories in Ready](https://badge.waffle.io/ropengov/fmi.png?label=Ready)](http://waffle.io/ropengov/fmi)
 [![Join the chat at https://gitter.im/rOpenGov/fmi](https://badges.gitter.im/rOpenGov/fmi.svg)](https://gitter.im/rOpenGov/fmi?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![codecov](https://codecov.io/gh/rOpenGov/fmi/branch/master/graph/badge.svg)](https://codecov.io/gh/rOpenGov/fmi)  
-[![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/fmi)](https://cran.r-project.org/package=fmi)
-[![Downloads](http://cranlogs.r-pkg.org/badges/fmi)](https://cran.r-project.org/package=fmi)
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
 
@@ -134,4 +132,13 @@ install_github("rOpenGov/fmi")
   * [Send pull requests](https://github.com/rOpenGov/fmi/pulls)
   * [Star us on the Github page](https://github.com/ropengov/fmi)
   * [Join the discussion in Gitter](https://gitter.im/rOpenGov/fmi)  
+
+
+
+[github-watch-badge]: https://img.shields.io/github/watchers/ropengov/fmi.svg?style=social
+[github-watch]: https://github.com/ropengov/fmi/watchers
+[github-star-badge]: https://img.shields.io/github/stars/ropengov/fmi.svg?style=social
+[github-star]: https://github.com/ropengov/fmi/stargazers
+[twitter]: https://twitter.com/intent/tweet?text=Check%20out%20fmi!%20%E2%9C%A8%20Recognize%20all%20contributors,%20not%20just%20the%20ones%20who%20commit%20code%20%E2%9C%A8%20https://github.com/ropengov/fmi%20%F0%9F%A4%97
+[twitter-badge]: https://img.shields.io/twitter/url/https/github.com/ropengov/fmi.svg?style=social
 
