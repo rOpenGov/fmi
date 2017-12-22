@@ -10,14 +10,6 @@ vignette: >
 
 
 
-```
-## Warning in file(con, "r"): cannot open file 'apikey.txt': No such file or
-## directory
-```
-
-```
-## Error in file(con, "r"): cannot open the connection
-```
 
 Finnish Meteorological Institute (FMI) open data API client for R
 ===========
@@ -148,10 +140,6 @@ library(fmi)
 request <- FMIWFSRequest$new(apiKey = apiKey)
 ```
 
-```
-## Error in .subset2(public_bind_env, "initialize")(...): object 'apiKey' not found
-```
-
 The fmi package provides two types of queries: a manual one for direct access to the FMI API and
 an automated one for a convenient access obtaining the data sets.
 
@@ -165,10 +153,6 @@ request$setParameters(request = "getFeature",
                       endtime = "2014-01-01T00:00:00Z",
                       bbox = "19.09,59.3,31.59,70.13",
                       parameters = "rrday,snow,tday,tmin,tmax")
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'request' not found
 ```
 
 The parameter `request="getFeature"` must be specified always.
@@ -296,23 +280,12 @@ Construct a request object for the manual query:
 
 ```r
 request <- FMIWFSRequest$new(apiKey = apiKey)
-```
-
-```
-## Error in .subset2(public_bind_env, "initialize")(...): object 'apiKey' not found
-```
-
-```r
 request$setParameters(request = "getFeature",
                       storedquery_id = "fmi::observations::weather::daily::timevaluepair",
                       starttime = "2014-01-01",
                       endtime = "2014-01-02",
                       bbox = "19.09,59.3,31.59,70.13",
                       parameters = "rrday,snow,tday,tmin,tmax")
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'request' not found
 ```
 
 The time parameters can be provided as objects that can be converted to the `POSIXlt` objects and
@@ -324,18 +297,7 @@ Set up a client object and list the layers in the response:
 
 ```r
 client <- FMIWFSClient$new(request = request)
-```
-
-```
-## Error in inherits(request, "WFSRequest"): object 'request' not found
-```
-
-```r
 layers <- client$listLayers()
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'client' not found
 ```
 
 ```r
@@ -343,7 +305,11 @@ layers
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'layers' not found
+## [1] "PointTimeSeriesObservation"
+## attr(,"driver")
+## [1] "GML"
+## attr(,"nlayers")
+## [1] 1
 ```
 
 Parse the data from the response, which has been cached:
@@ -354,24 +320,43 @@ response <- client$getLayer(layer = layers[1], crs = "+proj=longlat +datum=WGS84
                             swapAxisOrder = TRUE, parameters = list(splitListFields = TRUE))
 ```
 
-```
-## Error in eval(expr, envir, enclos): object 'client' not found
-```
-
 ```r
 library(sp)
-head(cbind(coordinates(response), response@data[,c("name1","time1","result.MeasurementTimeseries.point.MeasurementTVP.value1","time2","result.MeasurementTimeseries.point.MeasurementTVP.value2")]))
+head(cbind(coordinates(response), response@data[,c("name1","time1","result_MeasurementTimeseries_point_MeasurementTVP_value1","time2","result_MeasurementTimeseries_point_MeasurementTVP_value2")]))
 ```
 
 ```
-## Error in coordinates(response): object 'response' not found
+##   coords.x2 coords.x1                           name1                time1
+## 1  60.12467  19.90362 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 2  60.12467  19.90362 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 3  60.12467  19.90362 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 4  60.12467  19.90362 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 5  60.12467  19.90362 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
+## 6  59.77909  21.37479                    Parainen Utö 2014-01-01T00:00:00Z
+##   result_MeasurementTimeseries_point_MeasurementTVP_value1
+## 1                                                      NaN
+## 2                                                      NaN
+## 3                                                      3.6
+## 4                                                      2.8
+## 5                                                      4.5
+## 6                                                      0.3
+##                  time2
+## 1 2014-01-02T00:00:00Z
+## 2 2014-01-02T00:00:00Z
+## 3 2014-01-02T00:00:00Z
+## 4 2014-01-02T00:00:00Z
+## 5 2014-01-02T00:00:00Z
+## 6 2014-01-02T00:00:00Z
+##   result_MeasurementTimeseries_point_MeasurementTVP_value2
+## 1                                                      NaN
+## 2                                                      NaN
+## 3                                                      3.8
+## 4                                                      3.3
+## 5                                                      4.3
+## 6                                                     -1.0
 ```
 
-The data is returned as a `SpatialPointsDataFrame` object in "wide" format so that there is a row for each
-variable and observation location, but for each day (two days here) there are columns for time and observation
-indexed with a sequential number. The columns starting with `time` contains the time and the columns
-`result_MeasurementTimeseries_point_MeasurementTVP_value` the measurements, which are organized so that
-the variables `rrday, snow, tday, tmin, tmax` are repeated in the same order as specified in the request. 
+The data is returned as a `SpatialPointsDataFrame` object in "wide" format so that there is a row for each variable and observation location, but for each day (two days here) there are columns for time and observation indexed with a sequential number. The columns starting with `time` contains the time and the columns `result_MeasurementTimeseries_point_MeasurementTVP_value` the measurements, which are organized so that the variables `rrday, snow, tday, tmin, tmax` are repeated in the same order as specified in the request. 
 
 ### Automated request
 
@@ -380,27 +365,9 @@ The method `getDailyWeather` provides an automated query for the daily weather t
 
 ```r
 request <- FMIWFSRequest$new(apiKey = apiKey)
-```
-
-```
-## Error in .subset2(public_bind_env, "initialize")(...): object 'apiKey' not found
-```
-
-```r
 client <- FMIWFSClient$new(request = request)
-```
-
-```
-## Error in inherits(request, "WFSRequest"): object 'request' not found
-```
-
-```r
-response <- client$getDailyWeather(startDateTime = "2014-01-01", endDateTime = "2014-01-02", 
-                                   bbox = getFinlandBBox())
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'client' not found
+# FIXME: this example is broken
+response <- client$getDailyWeather(startDateTime = "2014-01-01", endDateTime = "2014-01-02", bbox = getFinlandBBox())
 ```
 
 ```r
@@ -408,9 +375,22 @@ head(cbind(coordinates(response), response@data[,c("name1","time","variable","me
 ```
 
 ```
-## Error in coordinates(response): object 'response' not found
+##   coords.x2 coords.x1                           name1       time variable
+## 1  60.12467  19.90362 Jomala Maarianhamina lentoasema 2014-01-01    rrday
+## 2  60.12467  19.90362 Jomala Maarianhamina lentoasema 2014-01-01     snow
+## 3  60.12467  19.90362 Jomala Maarianhamina lentoasema 2014-01-01     tday
+## 4  60.12467  19.90362 Jomala Maarianhamina lentoasema 2014-01-01     tmin
+## 5  60.12467  19.90362 Jomala Maarianhamina lentoasema 2014-01-01     tmax
+## 6  59.77909  21.37479                    Parainen Utö 2014-01-01    rrday
+##   measurement
+## 1         NaN
+## 2         NaN
+## 3         3.6
+## 4         2.8
+## 5         4.5
+## 6         0.3
 ```
-<<<<<<< HEAD
+
 
 The automated method sets the known parameters automatically and returns cleaner result
 by combining the data with metadata data and converting the "wide" format to long format.
@@ -423,37 +403,12 @@ To request continuous space data manually, use the `getRaster` method, for insta
 ```r
 library(raster)
 request <- FMIWFSRequest$new(apiKey = apiKey)
-```
-
-```
-## Error in .subset2(public_bind_env, "initialize")(...): object 'apiKey' not found
-```
-
-```r
 request$setParameters(request = "getFeature",
                       storedquery_id = "fmi::observations::weather::monthly::grid",
                       starttime = "2012-01-01",
                       endtime = "2012-01-01")
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'request' not found
-```
-
-```r
 client <- FMIWFSClient$new(request = request)
-```
-
-```
-## Error in inherits(request, "WFSRequest"): object 'request' not found
-```
-
-```r
 response <- client$getRaster(parameters = list(splitListFields = TRUE))
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'client' not found
 ```
 
 The response is returned as a `RasterBrick` object of the `raster` package:
@@ -464,7 +419,13 @@ response
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'response' not found
+## class       : RasterBrick 
+## dimensions  : 1165, 1901, 2214665, 2  (nrow, ncol, ncell, nlayers)
+## resolution  : 0.008996004, 0.008993221  (x, y)
+## extent      : 15.96441, 33.06581, 59.60727, 70.08437  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=longlat +a=6371229 +b=6371229 +no_defs 
+## data source : /tmp/RtmpNSwIy6/file5aa57317865d 
+## names       : file5aa57317865d.1, file5aa57317865d.2
 ```
 
 Set the NA value and plot the interpolated monthly mean temperature in January 2012:
@@ -472,45 +433,18 @@ Set the NA value and plot the interpolated monthly mean temperature in January 2
 
 ```r
 NAvalue(response) <- 9999
-```
-
-```
-## Error in NAvalue(response) <- 9999: object 'response' not found
-```
-
-```r
 plot(response[[1]])
 ```
 
-```
-## Error in plot(response[[1]]): object 'response' not found
-```
+![plot of chunk request-raster-plot](figure/request-raster-plot-1.png)
 
 There is also the automated request method `getMonthlyWeatherRaster` for obtaining monthly weather data:
 
 
 ```r
 request <- FMIWFSRequest$new(apiKey = apiKey)
-```
-
-```
-## Error in .subset2(public_bind_env, "initialize")(...): object 'apiKey' not found
-```
-
-```r
 client <- FMIWFSClient$new(request = request)
-```
-
-```
-## Error in inherits(request, "WFSRequest"): object 'request' not found
-```
-
-```r
 response <- client$getMonthlyWeatherRaster(startDateTime = "2012-01-01", endDateTime = "2012-02-01")
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'client' not found
 ```
 
 The method sets the raster band names to match the variable name and the dates:
@@ -521,7 +455,8 @@ names(response)
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'response' not found
+## [1] "MeanTemperature.2012.01.01" "MeanTemperature.2012.02.01"
+## [3] "Precipitation.2012.01.01"   "Precipitation.2012.02.01"
 ```
 
 ## Licensing and further information
@@ -531,9 +466,7 @@ the open data and the API is provided by the FMI at <http://en.ilmatieteenlaitos
 
 ## Citing the R package
 
-This work can be freely used, modified and distributed under the
-[Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses). Kindly cite the
-R package as 'Jussi Jousimo et al. (C) 2014. fmi R package. URL: http://www.github.com/rOpenGov/fmi'.
+This work can be freely used, modified and distributed under the [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses). Kindly cite the R package as 'Jussi Jousimo, Joona Lehtomäki, Ilari Scheinin, Leo Lahti (C) 2014-2018. fmi R package. URL: http://www.github.com/rOpenGov/fmi'.
 
 ## Session info
 
@@ -561,12 +494,14 @@ This tutorial was created with
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] raster_2.5-8         sp_1.2-5             fmi_0.2.1           
-## [4] R6_2.2.2             rmarkdown_1.6.0.9001 knitr_1.17          
+## [1] raster_2.5-8         sp_1.2-5             fmi_0.2.11          
+## [4] R6_2.2.2             knitr_1.17           rmarkdown_1.6.0.9001
+## [7] devtools_1.13.3     
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] Rcpp_0.12.13    rwfs_0.1.16     lattice_0.20-35 digest_0.6.13  
-##  [5] rprojroot_1.2   grid_3.4.3      backports_1.1.1 magrittr_1.5   
-##  [9] evaluate_0.10.1 stringi_1.1.5   rgdal_1.2-13    tools_3.4.3    
-## [13] stringr_1.2.0   yaml_2.1.14     compiler_3.4.3  htmltools_0.3.6
+##  [5] withr_2.0.0     rprojroot_1.2   grid_3.4.3      backports_1.1.1
+##  [9] magrittr_1.5    evaluate_0.10.1 highr_0.6       stringi_1.1.5  
+## [13] rgdal_1.2-13    tools_3.4.3     stringr_1.2.0   compiler_3.4.3 
+## [17] memoise_1.1.0   htmltools_0.3.6
 ```
