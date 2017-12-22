@@ -328,7 +328,7 @@ response <- client$getDailyWeather(startDateTime = "2014-01-01", endDateTime = "
 ```{r automated-request-print}
 head(cbind(coordinates(response), response@data[,c("name1","time","variable","measurement")]))
 ```
-<<<<<<< HEAD
+
 
 The automated method sets the known parameters automatically and returns cleaner result
 by combining the data with metadata data and converting the "wide" format to long format.
@@ -383,9 +383,7 @@ the open data and the API is provided by the FMI at <http://en.ilmatieteenlaitos
 
 ## Citing the R package
 
-This work can be freely used, modified and distributed under the
-[Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses). Kindly cite the
-R package as 'Jussi Jousimo et al. (C) 2014. fmi R package. URL: http://www.github.com/rOpenGov/fmi'.
+This work can be freely used, modified and distributed under the [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses). Kindly cite the R package as 'Jussi Jousimo, Joona Lehtomäki, Ilari Scheinin, Leo Lahti (C) 2014-2018. fmi R package. URL: http://www.github.com/rOpenGov/fmi'.
 
 ## Session info
 
