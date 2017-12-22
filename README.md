@@ -51,6 +51,10 @@ Install `gdal` / `gdal-devel` packages using your Linux distibution's package
 manager. See [here](https://trac.osgeo.org/gdal/wiki/DownloadingGdalBinaries) on 
 some pointers on where to find suitable binaries.
 
+__Installing GDAL on Ubuntu 16.04:__
+
+Install `gdal-bin` and `libgdal-dev` packages.
+
 __Adding GDAL command line tools to your path__
 
 In Linux, the tools should be found from the path by default after installation.
