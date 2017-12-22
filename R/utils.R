@@ -160,7 +160,7 @@ LongToWideFormat = function(layer) {
 #' @author Jussi Jousimo \email{jvj@@iki.fi}
 #' @export
 wideToLongFormat = function(layer, timeColumnNamePattern = "^time\\d*$", 
-                            measurementColumnNamePattern = "^result\\.Measurement", 
+                            measurementColumnNamePattern = "^measurement", 
                             variableColumnName = "variable") {
   if (missing(layer))
     stop("Required argument 'layer' missing.")
@@ -179,7 +179,7 @@ wideToLongFormat = function(layer, timeColumnNamePattern = "^time\\d*$",
                     measurement = olddf[,measurementIndex[i]])
     newdf <- rbind(newdf, x)
   }
-
+  
   coords <- sp::coordinates(layer)
   newlayer <-  sp::SpatialPointsDataFrame(coords[rep(1:nrow(coords), n),], 
                                           data = newdf, 
