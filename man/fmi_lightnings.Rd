@@ -2,7 +2,7 @@
 % Please edit documentation in R/api.R
 \name{fmi_lightnings}
 \alias{fmi_lightnings}
-\title{Get data on lightning strikes within a given time frame.}
+\title{FMI Lightnings Data}
 \usage{
 fmi_lightnings(start, end, bbox, crs = NULL)
 }
@@ -28,9 +28,12 @@ SpatialPointsDataFrame object. The attribute table of the returned
 }
 }
 \description{
-Thin wrapper around \code{FMIWFSClient$getLightningStrikes()}. Accessing 
-the \code{FMIWFSClient} is done through the \code{.session} environment
-and the associated functions.
+Get data on lightning strikes within a given time frame.
+}
+\details{
+Thin wrapper around \code{FMIWFSClient$getLightningStrikes()}.
+Accessing  the \code{FMIWFSClient} is done through the \code{.session}
+environment and the associated functions.
 }
 \seealso{
 \code{\link{FMIWFSClient}}

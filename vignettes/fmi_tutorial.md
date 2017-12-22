@@ -322,7 +322,7 @@ response <- client$getLayer(layer = layers[1], crs = "+proj=longlat +datum=WGS84
 
 ```r
 library(sp)
-head(cbind(coordinates(response), response@data[,c("name1","time1","result.MeasurementTimeseries.point.MeasurementTVP.value1","time2","result.MeasurementTimeseries.point.MeasurementTVP.value2")]))
+head(cbind(coordinates(response), response@data[,c("name1","time1","result_MeasurementTimeseries_point_MeasurementTVP_value1","time2","result_MeasurementTimeseries_point_MeasurementTVP_value2")]))
 ```
 
 ```
@@ -333,7 +333,7 @@ head(cbind(coordinates(response), response@data[,c("name1","time1","result.Measu
 ## 4  60.12467  19.90362 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
 ## 5  60.12467  19.90362 Jomala Maarianhamina lentoasema 2014-01-01T00:00:00Z
 ## 6  59.77909  21.37479                    Parainen Utö 2014-01-01T00:00:00Z
-##   result.MeasurementTimeseries.point.MeasurementTVP.value1
+##   result_MeasurementTimeseries_point_MeasurementTVP_value1
 ## 1                                                      NaN
 ## 2                                                      NaN
 ## 3                                                      3.6
@@ -347,7 +347,7 @@ head(cbind(coordinates(response), response@data[,c("name1","time1","result.Measu
 ## 4 2014-01-02T00:00:00Z
 ## 5 2014-01-02T00:00:00Z
 ## 6 2014-01-02T00:00:00Z
-##   result.MeasurementTimeseries.point.MeasurementTVP.value2
+##   result_MeasurementTimeseries_point_MeasurementTVP_value2
 ## 1                                                      NaN
 ## 2                                                      NaN
 ## 3                                                      3.8
@@ -356,11 +356,7 @@ head(cbind(coordinates(response), response@data[,c("name1","time1","result.Measu
 ## 6                                                     -1.0
 ```
 
-The data is returned as a `SpatialPointsDataFrame` object in "wide" format so that there is a row for each
-variable and observation location, but for each day (two days here) there are columns for time and observation
-indexed with a sequential number. The columns starting with `time` contains the time and the columns
-`result_MeasurementTimeseries_point_MeasurementTVP_value` the measurements, which are organized so that
-the variables `rrday, snow, tday, tmin, tmax` are repeated in the same order as specified in the request. 
+The data is returned as a `SpatialPointsDataFrame` object in "wide" format so that there is a row for each variable and observation location, but for each day (two days here) there are columns for time and observation indexed with a sequential number. The columns starting with `time` contains the time and the columns `result_MeasurementTimeseries_point_MeasurementTVP_value` the measurements, which are organized so that the variables `rrday, snow, tday, tmin, tmax` are repeated in the same order as specified in the request. 
 
 ### Automated request
 
@@ -370,8 +366,8 @@ The method `getDailyWeather` provides an automated query for the daily weather t
 ```r
 request <- FMIWFSRequest$new(apiKey = apiKey)
 client <- FMIWFSClient$new(request = request)
-response <- client$getDailyWeather(startDateTime = "2014-01-01", endDateTime = "2014-01-02", 
-                                   bbox = getFinlandBBox())
+# FIXME: this example is broken
+response <- client$getDailyWeather(startDateTime = "2014-01-01", endDateTime = "2014-01-02", bbox = getFinlandBBox())
 ```
 
 ```r
@@ -394,7 +390,7 @@ head(cbind(coordinates(response), response@data[,c("name1","time","variable","me
 ## 5         4.5
 ## 6         0.3
 ```
-<<<<<<< HEAD
+
 
 The automated method sets the known parameters automatically and returns cleaner result
 by combining the data with metadata data and converting the "wide" format to long format.
@@ -428,8 +424,8 @@ response
 ## resolution  : 0.008996004, 0.008993221  (x, y)
 ## extent      : 15.96441, 33.06581, 59.60727, 70.08437  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +a=6371229 +b=6371229 +no_defs 
-## data source : /tmp/RtmplB2Yey/file357a4821282d 
-## names       : file357a4821282d.1, file357a4821282d.2
+## data source : /tmp/Rtmpbn8LUW/file5c43303097d1 
+## names       : file5c43303097d1.1, file5c43303097d1.2
 ```
 
 Set the NA value and plot the interpolated monthly mean temperature in January 2012:
@@ -468,11 +464,36 @@ names(response)
 For the open data license, see <http://en.ilmatieteenlaitos.fi/open-data-licence>. Further information about
 the open data and the API is provided by the FMI at <http://en.ilmatieteenlaitos.fi/open-data>.
 
-## Citing the R package
+
+### Citing the fmi R package
+
+For main developers and contributors, see the [package homepage](http://ropengov.github.io/fmi).
 
 This work can be freely used, modified and distributed under the
-[Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses). Kindly cite the
-R package as 'Jussi Jousimo et al. (C) 2014. fmi R package. URL: http://www.github.com/rOpenGov/fmi'.
+BSD-2-clause (modified FreeBSD) license:
+
+
+```r
+citation("fmi")
+```
+
+```
+## 
+## Kindly cite the fmi R package as follows:
+## 
+##   (C) Jussi Jousimo 2014. fmi R package
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Misc{,
+##     title = {fmi R package},
+##     author = {Jussi Jousimo and Joona Lehtomaki and Leo Lahti and Ilari Scheinin},
+##     year = {2014},
+##   }
+## 
+## Many thanks for all contributors! For more info, see:
+## https://github.com/rOpenGov/fmi
+```
 
 ## Session info
 
@@ -480,30 +501,31 @@ This tutorial was created with
 
 
 ```
-## R version 3.3.2 (2016-10-31)
-## Platform: x86_64-suse-linux-gnu (64-bit)
-## Running under: openSUSE Tumbleweed
+## R version 3.4.3 (2017-11-30)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 17.04
+## 
+## Matrix products: default
+## BLAS: /usr/lib/openblas-base/libblas.so.3
+## LAPACK: /usr/lib/libopenblasp-r0.2.19.so
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
-##  [3] LC_TIME=C                  LC_COLLATE=fi_FI.UTF-8    
-##  [5] LC_MONETARY=fi_FI.UTF-8    LC_MESSAGES=en_US.UTF-8   
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
 ##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
 ##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-## [11] LC_MEASUREMENT=fi_FI.UTF-8 LC_IDENTIFICATION=C       
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] raster_2.5-8    sp_1.2-4        fmi_0.2.0       R6_2.2.0       
-## [5] knitr_1.15.1    testthat_1.0.2  devtools_1.12.0
+## [1] raster_2.5-8 sp_1.2-5     fmi_0.2.11   R6_2.2.2     knitr_1.17  
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.9     rwfs_0.2.0      lattice_0.20-34 digest_0.6.11  
-##  [5] crayon_1.3.2    withr_1.0.2     rprojroot_1.2   grid_3.3.2     
-##  [9] backports_1.0.5 magrittr_1.5    evaluate_0.10   highr_0.6      
-## [13] stringi_1.1.2   rmarkdown_1.3   rgdal_1.2-5     tools_3.3.2    
-## [17] stringr_1.1.0   rsconnect_0.7   yaml_2.1.14     memoise_1.0.0  
-## [21] htmltools_0.3.5
+##  [1] Rcpp_0.12.13    lattice_0.20-35 rwfs_0.1.16     digest_0.6.13  
+##  [5] grid_3.4.3      magrittr_1.5    evaluate_0.10.1 highr_0.6      
+##  [9] stringi_1.1.5   rgdal_1.2-13    tools_3.4.3     stringr_1.2.0  
+## [13] compiler_3.4.3
 ```

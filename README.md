@@ -1,29 +1,27 @@
 # Finnish Meteorological Institute (FMI) open data API client for R
 
 [![Build Status](https://api.travis-ci.org/rOpenGov/fmi.png)](https://travis-ci.org/rOpenGov/fmi)
+[![AppVeyor Status](https://ci.appveyor.com/api/projects/status/github/rOpenGov/fmi?branch=master&svg=true)](https://ci.appveyor.com/project/rOpenGov/fmi)
 [![Stories in Ready](https://badge.waffle.io/ropengov/fmi.png?label=Ready)](http://waffle.io/ropengov/fmi)
 [![Join the chat at https://gitter.im/rOpenGov/fmi](https://badges.gitter.im/rOpenGov/fmi.svg)](https://gitter.im/rOpenGov/fmi?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![codecov](https://codecov.io/gh/rOpenGov/fmi/branch/master/graph/badge.svg)](https://codecov.io/gh/rOpenGov/fmi)
+[![codecov](https://codecov.io/gh/rOpenGov/fmi/branch/master/graph/badge.svg)](https://codecov.io/gh/rOpenGov/fmi)  
+[![Watch on GitHub][github-watch-badge]][github-watch]
+[![Star on GitHub][github-star-badge]][github-star]
+[![Follow](https://img.shields.io/twitter/follow/ropengov.svg?style=social)](https://twitter.com/intent/follow?screen_name=ropengov)  
 
 <!--
 DOI has to be set separately for each package (if needed) - ask antagomir for more info
 [![DOI](https://zenodo.org/badge/4203/rOpenGov/fmi.png)](https://github.com/rOpenGov/fmi)
 -->
 
-This R package (fmi) provides a client to access the [Finnish Meteorological Institute](http://en.ilmatieteenlaitos.fi/)
- (Ilmatieteenlaitos) [open data](http://en.ilmatieteenlaitos.fi/open-data).
-This R package is a part of the [rOpenGov](http://ropengov.github.io) project.
+This [rOpenGov](http://ropengov.github.io) R package (fmi) provides a client to access [Finnish Meteorological Institute (Ilmatieteenlaitos)](http://www.fmi.fi/en/) [open data](http://en.ilmatieteenlaitos.fi/open-data).
 
++ Maintainer: [Joona Lehtomäki](http://www.github.com/jlehtoma/)
 + Original author: [Jussi Jousimo](http://www.github.com/statguy/)
-+ Maintainers: [Joona Lehtomäki](http://www.github.com/jlehtoma/)
-+ [Contributors](https://github.com/rOpenGov/fmi/graphs/contributors)
++ Co-authors: [Leo Lahti](http://www.github.com/antagomir/), Ilari Scheinin
++ [Full contributor list](https://github.com/rOpenGov/fmi/graphs/contributors)
 + License: FreeBSD
 
-## Overview
-
-This R package provides tools to access open data from [Finnish Meteorological Institute (Ilmatieteenlaitos)](http://www.fmi.fi/en/).
-
-This R package is part of the [rOpenGov](http://ropengov.github.io) project.
 
 ## Usage
 
@@ -50,6 +48,10 @@ __Installing GDAL:__
 Install `gdal` / `gdal-devel` packages using your Linux distibution's package 
 manager. See [here](https://trac.osgeo.org/gdal/wiki/DownloadingGdalBinaries) on 
 some pointers on where to find suitable binaries.
+
+__Installing GDAL on Ubuntu 16.04:__
+
+Install `gdal-bin` and `libgdal-dev` packages.
 
 __Adding GDAL command line tools to your path__
 
@@ -126,8 +128,17 @@ install_github("rOpenGov/fmi")
 
   You are welcome to:
 
-  * [submit suggestions and bug-reports](https://github.com/ropengov/fmi/issues)
-  * [submit a pull-request](https://github.com/rOpenGov/fmi/pulls)
-  * compose a friendly e-mail to: [ropengov@googlegroups.com](mailto:ropengov@googlegroups.com)
-  * join IRC at !louhos@IRCnet (Finland) and ropengov@Freenode (international)
-  * follow us in social media: Louhos (Finland); rOpenGov (international)
+  * [Use issue tracker](https://github.com/ropengov/fmi/issues) for feedback and bug reports.
+  * [Send pull requests](https://github.com/rOpenGov/fmi/pulls)
+  * [Star us on the Github page](https://github.com/ropengov/fmi)
+  * [Join the discussion in Gitter](https://gitter.im/rOpenGov/fmi)  
+
+
+
+[github-watch-badge]: https://img.shields.io/github/watchers/ropengov/fmi.svg?style=social
+[github-watch]: https://github.com/ropengov/fmi/watchers
+[github-star-badge]: https://img.shields.io/github/stars/ropengov/fmi.svg?style=social
+[github-star]: https://github.com/ropengov/fmi/stargazers
+[twitter]: https://twitter.com/intent/tweet?text=Check%20out%20fmi!%20%E2%9C%A8%20Recognize%20all%20contributors,%20not%20just%20the%20ones%20who%20commit%20code%20%E2%9C%A8%20https://github.com/ropengov/fmi%20%F0%9F%A4%97
+[twitter-badge]: https://img.shields.io/twitter/url/https/github.com/ropengov/fmi.svg?style=social
+

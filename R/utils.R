@@ -121,7 +121,7 @@ LongToWideFormat = function(layer) {
 #' @author Jussi Jousimo \email{jvj@@iki.fi}
 #' @export
 wideToLongFormat = function(layer, timeColumnNamePattern = "^time\\d*$", 
-                            measurementColumnNamePattern = "^result\\.Measurement", 
+                            measurementColumnNamePattern = "^measurement", 
                             variableColumnName = "variable") {
   if (missing(layer))
     stop("Required argument 'layer' missing.")
@@ -140,7 +140,7 @@ wideToLongFormat = function(layer, timeColumnNamePattern = "^time\\d*$",
                     measurement = olddf[,measurementIndex[i]])
     newdf <- rbind(newdf, x)
   }
-
+  
   coords <- sp::coordinates(layer)
   newlayer <-  sp::SpatialPointsDataFrame(coords[rep(1:nrow(coords), n),], 
                                           data = newdf, 
@@ -180,6 +180,7 @@ getRasterLayerNames <- function(startDateTime, endDateTime, by, variables,
 # Reading the local version included within the package is separated into its
 # own function, since it's also used for tests.
 .fmi_stations_local <- function() {
+  message("Station list downloaded")
   system.file("extdata", "fmi_stations.csv", package = "fmi") %>%
     utils::read.csv(as.is = TRUE) %>%
     tibble::as_tibble()
