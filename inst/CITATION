@@ -11,7 +11,7 @@ citEntry(entry="misc",
 	 journal = "",
 	 year = "2014-2017",
          textVersion =
-         paste("(C) Joona Lehtomäki, Jussi Jousimo, Ilari Scheinin, Leo Lahti / rOpenGov 2014-2017.",
+         paste("(C) Joona Lehtomaki, Jussi Jousimo, Ilari Scheinin, Leo Lahti / rOpenGov 2014-2017.",
                "fmi R package.\nURL: https://github.com/rOpenGov/fmi",
                sep=" ")
          )

@@ -424,8 +424,8 @@ response
 ## resolution  : 0.008996004, 0.008993221  (x, y)
 ## extent      : 15.96441, 33.06581, 59.60727, 70.08437  (xmin, xmax, ymin, ymax)
 ## coord. ref. : +proj=longlat +a=6371229 +b=6371229 +no_defs 
-## data source : /tmp/RtmpNSwIy6/file5aa57317865d 
-## names       : file5aa57317865d.1, file5aa57317865d.2
+## data source : /tmp/Rtmpbn8LUW/file5c43303097d1 
+## names       : file5c43303097d1.1, file5c43303097d1.2
 ```
 
 Set the NA value and plot the interpolated monthly mean temperature in January 2012:
@@ -464,9 +464,36 @@ names(response)
 For the open data license, see <http://en.ilmatieteenlaitos.fi/open-data-licence>. Further information about
 the open data and the API is provided by the FMI at <http://en.ilmatieteenlaitos.fi/open-data>.
 
-## Citing the R package
 
-This work can be freely used, modified and distributed under the [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses). Kindly cite the R package as 'Jussi Jousimo, Joona Lehtomäki, Ilari Scheinin, Leo Lahti (C) 2014-2018. fmi R package. URL: http://www.github.com/rOpenGov/fmi'.
+### Citing the fmi R package
+
+For main developers and contributors, see the [package homepage](http://ropengov.github.io/fmi).
+
+This work can be freely used, modified and distributed under the
+BSD-2-clause (modified FreeBSD) license:
+
+
+```r
+citation("fmi")
+```
+
+```
+## 
+## Kindly cite the fmi R package as follows:
+## 
+##   (C) Jussi Jousimo 2014. fmi R package
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Misc{,
+##     title = {fmi R package},
+##     author = {Jussi Jousimo and Joona Lehtomaki and Leo Lahti and Ilari Scheinin},
+##     year = {2014},
+##   }
+## 
+## Many thanks for all contributors! For more info, see:
+## https://github.com/rOpenGov/fmi
+```
 
 ## Session info
 
@@ -494,14 +521,11 @@ This tutorial was created with
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] raster_2.5-8         sp_1.2-5             fmi_0.2.11          
-## [4] R6_2.2.2             knitr_1.17           rmarkdown_1.6.0.9001
-## [7] devtools_1.13.3     
+## [1] raster_2.5-8 sp_1.2-5     fmi_0.2.11   R6_2.2.2     knitr_1.17  
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.13    rwfs_0.1.16     lattice_0.20-35 digest_0.6.13  
-##  [5] withr_2.0.0     rprojroot_1.2   grid_3.4.3      backports_1.1.1
-##  [9] magrittr_1.5    evaluate_0.10.1 highr_0.6       stringi_1.1.5  
-## [13] rgdal_1.2-13    tools_3.4.3     stringr_1.2.0   compiler_3.4.3 
-## [17] memoise_1.1.0   htmltools_0.3.6
+##  [1] Rcpp_0.12.13    lattice_0.20-35 rwfs_0.1.16     digest_0.6.13  
+##  [5] grid_3.4.3      magrittr_1.5    evaluate_0.10.1 highr_0.6      
+##  [9] stringi_1.1.5   rgdal_1.2-13    tools_3.4.3     stringr_1.2.0  
+## [13] compiler_3.4.3
 ```
