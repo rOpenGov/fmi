@@ -1,3 +1,14 @@
+## CHANGES IN VERSION 0.2.1 (2017-12-22)
+
+### OTHER
+
+General polishing:
+
++ Internal weather station data updated
++ Vignette updated
++ README updated
++ License texts removed from R code
+
 ## CHANGES IN VERSION 0.2.0 (2016-01-29)
 
 ### NEW FEATURES
