@@ -27,4 +27,3 @@ Response data is massaged into suitable local format.
 \author{
 Jussi Jousimo \email{jvj@iki.fi}
 }
-

@@ -219,6 +219,7 @@ getRasterLayerNames <- function(startDateTime, endDateTime, by, variables,
 # Reading the local version included within the package is separated into its
 # own function, since it's also used for tests.
 .fmi_stations_local <- function() {
+  message("Station list downloaded")
   system.file("extdata", "fmi_stations.csv", package = "fmi") %>%
     utils::read.csv(as.is = TRUE) %>%
     tibble::as_tibble()

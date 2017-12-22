@@ -25,4 +25,3 @@ response field names \code{fid}, \code{gml_id}, \code{ParameterName}
 \author{
 Joona Lehtomaki \email{joona.lehtomaki@gmail.com}
 }
-

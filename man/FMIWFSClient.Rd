@@ -19,11 +19,9 @@ TBA
  \item \code{getMonthlyWeatherRaster}: Returns monthly weather raster
 }
 }
+
 \examples{
 # See the vignette.
-}
-\author{
-Jussi Jousimo \email{jvj@iki.fi}, Joona Lehtomaki  \email{joona.lehtomaki@gmail.com}
 }
 \references{
 See citation("fmi")
@@ -31,5 +29,7 @@ See citation("fmi")
 \seealso{
 \code{\link[rwfs]{WFSClient}}, \code{\link[rwfs]{WFSCachingClient}}
 }
+\author{
+Jussi Jousimo \email{jvj@iki.fi}, Joona Lehtomaki  \email{joona.lehtomaki@gmail.com}
+}
 \keyword{datasets}
-

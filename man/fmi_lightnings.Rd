@@ -35,4 +35,3 @@ and the associated functions.
 \seealso{
 \code{\link{FMIWFSClient}}
 }
-

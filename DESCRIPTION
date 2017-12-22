@@ -1,8 +1,8 @@
 Package: fmi
 Type: Package
 Title: Finnish Meteorological Institute open data API R client
-Version: 0.2.0
-Date: 2017-01-29
+Version: 0.2.1
+Date: 2017-12-22
 Authors@R: c(
 	person("Joona" , "Lehtomaki", role = c("aut", "cre"), email = "joona.lehtomaki@gmail.com"),
   person("Jussi", "Jousimo", role = c("aut", "cph")),
@@ -30,4 +30,4 @@ Suggests:
     xml2
 URL: https://github.com/ropengov/fmi
 LazyLoad: yes
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

@@ -17,10 +17,9 @@ Creates a new session based on a provided API key. Function creates a new
 \examples{
 # See the vignette.
 }
-\author{
-Joona Lehtomaki  \email{joona.lehtomaki@gmail.com}
-}
 \seealso{
 \code{\link[rwfs]{WFSClient}}, \code{\link[rwfs]{WFSCachingClient}}
 }
-
+\author{
+Joona Lehtomaki  \email{joona.lehtomaki@gmail.com}
+}

@@ -15,10 +15,9 @@ logical
 \description{
 \code{fmisid} is a ID numbering system used by the FMI.
 }
-\author{
-Joona Lehtomaki \email{joona.lehtomaki@gmail.com}
-}
 \seealso{
 \code{\link{fmi_stations}}
 }
-
+\author{
+Joona Lehtomaki \email{joona.lehtomaki@gmail.com}
+}

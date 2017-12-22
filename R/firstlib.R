@@ -5,6 +5,6 @@
 .onAttach <- function(lib, pkg)
 {
 
-  packageStartupMessage("fmi - R Tools for Finnish Meteorological Institute Open Data.\nCopyright (C) 2014 Jussi Jousimo et al.\n\nhttps://ropengov.github.com/fmi \n")
+  packageStartupMessage("fmi - R Tools for Finnish Meteorological Institute Open Data:\nhttps://ropengov.github.com/fmi \n")
 
 }

@@ -30,4 +30,3 @@ for different response data types needs to be implemented.
 \author{
 Jussi Jousimo \email{jvj@iki.fi}
 }
-

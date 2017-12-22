@@ -25,11 +25,10 @@ local copy provided as a csv file within the \pkg{fmi} package is used.
 \code{fmi_weather_stations()} is a deprecated alias for
 \code{fmi_stations(groups="Weather stations")}.
 }
+\seealso{
+\url{http://en.ilmatieteenlaitos.fi/observation-stations}
+}
 \author{
 Joona Lehtomaki \email{joona.lehtomaki@gmail.com},
 Ilari Scheinin
 }
-\seealso{
-\url{http://en.ilmatieteenlaitos.fi/observation-stations}
-}
-
