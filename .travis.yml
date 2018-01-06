@@ -16,6 +16,7 @@ r_packages:
   - sf
   - testthat
 r_github_packages: 
+  - ropengov/rwfs
   - jimhester/covr
 after_success:
   - Rscript -e 'covr::codecov()'
