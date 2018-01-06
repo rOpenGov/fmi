@@ -107,27 +107,25 @@ FMIWFSClient <- R6::R6Class(
                       sub_region = X1,
                       # FIXME: No idea what these columns actually are...
                       unknown_a = X2,
-                      unknown_b = X3) %>%
+                      unknown_b = X3) %>% 
+        # If there are > 1 days being requested the "value" field fill have a 
+        # list of values (one for each day requested). Separate each day 
+        # (observation) on its own row.
+        tidyr::unnest(time, value) %>% 
         # Reorder columns
-        dplyr::select(gml_id, identifier, begin_position, end_position,
-                      time_position, time, region, sub_region, unknown_a,
+        dplyr::select(gml_id, identifier, time, region, sub_region, unknown_a,
                       unknown_b, type, measurement, value) %>% 
         # Modify/transform columns
         dplyr::mutate(value = as.numeric(value)) %>% 
         # Replace NaNs with NAs
-        dplyr::mutate(value = ifelse(is.nan(value), NA, value))
-      # Times are reported only for the first measurement, but are the same for
-      # all measuremetns. Expand values.
-      # FIXME: check that this really is the case for different time periods.
-      sf_data$begin_position <- sf_data[1, ]$begin_position
-      sf_data$end_position <- sf_data[1, ]$end_position
-      sf_data$time_position <- sf_data[1, ]$time_position
+        dplyr::mutate(value = ifelse(is.nan(value), NA, value)) %>% 
+        # Make time dates
+        dplyr::mutate(time = as.Date(time))
       
       # sub_region starts with region, remove that
       sf_data$sub_region <- apply(sf_data, 1, function(x) {
-        gsub(paste0(x$region, " "), "", x$sub_region)
+        gsub(paste0(x["region"], " "), "", x["sub_region"])
       })
-
       return(sf_data)
     },
     
