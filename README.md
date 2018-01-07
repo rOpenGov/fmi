@@ -18,7 +18,7 @@ This [rOpenGov](http://ropengov.github.io) R package (`fmi`) provides a client t
 
 + Maintainer: [Joona Lehtomäki](http://www.github.com/jlehtoma/)
 + Original author: [Jussi Jousimo](http://www.github.com/statguy/)
-+ Co-authors: [Leo Lahti](http://www.github.com/antagomir/), Ilari Scheinin
++ Co-authors: [Leo Lahti](http://www.github.com/antagomir/), [Ilari Scheinin](http://www.github.com/ilarischeinin/)
 + [Full contributor list](https://github.com/rOpenGov/fmi/graphs/contributors)
 + License: FreeBSD
 
@@ -35,8 +35,7 @@ geospatial operations. Neither `fmi` nor `rwfs` are yet on CRAN, but you can
 install them directly from GitHub using `devtools`:
 
 ```{r, eval=FALSE}
-install.packages(devtools)
-library(devtools)
+install.packages("devtools")
 devtools::install_github("rOpenGov/rwfs")
 devtools::install_github("rOpenGov/fmi")
 ```
