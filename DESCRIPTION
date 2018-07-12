@@ -1,7 +1,7 @@
 Package: fmi
 Type: Package
 Title: Finnish Meteorological Institute open data API R client
-Version: 0.2.11
+Version: 0.2.1
 Date: 2017-12-22
 Authors@R: c(
 	person("Joona" , "Lehtomaki", role = c("aut", "cre"), email = "joona.lehtomaki@gmail.com"),
@@ -15,8 +15,8 @@ Depends:
     R (>= 3.0.1),
     R6
 Imports:
-    rwfs (>= 0.1.12),
-    dplyr,
+    rwfs (>= 0.2.0),
+    dplyr (>= 0.7.0),
     magrittr,
     sp,
     tibble,

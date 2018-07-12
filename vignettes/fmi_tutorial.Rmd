@@ -7,117 +7,17 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r knit, eval=FALSE, echo=FALSE}
-library(knitr)
-opts_knit$set(base.dir = "vignettes")
-knit(input = "vignettes/fmi_tutorial.Rmd",
-     output = "vignettes/fmi_tutorial.md")
-knit2html(input = "vignettes/fmi_tutorial.md",
-          output = "vignettes/fmi_tutorial.html",
-          options = c("use_xhtml","smartypants","mathjax","highlight_code"))
-```
+```{r setup, eval=TRUE, echo=FALSE}
+#library(knitr)
+#opts_knit$set(base.dir = "vignettes")
+#knit(input = "fmi_tutorial.Rmd",
+#     output = "fmi_tutorial.md")
+#knit2html(input = "fmi_tutorial.md",
+#          output = "fmi_tutorial.html",
+#          options = c("use_xhtml","smartypants","mathjax","highlight_code"))
 
-```{r apikey, echo=FALSE}
 apiKey <- readLines("apikey.txt")
-```
 
-Finnish Meteorological Institute (FMI) open data API client for R
-===========
-
-This R package (fmi) provides a client to access the [Finnish Meteorological Institute](http://en.ilmatieteenlaitos.fi/)
- (Ilmatieteenlaitos) [open data](http://en.ilmatieteenlaitos.fi/open-data).
-This R package is a part of the [rOpenGov](http://ropengov.github.io) project.
-
-## Installation
-
-### Libraries
-
-The fmi package depends on the [GDAL](http://www.gdal.org/) library and its 
-[command line tools](http://www.gdal.org/ogr2ogr.html), and on `rgdal` package. 
-If you have GDAL already installed, you might need to update it to newer 
-version. Also, add the command line tools to the search path of your system. 
-Below you can find some instructions on how to do these tasks on different 
-platforms.
-
-For `rgdal` package, please, see additional installation instructions in the
-[gisfin package tutorial](https://github.com/rOpenGov/gisfin/blob/master/vignettes/gisfin_tutorial.md).
-
-#### Linux
-
-__Installing GDAL:__
-
-Install `gdal` / `gdal-devel` packages using your Linux distibution's package 
-manager. See [here](https://trac.osgeo.org/gdal/wiki/DownloadingGdalBinaries) on 
-some pointers on where to find suitable binaries.
-
-__Adding GDAL command line tools to your path__
-
-In Linux, the tools should be found from the path by default after installation.
-If not, use the `export` command from terminal, for example:
-```
-export PATH=$PATH:/usr/local/gdal/bin
-```
-
-#### OS X
-
-__Installing GDAL:__
-
-See [here](http://www.kyngchaos.com/software/frameworks).
-
-__Adding GDAL command line tools to your path__
-
-From terminal, type:
-```
-export PATH=$PATH:/Library/Frameworks/GDAL.framework/Programs
-```
-
-#### Windows
-
-__Installing GDAL:__
-
-For installing GDAL the easy way see  http://trac.osgeo.org/osgeo4w/. 
-
-__Adding GDAL command line tools to your path__
-
-Open System from Control Panel and select "Advanced System Settings".
-Click "Environment Variables" and select "Path" variable from the list (if you 
-cannot edit, you do not have the rights).
-
-Append `;C:\Program Files (x86)\GDAL` to the value field (note the semicolon).
-
-If you're using the OSGeo4W-installer, then you may have copy-paste semicolon 
-followed by the path to GDAL __and__ the path to "gdal19.dll" e.g.
-
-`;C:\Program Files\ms4w\tools\gdal-ogr\;C:\Program Files\ms4w\Apache\cgi-bin\`
-
-#### ogr2ogr
-
-Note that the actual location of GDAL may vary depending on your system. To 
-test that the tools are found from the path, type the command in terminal 
-(Command Prompt in Windows):
-
-```
-ogr2ogr
-```
-To test that you also have a recent version of GDAL:
-```
-ogr2ogr --help
-```
-You should see the options `-splitlistfields` and `-explodecollections` in the 
-printed help. If not, you need to update GDAL.
-
-### Packages
-
-Start R and follow these steps to install the required packages:
-```{r, eval=FALSE}
-install.packages(c("devtools", "sp", "rgdal", "raster"))
-library(devtools)
-install_github("rOpenGov/rwfs")
-```
-Note that rgdal version 0.9-1 or newer is needed.
-Then install the fmi package itself:
-```{r, eval=FALSE}
-install_github("rOpenGov/fmi")
 ```
 
 ## API key
@@ -140,6 +40,16 @@ Each data set is referenced with a stored query id, for example the id for the d
 is `fmi::observations::weather::daily::timevaluepair`. This data set contains variables for
 daily precipitation rate, mean temperature, snow depth, and minimum and maximum temperature,
 see the description of [`fmi::observations::weather::daily::multipointcoverage`](http://en.ilmatieteenlaitos.fi/open-data-manual-fmi-wfs-services).
+
+The data can be filtered with a number of parameters specific to each data set.
+For example, the starting and the ending dates are provided by the `starttime` and `endtime`
+parameters for the weather observations.
+
+## Usage
+
+### Request object
+
+Queries to the FMI API are specified using an object of the class `FMIWFSRequest`. To initialize the object, type:
 
 ```{r request, eval=TRUE}
 library(fmi)
@@ -169,9 +79,9 @@ For the automated case, see below.
 Queries to the FMI API are made by using the `FMIWFSClient` class object. For example, a manual request is dispatched with (continued from the previous example):
 
 ```{r new-client-1, eval=FALSE}
-client <- FMIWFSClient$new(request=request)
+client <- FMIWFSClient$new(request = request)
 layers <- client$listLayers()
-response <- client$getLayer(layer=layers[1], parameters=list(splitListFields=TRUE))
+response <- client$getLayer(layer = layers$name)
 ```
 
 This example retrieves a list of data layers and the first layer is used to obtain the actual data. In fact, there is
@@ -181,9 +91,11 @@ For the same stored query, an automated request method, `getDailyWeather`, exist
 convenient way to retrieve the data. For example, to get all weather observations for the 1st of January in 2014:
 
 ```{r new-client-2, eval=FALSE}
-request <- FMIWFSRequest$new(apiKey=apiKey)
-client <- FMIWFSClient$new(request=request)
-response <- client$getDailyWeather(startDateTime="2014-01-01", endDateTime="2014-01-01", bbox=getFinlandBBox())
+request <- FMIWFSRequest$new(apiKey = apiKey)
+client <- FMIWFSClient$new(request = request)
+response <- client$getDailyWeather(startDateTime = "2014-01-01", 
+                                   endDateTime = "2014-01-01", 
+                                   bbox = getFinlandBBox())
 ```
 
 Here the function `getFinlandBBox` returns the bounding box surrounding the whole Finland.

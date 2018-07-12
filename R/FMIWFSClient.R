@@ -10,6 +10,7 @@
 #' }
 #' @seealso \code{\link[rwfs]{WFSClient}}, \code{\link[rwfs]{WFSCachingClient}}
 #' @import R6
+#' @import dplyr 
 #' @references See citation("fmi")
 #' @author Jussi Jousimo \email{jvj@@iki.fi}, Joona Lehtomaki  \email{joona.lehtomaki@gmail.com}
 #' @exportClass FMIWFSClient
@@ -31,8 +32,8 @@ FMIWFSClient <- R6::R6Class(
       if (!is.null(fmisid) && !valid_fmisid(fmisid)) {
         stop("Invalid 'fmisid' (", fmisidm, ") specified.")
       }
-
-            if (!is.null(bbox)) {
+      
+      if (!is.null(bbox)) {
         if (inherits(bbox, "Extent")) {
           bbox <- with(attributes(bbox), paste(xmin, xmax, ymin, ymax, sep = ","))
         } else {
@@ -73,6 +74,7 @@ FMIWFSClient <- R6::R6Class(
           bbox <- NULL
           warning("Both bbox and fmisid provided, using only fmisid.")
         }
+
         p <- private$processParameters(startDateTime = startDateTime, 
                                        endDateTime = endDateTime,
                                        bbox = bbox, 
@@ -86,22 +88,45 @@ FMIWFSClient <- R6::R6Class(
                                       fmisid = p$fmisid,
                                       parameters = paste(variables, collapse = ","))
       }
-
-      response <- self$getLayer(layer = "PointTimeSeriesObservation", 
-                                crs = "+proj=longlat +datum=WGS84",
-                                swapAxisOrder = TRUE, 
-                                parameters = list(splitListFields = TRUE))
-      if (is.character(response)) {
-        return(character())
-      }
       
-      response <- transformTimeValuePairData(layer = response, 
-                                             variableColumnNames = variables)
-      response <- wideToLongFormat(layer = response)
-      response$time <- as.Date(response$time)
-      response$measurement <- as.numeric(as.character(response$measurement))
+      sf_data <- self$getLayer(layer = "PointTimeSeriesObservation")
+      # Add (recycled) variables as a new column
+      sf_data$measurement <- variables
       
-      return(response)
+      # Split a StringList column into separate columns
+      sf_data <- cbind(sf_data, do.call(rbind, sf_data$name))
+      
+      # Format data frame
+      sf_data <- sf_data %>% 
+        # Rename columns
+        dplyr::rename(type = value,
+                      value = result.MeasurementTimeseries.point.MeasurementTVP.value,
+                      begin_position = beginPosition,
+                      end_position = endPosition,
+                      time_position = timePosition,
+                      sub_region = X1,
+                      # FIXME: No idea what these columns actually are...
+                      unknown_a = X2,
+                      unknown_b = X3) %>% 
+        # If there are > 1 days being requested the "value" field fill have a 
+        # list of values (one for each day requested). Separate each day 
+        # (observation) on its own row.
+        tidyr::unnest(time, value) %>% 
+        # Reorder columns
+        dplyr::select(gml_id, identifier, time, region, sub_region, unknown_a,
+                      unknown_b, type, measurement, value) %>% 
+        # Modify/transform columns
+        dplyr::mutate(value = as.numeric(value)) %>% 
+        # Replace NaNs with NAs
+        dplyr::mutate(value = ifelse(is.nan(value), NA, value)) %>% 
+        # Make time dates
+        dplyr::mutate(time = as.Date(time))
+      
+      # sub_region starts with region, remove that
+      sf_data$sub_region <- apply(sf_data, 1, function(x) {
+        gsub(paste0(x["region"], " "), "", x["sub_region"])
+      })
+      return(sf_data)
     },
     
     getLightningStrikes = function(startDateTime, endDateTime, bbox, 
