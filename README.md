@@ -2,7 +2,6 @@
 
 [![Build Status](https://api.travis-ci.org/rOpenGov/fmi.png)](https://travis-ci.org/rOpenGov/fmi)
 [![AppVeyor Status](https://ci.appveyor.com/api/projects/status/github/rOpenGov/fmi?branch=master&svg=true)](https://ci.appveyor.com/project/rOpenGov/fmi)
-[![Stories in Ready](https://badge.waffle.io/ropengov/fmi.png?label=Ready)](http://waffle.io/ropengov/fmi)
 [![Join the chat at https://gitter.im/rOpenGov/fmi](https://badges.gitter.im/rOpenGov/fmi.svg)](https://gitter.im/rOpenGov/fmi?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![codecov](https://codecov.io/gh/rOpenGov/fmi/branch/master/graph/badge.svg)](https://codecov.io/gh/rOpenGov/fmi)  
 [![Watch on GitHub][github-watch-badge]][github-watch]
@@ -13,6 +12,8 @@
 DOI has to be set separately for each package (if needed) - ask antagomir for more info
 [![DOI](https://zenodo.org/badge/4203/rOpenGov/fmi.png)](https://github.com/rOpenGov/fmi)
 -->
+
+**THIS PACKAGE HAS BEEN REPLACE BY [fmi2](https://github.com/rOpenGov/fmi2) AND WILL NOT BE UPDATED OR MAINTAINED ANYMORE.**
 
 This [rOpenGov](http://ropengov.github.io) R package (`fmi`) provides a client to access [Finnish Meteorological Institute (Ilmatieteenlaitos)](http://www.fmi.fi/en/) [open data](http://en.ilmatieteenlaitos.fi/open-data).
 
